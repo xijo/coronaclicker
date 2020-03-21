@@ -3,3 +3,162 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@responsive {
+  .fixedlayer {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+  }
+}
+
+.btn {
+  @apply px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 shadow-md cursor-pointer;
+}
+
+.btn:focus {
+  @apply shadow-md;
+}
+
+.btn:hover {
+  @apply shadow-lg bg-teal-200;
+}
+
+
+
+.animation-speed-200 {
+  animation-duration: 200ms
+}
+.animation-speed-400 {
+  animation-duration: 400ms
+}
+.animation-speed-600 {
+  animation-duration: 600ms
+}
+.animation-speed-800 {
+  animation-duration: 800ms
+}
+.animation-speed-1000 {
+  animation-duration: 1s
+}
+
+.animation-fadein {
+  animation-name: fade_in;
+}
+
+.animation-scaleup {
+  animation-name: scale_up;
+}
+
+@keyframes fade_in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scale_up {
+  from { transform: scale(0.95); }
+  to   { transform: scale(1); }
+}
+
+
+
+
+
+
+
+
+/* Breathing virus */
+
+.breathing-virus {
+    /* width: 270px;
+    padding: 20px;
+    margin: 50px auto;
+    border: 1px solid #d1d1d1; */
+  -webkit-animation: breathing 7s ease-out infinite normal;
+  animation: breathing 7s ease-out infinite normal;
+    /* font-size: 24px;
+    background: #5885cb;
+    color: #fff; */
+  -webkit-font-smoothing: antialiased;
+    /* border-radius: 3px;
+    text-align: center;     */
+}
+
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+
+
+/* countdown animation */
+
+.spaceOutRight {
+  -webkit-animation-name: spaceOutRight;
+  animation-name: spaceOutRight;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+
+}
+
+@-webkit-keyframes spaceOutRight {
+  0% {
+    opacity: 1;
+    -webkit-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+    -webkit-transform: scale(1) translate(0%, 0%);
+    transform: scale(1) translate(0%, 0%); }
+  100% {
+    opacity: 0;
+    -webkit-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+    -webkit-transform: scale(0.2) translate(200%, 0%);
+    transform: scale(0.2) translate(200%, 0%); } }

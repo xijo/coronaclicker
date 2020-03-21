@@ -1,31 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import Cookies from 'universal-cookie'
+import {useToggle} from 'react-use'
+import {Modal} from './modal'
+import {DonateModal} from './donate_modal'
 
 const cookies = new Cookies()
 
 import virus from './virus.svg'
 
 export const App = (props) => {
-  // console.log(props)
-  // console.log(cookies.get('counter'))
-
   const powerups = JSON.parse(props.powerups)
 
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
   const [multiplicator, setMultiplicator] = useState(cookies.get('multiplicator') || 1)
-
-  // const [count, setCount] = React.useState(0);
-  // const [delay, setDelay] = React.useState(1000);
-  // const [isRunning, toggleIsRunning] = useBoolean(true);
-
-  // useInterval(
-  //   () => {
-  //     setCount(count + 1);
-  //   },
-  //   isRunning ? delay : null
-  // );
-
-  // console.log(powerups)
+  const [clickAnimation, setClickAnimation] = useState(false)
+  const [donateModal, toggleDonateModal] = useToggle(false)
 
   const reduceCounter = (count) => {
     setCounter(counter - count)
@@ -45,17 +34,26 @@ export const App = (props) => {
 
   useEffect(() => {
     cookies.set('counter', counter, {path: '/', expires: (new Date(2099, 1, 1))})
+    setClickAnimation(true)
+    window.setTimeout(() => setClickAnimation(false), 1000)
   }, [counter])
 
   return <div className='mt-4'>
     <Header {...props} />
 
-    <img src={virus} height={35} className='mx-auto mb-8 mt-8' onClick={() => setCounter(counter - multiplicator)} />
+    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal /></Modal>}
+
+    <div className='relative mb-8 mt-8 mx-auto' style={{width: 240}}>
+      <img src={virus} height={35} className='mx-auto breathing-virus' onClick={() => setCounter(counter - multiplicator)} />
+
+      <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible spaceOutRight' : 'hidden'}`}>-10</div>
+    </div>
+
 
     <div className='text-4xl text-teal-800 text-center font-bold mb-4'>{counter}</div>
 
     <div className='mb-4 text-center'>
-      <a className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 shadow-md cursor-pointer hover:bg-teal-300' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114'>BOOST</a>
+      <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
     </div>
 
     {powerups.map(powerup => <Powerup key={powerup.id} {...powerup} reduceCounter={reduceCounter} addMultiplicator={addMultiplicator} multiplyMultiplicator={multiplyMultiplicator} />)}
@@ -88,33 +86,6 @@ const Powerup = (props) => {
     <button onClick={unredeem}>Unredeem</button>
   </div>
 }
-
-
-// const handleCookieChange = (cookie) => {
-//   if (cookie.name === trackingCookieName) setTrackingAccepted(cookie.value)
-// }
-
-// const acceptTracking = () => {
-//   cookies.set(trackingCookieName, 'yes', {path: '/', expires: (new Date(2099, 1, 1))})
-//   sendBrowserEvent('tracking-accepted')
-// }
-
-// const rejectTracking = () => {
-//   cookies.set(trackingCookieName, 'no', {path: '/', expires: (new Date(2099, 1, 1))})
-//   sendBrowserEvent('tracking-rejected')
-// }
-
-// const openModal = () => {
-//   setShowModal(true)
-//   sendBrowserEvent('tracking-more-information')
-// }
-
-// useEffect(() => {
-//   sendBrowserEvent('tracking-banner-show')
-//   cookies.addChangeListener(handleCookieChange)
-//   return () => cookies.removeChangeListener(handleCookieChange)
-// }, [])
-
 
 const Header = ({infected}) => {
   return <div className='flex justify-between mx-2'>
