@@ -26,6 +26,8 @@ export const App = (props) => {
 
   return <div onClick={() => setCounter(counter - 1)}>
     Aktuell {counter}
+
+    <a href='https://www.bp42.com/de/donate/corona-clicker/projects/1114'>Jetzt spenden</a>
   </div>
 }
 

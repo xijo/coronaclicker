@@ -16,6 +16,6 @@ module Coronaclicker
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.session_store :active_record_store
+    # config.session_store :active_record_store
   end
 end
