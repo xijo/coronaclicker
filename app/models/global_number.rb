@@ -1,0 +1,3 @@
+class GlobalNumber < ApplicationRecord
+
+end

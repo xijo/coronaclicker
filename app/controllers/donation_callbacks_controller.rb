@@ -3,7 +3,7 @@ class DonationCallbacksController < ApplicationController
     @game = Game.find(session[:game_id]) #.first_or_initialize(counter: 17800)
 
     @game.donations ||= {}
-    @game.donations[params[:donation_token]] = params[:amount]
+    @game.donations[params[:donation_token]] = params[:amount].to_i
     @game.save
     # raise session.id
 
