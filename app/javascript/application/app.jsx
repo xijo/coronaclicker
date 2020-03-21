@@ -8,7 +8,11 @@ import {Imprint} from './imprint'
 
 const cookies = new Cookies()
 
-import virus from './virus.svg'
+import UIfx from 'uifx'
+import plop0file from './mp3s/plop0.mp3'
+import plop1file from './mp3s/plop1.mp3'
+
+import virus from './svgs/virus.svg'
 
 export const App = (props) => {
   const powerups = JSON.parse(props.powerups)
@@ -19,11 +23,11 @@ export const App = (props) => {
   const [donateModal, toggleDonateModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
 
-  const reduceCounter = (count) => {
-    setCounter(counter - count)
-  }
+  const plop0 = new UIfx(plop0file)
+  const plop1 = new UIfx(plop1file)
 
   const decrementCounter = () => {
+    Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
     setCounter(counter - decrementor)
   }
 
