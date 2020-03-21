@@ -7,7 +7,7 @@ class DonationCallbacksController < ApplicationController
     @game.save
     # raise session.id
 
-    render json: @game
+    redirect_to game_url(@game)
 
     # redirect_to root_url
     # ?status=DONATION_COMPLETE
