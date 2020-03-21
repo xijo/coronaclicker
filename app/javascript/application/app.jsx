@@ -3,6 +3,8 @@ import Cookies from 'universal-cookie'
 import {useToggle} from 'react-use'
 import {Modal} from './modal'
 import {DonateModal} from './donate_modal'
+import {Header} from './header'
+import {Imprint} from './imprint'
 
 const cookies = new Cookies()
 
@@ -12,24 +14,22 @@ export const App = (props) => {
   const powerups = JSON.parse(props.powerups)
 
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
-  const [multiplicator, setMultiplicator] = useState(cookies.get('multiplicator') || 1)
+  const [decrementor, setDecrementor] = useState(cookies.get('decrementor') || 1)
   const [clickAnimation, setClickAnimation] = useState(false)
   const [donateModal, toggleDonateModal] = useToggle(false)
+  const [imprintModal, toggleImprintModal] = useToggle(false)
 
   const reduceCounter = (count) => {
     setCounter(counter - count)
   }
 
-  const addMultiplicator = (count) => {
-    const newMultiplicator = multiplicator + count
-    cookies.set('multiplicator', newMultiplicator, {path: '/', expires: (new Date(2099, 1, 1))})
-    setMultiplicator(newMultiplicator)
+  const decrementCounter = () => {
+    setCounter(counter - decrementor)
   }
 
-  const multiplyMultiplicator = (count) => {
-    const newMultiplicator = multiplicator * count
-    cookies.set('multiplicator', newMultiplicator, {path: '/', expires: (new Date(2099, 1, 1))})
-    setMultiplicator(newMultiplicator)
+  const changeDecrementor = (newValue) => {
+    cookies.set('decrementor', newValue, {path: '/', expires: (new Date(2099, 1, 1))})
+    setDecrementor(newValue)
   }
 
   useEffect(() => {
@@ -42,13 +42,13 @@ export const App = (props) => {
     <Header {...props} />
 
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal /></Modal>}
+    {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
 
     <div className='relative mb-8 mt-8 mx-auto' style={{width: 240}}>
-      <img src={virus} height={35} className='mx-auto breathing-virus' onClick={() => setCounter(counter - multiplicator)} />
+      <img src={virus} height={35} className='mx-auto breathing-virus' onClick={decrementCounter} />
 
-      <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible spaceOutRight' : 'hidden'}`}>-10</div>
+      <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible spaceOutRight' : 'hidden'}`}>-{decrementor}</div>
     </div>
-
 
     <div className='text-4xl text-teal-800 text-center font-bold mb-4'>{counter}</div>
 
@@ -56,8 +56,9 @@ export const App = (props) => {
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
     </div>
 
-    {powerups.map(powerup => <Powerup key={powerup.id} {...powerup} reduceCounter={reduceCounter} addMultiplicator={addMultiplicator} multiplyMultiplicator={multiplyMultiplicator} />)}
+    {powerups.map(powerup => <Powerup key={powerup.id} {...powerup} changeDecrementor={changeDecrementor} decrementor={decrementor} />)}
 
+    <span onClick={toggleImprintModal}>Impressum</span>
   </div>
 }
 
@@ -68,11 +69,11 @@ const Powerup = (props) => {
     cookies.set(props.id, 'redeemed', {path: '/', expires: (new Date(2099, 1, 1))})
 
     if (props.amount < 2) {
-      props.addMultiplicator(1)
+      props.changeDecrementor(props.decrementor + 1)
     } else if (props.amount < 10) {
-      props.multiplyMultiplicator(2)
+      props.changeDecrementor(props.decrementor * 2)
     } else {
-      props.multiplyMultiplicator(10)
+      props.changeDecrementor(props.decrementor * 10)
     }
     setRedeemed(true)
   }
@@ -84,19 +85,5 @@ const Powerup = (props) => {
   return <div>{props.id} {props.amount}
     <button onClick={redeem}>Redeem</button>
     <button onClick={unredeem}>Unredeem</button>
-  </div>
-}
-
-const Header = ({infected}) => {
-  return <div className='flex justify-between mx-2'>
-    <div className='text-red-300'>
-      <div className='text-lg'>DATUM</div>
-      <div className='text-sm'>UHRXEIT</div>
-    </div>
-
-    <div className='text-red-300 text-right'>
-      <div className='text-lg'>{infected}</div>
-      <div className='text-sm'>infizierte Personen</div>
-    </div>
   </div>
 }
