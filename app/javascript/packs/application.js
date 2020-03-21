@@ -12,6 +12,9 @@ import React from 'react'
 import {render} from 'react-dom'
 import {App} from 'application'
 
+import './application.css'
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const domNode = document.getElementById('coronaclicker')
 

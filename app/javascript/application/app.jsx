@@ -3,6 +3,8 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
+import virus from './virus.svg'
+
 export const App = (props) => {
   // console.log(props)
   // console.log(cookies.get('counter'))
@@ -23,13 +25,19 @@ export const App = (props) => {
   //   isRunning ? delay : null
   // );
 
-  console.log(powerups)
+  // console.log(powerups)
 
   const reduceCounter = (count) => {
     setCounter(counter - count)
   }
 
   const addMultiplicator = (count) => {
+    const newMultiplicator = multiplicator + count
+    cookies.set('multiplicator', newMultiplicator, {path: '/', expires: (new Date(2099, 1, 1))})
+    setMultiplicator(newMultiplicator)
+  }
+
+  const multiplyMultiplicator = (count) => {
     const newMultiplicator = multiplicator * count
     cookies.set('multiplicator', newMultiplicator, {path: '/', expires: (new Date(2099, 1, 1))})
     setMultiplicator(newMultiplicator)
@@ -39,13 +47,18 @@ export const App = (props) => {
     cookies.set('counter', counter, {path: '/', expires: (new Date(2099, 1, 1))})
   }, [counter])
 
-  return <div>
-    <div onClick={() => setCounter(counter - multiplicator)}>VIRUS</div>
-    Aktuell {counter}
+  return <div className='mt-4'>
+    <Header {...props} />
 
-    <a href='https://www.bp42.com/de/donate/corona-clicker/projects/1114'>Jetzt spenden</a>
+    <img src={virus} height={35} className='mx-auto mb-8 mt-8' onClick={() => setCounter(counter - multiplicator)} />
 
-    {powerups.map(powerup => <Powerup key={powerup.id} {...powerup} reduceCounter={reduceCounter} addMultiplicator={addMultiplicator} />)}
+    <div className='text-4xl text-teal-800 text-center font-bold mb-4'>{counter}</div>
+
+    <div className='mb-4 text-center'>
+      <a className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 shadow-md cursor-pointer hover:bg-teal-300' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114'>BOOST</a>
+    </div>
+
+    {powerups.map(powerup => <Powerup key={powerup.id} {...powerup} reduceCounter={reduceCounter} addMultiplicator={addMultiplicator} multiplyMultiplicator={multiplyMultiplicator} />)}
 
   </div>
 }
@@ -57,9 +70,11 @@ const Powerup = (props) => {
     cookies.set(props.id, 'redeemed', {path: '/', expires: (new Date(2099, 1, 1))})
 
     if (props.amount < 2) {
-      props.reduceCounter(1000)
+      props.addMultiplicator(1)
+    } else if (props.amount < 10) {
+      props.multiplyMultiplicator(2)
     } else {
-      props.addMultiplicator(props.amount)
+      props.multiplyMultiplicator(10)
     }
     setRedeemed(true)
   }
@@ -99,3 +114,18 @@ const Powerup = (props) => {
 //   cookies.addChangeListener(handleCookieChange)
 //   return () => cookies.removeChangeListener(handleCookieChange)
 // }, [])
+
+
+const Header = ({infected}) => {
+  return <div className='flex justify-between mx-2'>
+    <div className='text-red-300'>
+      <div className='text-lg'>DATUM</div>
+      <div className='text-sm'>UHRXEIT</div>
+    </div>
+
+    <div className='text-red-300 text-right'>
+      <div className='text-lg'>{infected}</div>
+      <div className='text-sm'>infizierte Personen</div>
+    </div>
+  </div>
+}
