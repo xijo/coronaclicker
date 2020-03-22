@@ -20,6 +20,9 @@ import {TwitterButton} from './twitter_button'
 import {InstagramButton} from './instagram_button'
 import {FacebookButton} from './facebook_button'
 
+const plop0 = new UIfx(plop0file)
+const plop1 = new UIfx(plop1file)
+
 // localstorage
 
 export const Game = (props) => {
@@ -29,9 +32,6 @@ export const Game = (props) => {
   const [privacyModal, togglePrivacyModal] = useToggle(false)
 
   const [lastClick, setLastClick] = useState([0, 0])
-
-  const plop0 = new UIfx(plop0file)
-  const plop1 = new UIfx(plop1file)
 
   const decrementCounter = (event) => {
     setLastClick([event.clientX, event.clientY])
