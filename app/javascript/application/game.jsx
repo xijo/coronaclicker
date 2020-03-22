@@ -15,6 +15,9 @@ import plop1file from './mp3s/plop1.mp3'
 
 import virus from './svgs/virus.svg'
 import virusSmall from './svgs/virus_filled_yellow.svg'
+import {TwitterButton} from './twitter_button'
+import {InstagramButton} from './instagram_button'
+import {FacebookButton} from './facebook_button'
 
 // localstorage
 
@@ -63,6 +66,13 @@ export const Game = (props) => {
 
       <Progress received={props.received} />
     </div>
+
+    <div className='mb-4 text-center'>
+      <TwitterButton className='cursor-pointer inline-block' counter={counter} />
+      <InstagramButton className='cursor-pointer inline-block ml-2' counter={counter} />
+      <FacebookButton className='cursor-pointer inline-block ml-2' counter={counter} />
+    </div>
+
 
     <div className='text-center mt-8 mb-6 text-gray-400 cursor-default'>
       <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
