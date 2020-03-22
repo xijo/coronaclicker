@@ -102,12 +102,16 @@
     -webkit-transform:translateY(-2px);
     transform:translateY(-2px);
 } */
-.breathing-virus:active {
-  -webkit-transition: .1s ease-in-out;
-  transition: all .1s ease-in-out;
-  -webkit-transform: scale(0.95);
-  transform: scale(0.95);
+
+@media (hover) {
+  .breathing-virus:active {
+    -webkit-transition: .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+  }
 }
+
 
 
 @-webkit-keyframes breathing {
