@@ -16,9 +16,8 @@ import virus from './svgs/virus.svg'
 
 // localstorage
 
-export const App = (props) => {
+export const Game = (props) => {
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
-  const [clickAnimation, setClickAnimation] = useState(false)
   const [donateModal, toggleDonateModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
 
@@ -35,8 +34,6 @@ export const App = (props) => {
 
   useEffect(() => {
     cookies.set('counter', counter, {path: '/', expires: (new Date(2099, 1, 1))})
-    setClickAnimation(true)
-    window.setTimeout(() => setClickAnimation(false), 1000)
   }, [counter])
 
   return <div className='mt-4'>

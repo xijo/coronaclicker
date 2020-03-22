@@ -10,16 +10,23 @@
 
 import React from 'react'
 import {render} from 'react-dom'
-import {App} from 'application'
+import {Game, Home} from 'application'
 
 import './application.css'
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const domNode = document.getElementById('coronaclicker')
+  const gameDom = document.getElementById('mount-game')
 
-  if (domNode) {
-    const newElement = React.createElement(App, domNode.dataset)
-    render(newElement, domNode)
+  if (gameDom) {
+    const newElement = React.createElement(Game, gameDom.dataset)
+    render(newElement, gameDom)
+  }
+
+  const homeDom = document.getElementById('mount-home')
+
+  if (homeDom) {
+    const newElement = React.createElement(Home, homeDom.dataset)
+    render(newElement, homeDom)
   }
 })

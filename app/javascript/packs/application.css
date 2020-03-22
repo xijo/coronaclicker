@@ -30,6 +30,13 @@
   @apply shadow-lg bg-teal-200;
 }
 
+.anchor {
+  @apply text-teal-600 cursor-pointer;
+}
+
+.anchor:hover {
+  @apply text-teal-800 underline;
+}
 
 
 .animation-speed-200 {
