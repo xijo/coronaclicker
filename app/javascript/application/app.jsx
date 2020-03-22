@@ -41,7 +41,7 @@ export const App = (props) => {
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
 
     <div className='relative mb-8 mt-8 mx-auto' style={{width: 240}}>
-      <img src={virus} height={35} className='mx-auto breathing-virus' onClick={decrementCounter} />
+      <img src={virus} height={35} className='mx-auto breathing-virus' onTouchStart={decrementCounter} />
 
       <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible spaceOutRight' : 'hidden'}`}>-{props.decrementer}</div>
     </div>
