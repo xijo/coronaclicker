@@ -17,29 +17,29 @@ export const DonateModal = () => {
     <div className='flex rounded-lg mb-4 md:px-12'>
       <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=1'>
         <img src={hands} style={{maxHeight: 100}} />
-        <span>Spende 1 €</span>
+        <span>Spende 1 € (+1)</span>
       </a>
       <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=2'>
         <img src={desinfect} style={{maxHeight: 100}} />
-        <span>Spende 2 €</span>
+        <span>Spende 2 € (*2)</span>
       </a>
     </div>
 
     <div className='flex rounded-lg mb-4 md:px-12'>
       <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=5'>
         <img src={mask} style={{maxHeight: 100}} />
-        <span>Spende 5 €</span>
+        <span>Spende 5 € (*5)</span>
       </a>
       <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=10'>
         <img src={suit} style={{maxHeight: 100}} />
-        <span>Spende 10 €</span>
+        <span>Spende 10 € (*10)</span>
       </a>
     </div>
 
     <div className='flex rounded-lg mb-4 md:px-12'>
       <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=100'>
         <img src={mystery} style={{maxHeight: 100}} />
-        <span>Spende über 100 €</span>
+        <span>Spende über 100 € (Überraschung)</span>
       </a>
     </div>
   </div>

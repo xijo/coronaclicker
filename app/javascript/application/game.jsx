@@ -19,6 +19,7 @@ import toiletpaper from './svgs/toiletpaper.png'
 import {TwitterButton} from './twitter_button'
 import {InstagramButton} from './instagram_button'
 import {FacebookButton} from './facebook_button'
+import {InfoButton} from './info_button'
 
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
@@ -43,6 +44,10 @@ export const Game = (props) => {
     cookies.set('counter', counter, {path: '/', expires: (new Date(2099, 1, 1))})
   }, [counter])
 
+  const virusOnClick = {
+    onClick: decrementCounter
+  }
+
   return <div className='mt-4'>
     <Header {...props} />
 
@@ -50,8 +55,10 @@ export const Game = (props) => {
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
 
+    <InfoButton />
+
     <div className='relative mb-8 mt-8 mx-auto select-none' style={{width: 240}}>
-      <img src={virus} height={35} draggable='false' className='mx-auto breathing-virus select-none cursor-pointer' onClick={decrementCounter} onDragStart={e => e.preventDefault()} />
+      <img src={virus} height={35} draggable='false' className='mx-auto breathing-virus select-none cursor-pointer' {...virusOnClick} onDragStart={e => e.preventDefault()} />
     </div>
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={props.decrementer} />
