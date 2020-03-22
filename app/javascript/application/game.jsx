@@ -20,6 +20,7 @@ import {TwitterButton} from './twitter_button'
 import {InstagramButton} from './instagram_button'
 import {FacebookButton} from './facebook_button'
 import {InfoButton} from './info_button'
+import {checkPropTypes} from 'prop-types'
 
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
@@ -34,6 +35,8 @@ export const Game = (props) => {
 
   const [lastClick, setLastClick] = useState([0, 0])
 
+  const isTouchDevice = checkPropTypes()
+
   const decrementCounter = (event) => {
     setLastClick([event.clientX, event.clientY])
     Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
@@ -44,9 +47,7 @@ export const Game = (props) => {
     cookies.set('counter', counter, {path: '/', expires: (new Date(2099, 1, 1))})
   }, [counter])
 
-  const virusOnClick = {
-    onClick: decrementCounter
-  }
+  const virusOnClick = isTouchDevice ? {onTouchEnd: decrementCounter} : {onClick: decrementCounter}
 
   return <div className='mt-4'>
     <Header {...props} />
@@ -93,9 +94,9 @@ export const Game = (props) => {
     </div>
 
     <div className='mb-4 text-center'>
-      <TwitterButton className='cursor-pointer inline-block' counter={counter} />
-      <InstagramButton className='cursor-pointer inline-block ml-2' counter={counter} />
-      <FacebookButton className='cursor-pointer inline-block ml-2' counter={counter} />
+      <TwitterButton className='cursor-pointer inline-block' />
+      <InstagramButton className='cursor-pointer inline-block ml-2' />
+      <FacebookButton className='cursor-pointer inline-block ml-2' />
     </div>
 
 
@@ -151,6 +152,9 @@ const Click = ({coords, onClick, decrementer}) => {
   </div>
 }
 
+
+  // # 80, 200, 350, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 5000
+
 const Progress = ({received}) => {
   const way = received % 1000
   const percent = Math.floor((way / 1000) * 100)
@@ -173,4 +177,24 @@ const Toiletpaper = () => {
       Geil! Danke für die großzügige Spende. Es gibt Menschen, die die Situation mit Hamsterklopapier Käufen verschlimmert haben, du hast aber die Situation besser gemacht. Deshalb kriegst du.... ja genau GOLDENES Klopapier.....
     </div>
   </div>
+}
+
+
+const checkTouchDevice = () => {
+  try {
+    let prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+
+    let mq = function (query) {
+      return window.matchMedia(query).matches;
+    };
+
+    if (('ontouchstart' in window) || (typeof window.DocumentTouch !== "undefined" && document instanceof window.DocumentTouch)) {
+      return true;
+    }
+
+    return mq(['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join(''));
+  } catch (e) {
+    console.error('(Touch detect failed)', e);
+    return false;
+  }
 }

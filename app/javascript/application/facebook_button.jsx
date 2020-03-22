@@ -3,7 +3,7 @@ import React from 'react'
 import facebookLogo from './svgs/facebook.png'
 
 export const FacebookButton = (props) => {
-  const shareText = `Ich bekämpfe gerade den Corona Virus in Echtzeit und mit realitätsgetreuen Zahlen. Versuch’s doch auch mal! Mein aktueller Score beträgt: ${props.counter} Infizierte`
+  const shareText = 'Komm und hilf mit. Zusammen besiegen wir Corona schneller! #caretowin #WirvsVirus'
 
   const handleClick = () => {
     const url = `https://facebook.com/sharer/sharer.php?u=www.corona-clicker.de&quote=${encodeURIComponent(shareText)}`
