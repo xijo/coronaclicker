@@ -5,6 +5,7 @@ import {Modal} from './modal'
 import {DonateModal} from './donate_modal'
 import {Header} from './header'
 import {Imprint} from './imprint'
+import {Privacy} from './privacy'
 
 const cookies = new Cookies()
 
@@ -21,6 +22,7 @@ export const Game = (props) => {
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
   const [donateModal, toggleDonateModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
+  const [privacyModal, togglePrivacyModal] = useToggle(false)
 
   const [lastClick, setLastClick] = useState([0, 0])
 
@@ -42,6 +44,7 @@ export const Game = (props) => {
 
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal /></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
+    {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
 
     <div className='relative mb-8 mt-8 mx-auto select-none' style={{width: 240}}>
       <img src={virus} height={35} draggable='false' className='mx-auto breathing-virus select-none cursor-pointer' onClick={decrementCounter} onDragStart={e => e.preventDefault()} />
@@ -61,9 +64,9 @@ export const Game = (props) => {
       <Progress received={props.received} />
     </div>
 
-    <div className='text-center mt-8'>
-      <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span>
-      <div className='text-gray-400'>#WirVsVirus #Gamification</div>
+    <div className='text-center mt-8 mb-6 text-gray-400 cursor-default'>
+      <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
+      <div>#WirVsVirus #Gamification</div>
     </div>
   </div>
 }
