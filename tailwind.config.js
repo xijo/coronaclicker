@@ -11,6 +11,7 @@ module.exports = {
         'red-300': 'rgba(224, 150, 150, 0.5)',
         'yellow-400': '#FFC267',
         'teal-800': '#185F56',
+        'teal-500': '#99D0C9',
         'teal-600': '#5D8F88',
         'teal-100': '#F1F8F7',
         'teal-200': '#E7F9F6',

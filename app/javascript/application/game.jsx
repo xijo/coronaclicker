@@ -57,6 +57,8 @@ export const Game = (props) => {
       {props.donationSum !== '0' && <div className='mt-4 text-teal-600 antialiased'>
         <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
       </div>}
+
+      <Progress received={props.received} />
     </div>
 
     <span onClick={toggleImprintModal}>Impressum</span>
@@ -106,4 +108,19 @@ const Click = ({coords, onClick, decrementer}) => {
     <img draggable='false' onClick={onClick} src={virusSmall} className={`h-8 select-none cursor-pointer absolute ${animation ? 'spaceOutUp' : 'hidden'}`} style={{top: coords[1], left: coords[0]}} onDragStart={e => e.preventDefault()} />
     <div onClick={onClick} className={`absolute cursor-pointer text-yellow-400 font-semibold text-4xl select-none ${animation ? 'spaceOutRight' : 'hidden'}`} style={{top: coords[1], left: coords[0]}}>-{decrementer}</div>
   </div>
+}
+
+const Progress = ({received}) => {
+  const way = received % 1000
+  const percent = Math.floor((way / 1000) * 100)
+  return <>
+    <div className='flex items-center justify-center mt-4'>
+      <span className='text-sm text-gray-600 cursor-default'>{way} €</span>
+      <div className='mx-2 order-gray-300 border rounded-sm h-3' style={{width: 250}}>
+        <div className='h-full bg-teal-500' style={{width: `${percent}%`}}></div>
+      </div>
+      <span className='text-sm text-gray-600 cursor-default'>1000 €</span>
+    </div>
+    <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits {received} € gesammelt</span>
+  </>
 }
