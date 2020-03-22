@@ -20,7 +20,7 @@ export const Home = (props) => {
         <div className='mt-8 mb-6'>Willkommen bei Corona-Clicker</div>
 
         <div className='mb-12'>
-          Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost um das Virus schneller zu bekämpfen. Alle Spenden kommen dem deutschen Roten Kreuz für den Kampf gegen das Corona Virus zugute.
+          Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost um das Virus schneller zu bekämpfen. Alle Spenden kommen dem Deutschen Roten Kreuz für den Kampf gegen das Corona Virus zugute.
         </div>
 
         <a href='/games/new' className='btn block mb-12'>PLAY</a>
@@ -38,20 +38,5 @@ export const Home = (props) => {
     </Modal>
 
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
-    {/*
-
-    <div className='relative mb-8 mt-8 mx-auto select-none' style={{width: 240}}>
-      <img src={virus} height={35} draggable='false' className='mx-auto breathing-virus select-none cursor-pointer' onClick={decrementCounter} onDragStart={e => e.preventDefault()} />
-    </div>
-
-    <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={props.decrementer} />
-
-    <div className='text-4xl text-teal-800 text-center font-bold mb-4'>{counter}</div>
-
-    <div className='mb-4 text-center'>
-      <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
-    </div>
-    */}
-
   </div>
 }

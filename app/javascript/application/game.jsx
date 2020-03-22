@@ -55,7 +55,23 @@ export const Game = (props) => {
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={props.decrementer} />
 
-    <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>{counter}</div>
+    {counter > 0 &&
+      <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>{counter}</div>
+    }
+
+    {counter <= 0 &&
+      <div className='max-w-lg mx-auto mb-8 text-center'>
+        <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
+        Vielen Dank vom gesamten CoronaClickerTeam, dass du unser Game gespielt hast! :)
+        <br />
+        ..Aber du dachtest doch nicht wirklich, du hättest den Virus besiegt?!
+        <br />
+        <br />
+        In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and Fight the Virus! #nextlevel
+
+        <button className='btn mt-2' onClick={() => setCounter(props.infected)}>RESTART!</button>
+      </div>
+    }
 
     <div className='mb-4 text-center'>
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
