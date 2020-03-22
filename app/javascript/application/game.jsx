@@ -15,6 +15,7 @@ import plop1file from './mp3s/plop1.mp3'
 
 import virus from './svgs/virus.svg'
 import virusSmall from './svgs/virus_filled_yellow.svg'
+import toiletpaper from './svgs/toiletpaper.png'
 import {TwitterButton} from './twitter_button'
 import {InstagramButton} from './instagram_button'
 import {FacebookButton} from './facebook_button'
@@ -81,6 +82,7 @@ export const Game = (props) => {
       </div>}
 
       <Progress received={props.received} />
+      {props.received >= 100 && <Toiletpaper />}
     </div>
 
     <div className='mb-4 text-center'>
@@ -155,4 +157,13 @@ const Progress = ({received}) => {
     </div>
     <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits {received} € gesammelt</span>
   </>
+}
+
+const Toiletpaper = () => {
+  return <div className='mb-8'>
+    <img src={toiletpaper} />
+    <div className='-mt-8' style={{color: '#cbae65', textShadow: '0 0 4px #cbae65'}}>
+      Geil! Danke für die großzügige Spende. Es gibt Menschen, die die Situation mit Hamsterklopapier Käufen verschlimmert haben, du hast aber die Situation besser gemacht. Deshalb kriegst du.... ja genau GOLDENES Klopapier.....
+    </div>
+  </div>
 }

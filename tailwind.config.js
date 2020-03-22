@@ -8,7 +8,7 @@ module.exports = {
         drop: '0px 0px 7px 3px rgba(0, 0, 0, .2)'
       },
       colors: {
-        'red-300': 'rgba(224, 150, 150, 0.5)',
+        'red-300': '#D04E4E',
         'yellow-400': '#FFC267',
         'teal-800': '#185F56',
         'teal-500': '#99D0C9',
