@@ -63,6 +63,8 @@ export const Game = (props) => {
   </div>
 }
 
+// For every click, add coords of the click to the array of coords. Cycle through
+// 10 DOM nodes and move them around, so the memory footprint isn't insane.
 const ClickArea = (props) => {
   const [index, setIndex] = useState(0)
   const [coords, setCoords] = useState([])
@@ -89,6 +91,7 @@ const ClickArea = (props) => {
   </>
 }
 
+// One click, with updated coords, animate shortly, then hide it again.
 const Click = ({coords, onClick, decrementer}) => {
   if (!coords) return null
 
