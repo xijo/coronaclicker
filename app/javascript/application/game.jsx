@@ -13,7 +13,7 @@ import plop0file from './mp3s/plop0.mp3'
 import plop1file from './mp3s/plop1.mp3'
 
 import virus from './svgs/virus.svg'
-import virusSmall from './svgs/virus.png'
+import virusSmall from './svgs/virus_filled_yellow.svg'
 
 // localstorage
 
@@ -61,7 +61,10 @@ export const Game = (props) => {
       <Progress received={props.received} />
     </div>
 
-    <span onClick={toggleImprintModal}>Impressum</span>
+    <div className='text-center mt-8'>
+      <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span>
+      <div className='text-gray-400'>#WirVsVirus #Gamification</div>
+    </div>
   </div>
 }
 
