@@ -13,6 +13,7 @@ import plop0file from './mp3s/plop0.mp3'
 import plop1file from './mp3s/plop1.mp3'
 
 import virus from './svgs/virus.svg'
+import virusSmall from './svgs/virus.png'
 
 // localstorage
 
@@ -91,12 +92,15 @@ const ClickArea = (props) => {
 const Click = ({coords, onClick, decrementer}) => {
   if (!coords) return null
 
-  const [animation, setAnimation] = useState('spaceOutRight')
+  const [animation, setAnimation] = useState(true)
 
   useEffect(() => {
-    setAnimation('spaceOutRight')
-    window.setTimeout(() => setAnimation('hidden'), 200)
+    setAnimation(true)
+    window.setTimeout(() => setAnimation(false), 200)
   }, [coords])
 
-  return <div onClick={onClick} className={`absolute text-yellow-400 font-semibold text-4xl select-none ${animation}`} style={{top: coords[1], left: coords[0]}}>-{decrementer}</div>
+  return <>
+    <img src={virusSmall} className={`h-8 absolute ${animation ? 'spaceOutUp' : 'hidden'}`} style={{top: coords[1], left: coords[0]}} />
+    <div onClick={onClick} className={`absolute text-yellow-400 font-semibold text-4xl select-none ${animation ? 'spaceOutRight' : 'hidden'}`} style={{top: coords[1], left: coords[0]}}>-{decrementer}</div>
+  </>
 }
