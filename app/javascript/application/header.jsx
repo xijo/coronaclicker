@@ -16,8 +16,8 @@ export const Header = ({infected}) => {
 
   return <header>
     <div className='flex justify-between mx-2 mb-2'>
-      <img src={logo} className='h-8' />
       <img src={wirvsvirus} className='h-8' />
+      <img src={logo} className='h-8' />
       <img src={drk} className='h-8' />
     </div>
     <div className='flex justify-between mx-2'>

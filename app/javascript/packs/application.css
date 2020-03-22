@@ -102,10 +102,10 @@
     transform:translateY(-2px);
 } */
 .breathing-virus:active {
-    -webkit-transition: .15s ease-in-out;
-    transition: all .15s ease-in-out;
-    -webkit-transform: scale(0.9);
-    transform: scale(0.9);
+  -webkit-transition: .1s ease-in-out;
+  transition: all .1s ease-in-out;
+  -webkit-transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 
@@ -174,8 +174,8 @@
 .spaceOutUp {
   -webkit-animation-name: spaceOutUp;
   animation-name: spaceOutUp;
-  -webkit-animation-duration: 5s;
-          animation-duration: 5s;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
 }
