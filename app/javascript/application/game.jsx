@@ -102,8 +102,8 @@ const Click = ({coords, onClick, decrementer}) => {
     window.setTimeout(() => setAnimation(false), 2000)
   }, [coords])
 
-  return <>
-    <img src={virusSmall} className={`h-8 cursor-pointer absolute ${animation ? 'spaceOutUp' : 'hidden'}`} style={{top: coords[1], left: coords[0]}} />
+  return <div onClick={onClick}>
+    <img draggable='false' onClick={onClick} src={virusSmall} className={`h-8 select-none cursor-pointer absolute ${animation ? 'spaceOutUp' : 'hidden'}`} style={{top: coords[1], left: coords[0]}} onDragStart={e => e.preventDefault()} />
     <div onClick={onClick} className={`absolute cursor-pointer text-yellow-400 font-semibold text-4xl select-none ${animation ? 'spaceOutRight' : 'hidden'}`} style={{top: coords[1], left: coords[0]}}>-{decrementer}</div>
-  </>
+  </div>
 }
