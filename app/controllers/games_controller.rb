@@ -2,8 +2,8 @@ class GamesController < ApplicationController
   # Create a new game, reset session and counter in cookie.
   # Then redirect to the new game instance
   def new
-    @game = Game.create(counter: GlobalNumber.last.infected)
-    session.clear
+    game_id = session[:game_id]
+    @game = Game.find_by(id: game_id) || Game.create(counter: GlobalNumber.last.infected)
     cookies[:counter] = GlobalNumber.last.infected
     redirect_to game_url(@game)
   end
