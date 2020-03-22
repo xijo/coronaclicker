@@ -18,7 +18,7 @@ import virus from './svgs/virus.svg'
 
 export const Game = (props) => {
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
-  const [donateModal, toggleDonateModal] = useToggle(false)
+  const [donateModal, toggleDonateModal] = useToggle(true)
   const [imprintModal, toggleImprintModal] = useToggle(false)
 
   const [lastClick, setLastClick] = useState([0, 0])

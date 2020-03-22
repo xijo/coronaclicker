@@ -20,7 +20,7 @@ export const Home = (props) => {
         <div className='mt-8 mb-6'>Willkommen bei Corona-Clicker</div>
 
         <div className='mb-12'>
-          Durch Tippen aus der Virus vermindest du die Zahl der Infizierten. Klicke auf Boost um das Virus schneller zu bekämpfen. Alle Spenden kommen dem deutschen Roten Kreuz für den Kampf gegen das Corona Virus zugute.
+          Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost um das Virus schneller zu bekämpfen. Alle Spenden kommen dem deutschen Roten Kreuz für den Kampf gegen das Corona Virus zugute.
         </div>
 
         <a href='/games/new' className='btn block mb-12'>PLAY</a>

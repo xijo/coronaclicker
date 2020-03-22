@@ -22,13 +22,14 @@
   @apply px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 shadow-md cursor-pointer;
 }
 
-.btn:focus {
-  @apply shadow-md;
-}
-
 .btn:hover {
   @apply shadow-lg bg-teal-200;
 }
+
+.btn:focus, .btn:active {
+  @apply shadow-md;
+}
+
 
 .anchor {
   @apply text-teal-600 cursor-pointer;
