@@ -14,12 +14,6 @@ import plop1file from './mp3s/plop1.mp3'
 
 import virus from './svgs/virus.svg'
 
-// Game.touchEvents = 0;
-//if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) Game.mobile=1;
-//if (Game.mobile) Game.touchEvents=1;
-//if ('ontouchstart' in document.documentElement) Game.touchEvents=1;
-
-// Game.clickStr = Game.touchEvents ? 'ontouchend' : 'onclick';
 export const App = (props) => {
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
   const [clickAnimation, setClickAnimation] = useState(false)
@@ -47,7 +41,7 @@ export const App = (props) => {
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
 
     <div className='relative mb-8 mt-8 mx-auto' style={{width: 240}}>
-      <img src={virus} height={35} className='mx-auto breathing-virus' onTouchEnd={decrementCounter} />
+      <img src={virus} height={35} className='mx-auto breathing-virus' onClick={decrementCounter} />
 
       <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible spaceOutRight' : 'hidden'}`}>-{props.decrementer}</div>
     </div>
