@@ -16,7 +16,7 @@
 }
 
 * {
-  touch-action: manipulation;
+  touch-action: none;
 }
 
 .btn {
@@ -88,7 +88,7 @@
   /* -webkit-animation: breathing 7s ease-out infinite normal;
   animation: breathing 7s ease-out infinite normal; */
   -webkit-font-smoothing: antialiased;
-  touch-action: manipulation;
+  touch-action: none;
 }
 
 /* .breathing-virus:hover {
