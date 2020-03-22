@@ -5,7 +5,7 @@ import {useToggle} from 'react-use'
 import infoButton from './svgs/info.svg'
 
 export const InfoButton = () => {
-  const [modal, toggle] = useToggle(true)
+  const [modal, toggle] = useToggle(false)
 
   return <div >
     <img src={infoButton} onClick={toggle} className='cursor-pointer fixed' style={{right: 5, bottom: 5}} />
@@ -34,16 +34,12 @@ export const InfoButton = () => {
         Dieses Spiel haben wir entwickelt, um unseren Teil, die derzeitige Corona-Krise zu bewältigen, beizutragen. Mit dieser Web App werden die sonst sehr abstrakten Zahlen, welche derzeit die Schlagzeilen beherrschen, endlich greifbar gemacht.
         <br />
         <br />
-
         Aber genug geredet, jetzt wird geklickt!
-
         <br />
         <br />
-
         Viel Spaß beim Spielen!
         <br />
         <br />
-
         Euer CoronaClicker-Team
         <br />
         <br />
