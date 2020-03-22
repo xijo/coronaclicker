@@ -14,6 +14,8 @@ import plop1file from './mp3s/plop1.mp3'
 
 import virus from './svgs/virus.svg'
 
+// localstorage
+
 export const App = (props) => {
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
   const [clickAnimation, setClickAnimation] = useState(false)
@@ -27,9 +29,6 @@ export const App = (props) => {
 
   const decrementCounter = (event) => {
     setLastClick([event.clientX, event.clientY])
-    // window.setTimeout(() => setClicks())
-    // console.log(event)
-    // console.log(event.clientX)
     Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
     setCounter(counter - props.decrementer)
   }
@@ -46,11 +45,11 @@ export const App = (props) => {
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal /></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
 
-    <div className='relative mb-8 mt-8 mx-auto' style={{width: 240}}>
-      <img src={virus} height={35} className='mx-auto breathing-virus' onClick={decrementCounter} />
-
+    <div className='relative mb-8 mt-8 mx-auto select-none' style={{width: 240}}>
+      <img src={virus} height={35} draggable='false' className='mx-auto breathing-virus select-none' onClick={decrementCounter} onDragStart={e => e.preventDefault()} />
     </div>
-    <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible' : 'hidden'}`} style={{top: lastClick[1], left: lastClick[0]}}>-{props.decrementer}</div>
+
+    <ClickArea coords={lastClick} onClick={decrementCounter} />
 
     <div className='text-4xl text-teal-800 text-center font-bold mb-4'>{counter}</div>
 
@@ -60,4 +59,45 @@ export const App = (props) => {
 
     <span onClick={toggleImprintModal}>Impressum</span>
   </div>
+}
+
+const ClickArea = (props) => {
+  const [index, setIndex] = useState(0)
+  const [coords, setCoords] = useState([])
+
+  useEffect(() => {
+    const newIndex = index === 9 ? 0 : index + 1
+    const newCoords = coords
+    newCoords.splice(newIndex, 1, props.coords)
+    setIndex(newIndex)
+    setCoords(newCoords)
+  }, [props.coords])
+
+  console.log(coords)
+
+  return <>
+    <Click coords={coords[0]} onClick={props.onClick} />
+    <Click coords={coords[1]} onClick={props.onClick} />
+    <Click coords={coords[2]} onClick={props.onClick} />
+    <Click coords={coords[3]} onClick={props.onClick} />
+    <Click coords={coords[4]} onClick={props.onClick} />
+    <Click coords={coords[5]} onClick={props.onClick} />
+    <Click coords={coords[6]} onClick={props.onClick} />
+    <Click coords={coords[7]} onClick={props.onClick} />
+    <Click coords={coords[8]} onClick={props.onClick} />
+    <Click coords={coords[9]} onClick={props.onClick} />
+  </>
+}
+
+const Click = ({coords, onClick}) => {
+  if (!coords) return null
+
+  const [animation, setAnimation] = useState('spaceOutRight')
+
+  useEffect(() => {
+    setAnimation('spaceOutRight')
+    window.setTimeout(() => setAnimation('hidden'), 200)
+  }, [coords])
+
+  return <div onClick={onClick} className={`absolute text-yellow-400 font-semibold text-4xl select-none ${animation}`} style={{top: coords[1], left: coords[0]}}>+1</div>
 }
