@@ -14,6 +14,10 @@ class Game < ApplicationRecord
     end
   end
 
+  def donation_sum
+    (donations || {}).values.sum
+  end
+
   def powerups
     (donations || {}).map do |key, value|
       { id: Digest::MD5.hexdigest(key), amount: value.to_i }

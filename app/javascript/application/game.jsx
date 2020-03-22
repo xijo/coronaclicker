@@ -48,10 +48,14 @@ export const Game = (props) => {
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={props.decrementer} />
 
-    <div className='text-4xl text-teal-800 text-center font-bold mb-4'>{counter}</div>
+    <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>{counter}</div>
 
     <div className='mb-4 text-center'>
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
+
+      {props.donationSum !== '0' && <div className='mt-4 text-teal-600 antialiased'>
+        <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
+      </div>}
     </div>
 
     <span onClick={toggleImprintModal}>Impressum</span>
