@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   def new
     game_id = session[:game_id]
     @game = Game.find_by(id: game_id) || Game.create(counter: GlobalNumber.last.infected)
-    cookies[:counter] = GlobalNumber.last.infected
+    cookies[:counter] ||= GlobalNumber.last.infected
     redirect_to game_url(@game)
   end
 
