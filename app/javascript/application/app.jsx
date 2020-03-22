@@ -20,10 +20,16 @@ export const App = (props) => {
   const [donateModal, toggleDonateModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
 
+  const [lastClick, setLastClick] = useState([0, 0])
+
   const plop0 = new UIfx(plop0file)
   const plop1 = new UIfx(plop1file)
 
-  const decrementCounter = () => {
+  const decrementCounter = (event) => {
+    setLastClick([event.clientX, event.clientY])
+    // window.setTimeout(() => setClicks())
+    // console.log(event)
+    // console.log(event.clientX)
     Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
     setCounter(counter - props.decrementer)
   }
@@ -43,8 +49,8 @@ export const App = (props) => {
     <div className='relative mb-8 mt-8 mx-auto' style={{width: 240}}>
       <img src={virus} height={35} className='mx-auto breathing-virus' onClick={decrementCounter} />
 
-      <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible spaceOutRight' : 'hidden'}`}>-{props.decrementer}</div>
     </div>
+    <div className={`absolute text-yellow-400 font-semibold text-4lg bottom-0 right-0 ${clickAnimation ? 'visible' : 'hidden'}`} style={{top: lastClick[1], left: lastClick[0]}}>-{props.decrementer}</div>
 
     <div className='text-4xl text-teal-800 text-center font-bold mb-4'>{counter}</div>
 
