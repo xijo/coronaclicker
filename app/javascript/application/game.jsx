@@ -52,7 +52,7 @@ export const Game = (props) => {
   return <div className='mt-4'>
     <Header {...props} />
 
-    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal /></Modal>}
+    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.received}/></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
 
@@ -153,7 +153,7 @@ const Click = ({coords, onClick, decrementer}) => {
 }
 
 const Progress = ({received}) => {
-  const input = [80, 200, 350, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 5000]
+  const input = [200, 350, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 5000]
   function predicate(x) { return x > received }
   const currGoal = input.filter(function(x) { return predicate(x) })[0]
   const way = received % currGoal
