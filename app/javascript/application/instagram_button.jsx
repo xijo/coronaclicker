@@ -6,7 +6,7 @@ export const InstagramButton = (props) => {
   // const shareUrl = 'https://www.corona-clicker.de'
 
   const handleClick = () => {
-    const url = `https://instagram.com`
+    const url = `https://www.instagram.com/corona_clicker/`
     window.open(url, 'sharer', 'toolbar=no,width=1042,height=436')
   }
 
