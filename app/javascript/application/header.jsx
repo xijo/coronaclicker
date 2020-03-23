@@ -25,9 +25,9 @@ export const Header = ({infected}) => {
         <div className='text-lg'>
           {prefixZero(now.getDate())}.{prefixZero(now.getMonth() + 1)}.{now.getFullYear()}
         </div>
-        <div className='text-sm'>
+        {/* <div className='text-sm'>
           {prefixZero(now.getHours())}:{prefixZero(now.getMinutes())}:{prefixZero(now.getSeconds())}
-        </div>
+        </div> */}
       </div>
       <div className='text-red-300 text-right'>
         <div className='text-lg'>{infected}</div>
