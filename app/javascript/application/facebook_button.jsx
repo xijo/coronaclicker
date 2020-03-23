@@ -3,7 +3,7 @@ import React from 'react'
 import facebookLogo from './svgs/facebook.png'
 
 export const FacebookButton = (props) => {
-  const shareText = 'Komm und hilf mit. Zusammen besiegen wir Corona schneller! #caretowin #WirvsVirus'
+  const shareText = 'Komm und hilf mit! Zusammen besiegen wir Corona schneller! #care2win #WirvsVirus'
 
   const handleClick = () => {
     const url = `https://facebook.com/sharer/sharer.php?u=www.corona-clicker.de&quote=${encodeURIComponent(shareText)}`

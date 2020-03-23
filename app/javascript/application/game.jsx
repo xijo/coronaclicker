@@ -102,7 +102,7 @@ export const Game = (props) => {
 
     <div className='text-center mt-8 mb-6 text-gray-400 cursor-default'>
       <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
-      <div>#WirVsVirus #Gamification</div>
+      <div>#WirVsVirus #care2win</div>
     </div>
   </div>
 }
@@ -152,19 +152,19 @@ const Click = ({coords, onClick, decrementer}) => {
   </div>
 }
 
-
-  // # 80, 200, 350, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 5000
-
 const Progress = ({received}) => {
-  const way = received % 1000
-  const percent = Math.floor((way / 1000) * 100)
+  const input = [80, 200, 350, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 5000]
+  function predicate(x) { return x > received }
+  const currGoal = input.filter(function(x) { return predicate(x) })[0]
+  const way = received % currGoal
+  const percent = Math.floor((way / currGoal) * 100)
   return <>
     <div className='flex items-center justify-center mt-4'>
-      <span className='text-sm text-gray-600 cursor-default'>{way} €</span>
+    <span className='text-sm text-gray-600 cursor-default'>{way} €</span>
       <div className='mx-2 order-gray-300 border rounded-sm h-3' style={{width: 250}}>
         <div className='h-full bg-teal-500' style={{width: `${percent}%`}}></div>
       </div>
-      <span className='text-sm text-gray-600 cursor-default'>1000 €</span>
+      <span className='text-sm text-gray-600 cursor-default'>{currGoal} €</span>
     </div>
     <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits {received} € gesammelt</span>
   </>

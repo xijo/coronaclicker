@@ -17,7 +17,7 @@ export const Home = (props) => {
 
     <Modal>
       <div className='text-teal-800 text-center p-4'>
-        <div className='mt-8 mb-6'>Willkommen bei Corona-Clicker</div>
+        <div className='mt-8 mb-6'>Willkommen bei Corona-Clicker!</div>
 
         <div className='mb-8'>
           Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost um den Virus schneller zu bekämpfen. Alle Spenden kommen dem Deutschen Roten Kreuz für den Kampf gegen den Corona Virus zugute.
