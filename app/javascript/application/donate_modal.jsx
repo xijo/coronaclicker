@@ -17,11 +17,13 @@ export const DonateModal = ({received}) => {
 
     <div className='flex rounded-lg mb-4 md:px-12'>
       <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=1'>
+      {/* <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114?donation_amount=1'> */}
         <img src={hands} style={{maxHeight: 100}} />
         <span>Spende 1 €</span>
         <span>(-1 pro Click)</span>
       </a>
       <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=2'>
+      {/* <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114?donation_amount=2'> */}
         <img src={desinfect} style={{maxHeight: 100}} />
         <span>Spende 2 €</span>
         <span>(x2 Mult.)</span>

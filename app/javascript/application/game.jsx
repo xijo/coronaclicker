@@ -6,6 +6,9 @@ import {DonateModal} from './donate_modal'
 import {Header} from './header'
 import {Imprint} from './imprint'
 import {Privacy} from './privacy'
+import {Virus} from './virus'
+import {CommunityBar} from './communitybar'
+import {Progress} from './progress'
 
 const cookies = new Cookies()
 
@@ -13,7 +16,6 @@ import UIfx from 'uifx'
 import plop0file from './mp3s/plop0.mp3'
 import plop1file from './mp3s/plop1.mp3'
 
-import virus from './svgs/virus.svg'
 import virusSmall from './svgs/virus_filled_yellow.svg'
 import toiletpaper from './svgs/toiletpaper.png'
 import {TwitterButton} from './twitter_button'
@@ -21,14 +23,17 @@ import {InstagramButton} from './instagram_button'
 import {FacebookButton} from './facebook_button'
 import {InfoButton} from './info_button'
 import {checkPropTypes} from 'prop-types'
+import padlock from './svgs/Lock.svg'
 
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
+const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
 
 // localstorage
 
 export const Game = (props) => {
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
+  // const [healed, setHealed] = useState(cookies.get('healde') || props.counter)
   const [donateModal, toggleDonateModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
   const [privacyModal, togglePrivacyModal] = useToggle(false)
@@ -58,14 +63,17 @@ export const Game = (props) => {
 
     <InfoButton />
 
-    <div className='relative mb-8 mt-8 mx-auto select-none' style={{width: 240}}>
-      <img src={virus} height={35} draggable='false' className='mx-auto breathing-virus select-none cursor-pointer' {...virusOnClick} onDragStart={e => e.preventDefault()} />
-    </div>
+    {/* TODO Johannes: die +1 und xY modifier nach donos sollen getrennt sein (und verrechnet werden) 
+    Ping mich bitte an wenn du das liest dann kann ich dir genauer erklären was ich meine*/}
+    <Virus virusOnClick={virusOnClick} addifier={props.decrementer} multiplier={0}/>
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={props.decrementer} />
 
     {counter > 0 &&
-      <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>{counter}</div>
+      <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>
+        {counter}
+        <p className=' text-xs mt-0'>({props.infected-counter} bereits geheilt)</p>
+      </div>
     }
 
     {counter <= 0 &&
@@ -84,14 +92,17 @@ export const Game = (props) => {
 
     <div className='mb-4 text-center'>
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
-
       {props.donationSum !== '0' && <div className='mt-4 text-teal-600 antialiased'>
         <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
       </div>}
 
-      <Progress received={props.received} />
+      <Progress received={props.received} donoGoals={donoGoals}/>
       {props.received >= 100 && <Toiletpaper />}
     </div>
+
+    {/* <div className='m-8'>
+    <CommunityBar donoGoals={donoGoals} received={props.received} />
+    </div> */}
 
     <div className='mb-4 text-center'>
       <TwitterButton className='cursor-pointer inline-block' />
@@ -152,24 +163,6 @@ const Click = ({coords, onClick, decrementer}) => {
   </div>
 }
 
-const Progress = ({received}) => {
-  const input = [200, 350, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 5000]
-  function predicate(x) { return x > received }
-  const currGoal = input.filter(function(x) { return predicate(x) })[0]
-  const way = received % currGoal
-  const percent = Math.floor((way / currGoal) * 100)
-  return <>
-    <div className='flex items-center justify-center mt-4'>
-    <span className='text-sm text-gray-600 cursor-default'>{way} €</span>
-      <div className='mx-2 order-gray-300 border rounded-sm h-3' style={{width: 250}}>
-        <div className='h-full bg-teal-500' style={{width: `${percent}%`}}></div>
-      </div>
-      <span className='text-sm text-gray-600 cursor-default'>{currGoal} €</span>
-    </div>
-    <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits {received} € gesammelt</span>
-  </>
-}
-
 const Toiletpaper = () => {
   return <div className='mb-8'>
     <img src={toiletpaper} />
@@ -178,7 +171,6 @@ const Toiletpaper = () => {
     </div>
   </div>
 }
-
 
 const checkTouchDevice = () => {
   try {
