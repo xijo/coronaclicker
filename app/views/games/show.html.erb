@@ -3,7 +3,9 @@
   data-donation-sum=<%= @game.donation_sum %>
   data-powerups=<%= @game.powerups.to_json %>
   data-infected=<%= @global_number.infected %>
-  data-decrementer=<%= @decrementer %>
   data-received=<%= @global_number.received %>
+  data-community-decrementer=<%= @global_number.decrementer %>
+  data-game-low-decrementer=<%= @game.low_decrementer %>
+  data-game-high-decrementer=<%= @game.high_decrementer %>
 >
 </div>

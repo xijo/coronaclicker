@@ -13,8 +13,6 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @global_number = GlobalNumber.last
-    @decrementer = @game.decrementer
-    @decrementer += @global_number.decrementer if @game.donations.present?
     session[:game_id] = @game.id
   end
 end
