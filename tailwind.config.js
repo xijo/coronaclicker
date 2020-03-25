@@ -29,6 +29,9 @@ module.exports = {
         'progbar-lvl-11': '#E2001A',
         'progbar-lvl-12': '#B70003',
       },
+      scale: {
+        '120': '1.2',
+      },
     },
   },
   variants: {},
