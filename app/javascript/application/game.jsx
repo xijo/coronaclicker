@@ -43,6 +43,7 @@ export const Game = (props) => {
   const [goodieModal, toggleGoodieModal] = useToggle(false)
 
   const [lastClick, setLastClick] = useState([0, 0])
+  const [postdonation, setPostdonation] = useState(false)
 
   const isTouchDevice = checkPropTypes()
 
@@ -66,8 +67,11 @@ export const Game = (props) => {
     if(clickCounter < 19){
       clickCounter++
     }
-    // console.log(window.location.href)
   }
+
+  useEffect(() => {
+    setPostdonation(/donation_\d+/.test(window.location.href))
+  }, [])
 
   useEffect(() => {
     cookies.set('counter', counter, {path: '/', expires: (new Date(2099, 1, 1))})
@@ -86,6 +90,8 @@ export const Game = (props) => {
   return <div className='mt-4'>
     <Header {...props} />
 
+    {postdonation && <div>Yo danke fuer deine Spende! <span onClick={() => setPostdonation(false)}>x</span></div>}
+
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.received}/></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
@@ -94,7 +100,7 @@ export const Game = (props) => {
 
     <InfoButton />
 
-    {/* TODO Johannes: die +1 und xY modifier nach donos sollen getrennt sein (und verrechnet werden) 
+    {/* TODO Johannes: die +1 und xY modifier nach donos sollen getrennt sein (und verrechnet werden)
     Ping mich bitte an wenn du das liest dann kann ich dir genauer erklären was ich meine*/}
     <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()}/>
 
