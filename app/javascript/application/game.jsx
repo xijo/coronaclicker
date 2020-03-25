@@ -66,6 +66,7 @@ export const Game = (props) => {
     if(clickCounter < 19){
       clickCounter++
     }
+    // console.log(window.location.href)
   }
 
   useEffect(() => {

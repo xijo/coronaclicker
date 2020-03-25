@@ -7,6 +7,9 @@ class DonationCallbacksController < ApplicationController
     @game.save
     # raise session.id
 
+    #  message 2 oder 5 hinter game
+    # window location href -> die zahl oder so raus holen
+    # params[:amount].to_i string interpolation
     redirect_to game_url(@game)
 
     # redirect_to root_url
