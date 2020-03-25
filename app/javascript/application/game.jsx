@@ -65,14 +65,14 @@ export const Game = (props) => {
 
     {/* TODO Johannes: die +1 und xY modifier nach donos sollen getrennt sein (und verrechnet werden) 
     Ping mich bitte an wenn du das liest dann kann ich dir genauer erklären was ich meine*/}
-    <Virus virusOnClick={virusOnClick} addifier={props.decrementer} multiplier={0}/>
+    <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={props.decrementer} multiplier={0}/>
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={props.decrementer} />
 
     {counter > 0 &&
       <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>
         {counter}
-        <p className=' text-xs mt-0'>({props.infected-counter} bereits geheilt)</p>
+        <p className='font-normal text-xs'>({props.infected-counter} bereits geheilt)</p>
       </div>
     }
 
@@ -100,9 +100,9 @@ export const Game = (props) => {
       {props.received >= 100 && <Toiletpaper />}
     </div>
 
-    {/* <div className='m-8'>
-    <CommunityBar donoGoals={donoGoals} received={props.received} />
-    </div> */}
+    <div className='m-8'>
+    <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum}/>
+    </div>
 
     <div className='mb-4 text-center'>
       <TwitterButton className='cursor-pointer inline-block' />

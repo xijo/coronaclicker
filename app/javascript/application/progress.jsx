@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Progress = ({received, donoGoals}) => {
 
-  // Ist dreckig ich weiß, wird noch schöner gemacht :)
+  {/* TODO: Ist dreckig ich weiß, wird noch schöner gemacht :) */}
   function getColorCode(){
       if (received < 150) {
         return <div className='h-full bg-progbar-lvl-1' style={{width: `${percent}%`}}></div>;}
@@ -45,6 +45,6 @@ export const Progress = ({received, donoGoals}) => {
       </div>
       <span className='text-sm text-gray-600 cursor-default'>{currGoal} €</span>
     </div>
-    <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits {received} € gesammelt</span>
+    <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits <span className="font-bold">{received} €</span> gesammelt</span>
   </>
 }
