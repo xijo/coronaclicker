@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useInterval} from 'react-use'
 
 import drk from './svgs/drk.svg'
-import logo from './svgs/logo.svg'
+import logo from './svgs/logo_new.png'
 import wirvsvirus from './svgs/wirvsvirus.svg'
 
 export const Header = ({infected}) => {
@@ -17,7 +17,7 @@ export const Header = ({infected}) => {
   return <header>
     <div className='flex justify-between mx-2 mb-2'>
       <img src={wirvsvirus} className='h-8' />
-      <img src={logo} className='h-8' />
+      <img src={logo} className='h-10' />
       <img src={drk} className='h-8' />
     </div>
     <div className='flex justify-between mx-2'>
