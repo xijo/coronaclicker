@@ -4,10 +4,10 @@ import padlock from './svgs/Lock.svg'
 import unlocked from './svgs/commBar-unlocked.svg'
 import locked from './svgs/commBar-locked.svg'
 
-export const CommunityBar = ({donoGoals, received, selfDonated}) => {
+export const CommunityBar = ({donoGoals, received, selfDonated, toggleInfoCommBar}) => {
     received = 200
     const percent = Math.floor((received / donoGoals[donoGoals.length-1]) * 100)
-    return <div className="mb-8">
+    return <div className="mb-8 cursor-pointer" onClick={toggleInfoCommBar}>
     <div>
       <h1 className='flex items-center justify-center' style={{color: '#236A60'}}>Community Achievements</h1>
     </div>

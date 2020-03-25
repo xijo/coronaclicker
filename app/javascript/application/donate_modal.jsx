@@ -9,7 +9,7 @@ import toiletpaper from './svgs/toiletpaper.png'
 
 export const DonateModal = ({received}) => {
   return <div className='m-2'>
-    <div className='text-center text-teal-600 font-light text-sm mt-6 mb-8'>
+    <div className='text-center text-teal-600 font-light text-sm mt-6 mb-4 font-bold'>
       Mit einer Spende wirst Du noch mehr Viren los.
       <br />
       Klick auf den Button und spende ans DRK.

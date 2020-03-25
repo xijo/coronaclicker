@@ -9,6 +9,7 @@ import {Privacy} from './privacy'
 import {Virus} from './virus'
 import {CommunityBar} from './communitybar'
 import {Progress} from './progress'
+import {CommBarInfoModal} from './commbar_modal'
 
 const cookies = new Cookies()
 
@@ -23,7 +24,6 @@ import {InstagramButton} from './instagram_button'
 import {FacebookButton} from './facebook_button'
 import {InfoButton} from './info_button'
 import {checkPropTypes} from 'prop-types'
-import padlock from './svgs/Lock.svg'
 
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
@@ -37,6 +37,7 @@ export const Game = (props) => {
   const [donateModal, toggleDonateModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
   const [privacyModal, togglePrivacyModal] = useToggle(false)
+  const [commBarModal, toggleCommBarModal] = useToggle(false)
 
   const [lastClick, setLastClick] = useState([0, 0])
 
@@ -60,6 +61,7 @@ export const Game = (props) => {
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.received}/></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
+    {commBarModal && <Modal onClose={toggleCommBarModal}><CommBarInfoModal /></Modal>}
 
     <InfoButton />
 
@@ -101,7 +103,7 @@ export const Game = (props) => {
     </div>
 
     <div className='m-8'>
-    <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum}/>
+    <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal}/>
     </div>
 
     <div className='mb-4 text-center'>
