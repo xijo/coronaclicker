@@ -7,23 +7,22 @@ import mask from './svgs/mask.png'
 import distancing from './svgs/social_distancing.png'
 import toiletpaper from './svgs/toiletpaper.png'
 
-export const DonoMessagesModal = ({donoAmountUrl}) => {
-  var amount = donoAmountUrl.substring(donoAmountUrl.indexOf('?message=donation_')+'?message=donation_'.length)
+export const DonoMessagesModal = ({donoAmount}) => {
   var picToTake = hands
   var textToTake = "<placeholder>"
 
-  if (parseInt(amount) < 2){
+  if (parseInt(donoAmount) < 2){
     textToTake = "Händewaschen schützt vor Viren, aber nur, wenn du auch 30 Sekunden durchhältst. Vor Allem wichtig vor dem Nudeln kochen!"
-  }else if(parseInt(amount) < 5){
+  }else if(parseInt(donoAmount) < 5){
     picToTake = desinfect
     textToTake = "Nicht jedes Mittel hilft, aber Dieses lässt jeden Virus alt aussehen.. Aber nicht nur auf den Handflächen verteilen! Zum deinem Schutz und dem Anderer!"
-  }else if(parseInt(amount) < 10){
+  }else if(parseInt(donoAmount) < 10){
     picToTake = mask
     textToTake = "Das Mode-Accessoire schlechthin in diesem Jahr! Hilft nicht nur deinem Aussehen sondern auch der Bekämpfung des Virus!"
-  }else if(parseInt(amount) < 25){
+  }else if(parseInt(donoAmount) < 25){
     picToTake = distancing
     textToTake = "Tröpfcheninfektion? Nein, Danke! Immer schön Abstand halten, um uns Allen zu ermöglichen, bald wieder unsere Homies in den Arm zu nehmen!"
-  }else if(parseInt(amount) < 100){
+  }else if(parseInt(donoAmount) < 100){
     picToTake = suit
     textToTake = "Macht dich nicht nur nahezu Immun gegen den Virus, sondern hilft auch, falls das Klopapier mal alle ist!"
   }else {

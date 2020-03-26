@@ -1,8 +1,7 @@
 import React from 'react'
 
-import padlock from './svgs/Lock.svg'
-import unlocked from './svgs/commBar-unlocked.svg'
-import locked from './svgs/commBar-locked.svg'
+import unlocked from './svgs/commBar-unlocked1.svg'
+import locked from './svgs/commBar-locked1.svg'
 
 export const CommunityBar = ({donoGoals, received, selfDonated, toggleInfoCommBar}) => {
     received = 200

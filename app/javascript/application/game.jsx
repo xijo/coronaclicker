@@ -30,6 +30,8 @@ import {checkPropTypes} from 'prop-types'
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
 const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
+var isBigDono = false
+var amount = 0
 
 // localstorage
 
@@ -77,7 +79,20 @@ export const Game = (props) => {
   }
 
   useEffect(() => {
-    setPostdonation(/donation_\d+/.test(window.location.href))
+    var donoUrl = window.location.href
+    if (/donation_\d+/.test(donoUrl)){
+      amount = parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_')+'?message=donation_'.length))
+      setPostdonation(true)
+      // if (amount < 100){
+      //   setPostdonation(true)
+      //   isBigDono = false
+      // }
+      // if (props.donationSum >= 100 || amount >= 100){
+      //   console.log('bigger 100')
+      //   setPostdonation(true)
+      //   isBigDono = true
+      // }
+    }
   }, [])
 
   useEffect(() => {
@@ -97,7 +112,8 @@ export const Game = (props) => {
   return <div className='mt-4'>
     <Header {...props} />
 
-    {postdonation && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmountUrl={window.location.href}/></Modal>}
+    {postdonation && !isBigDono && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmount={amount}/></Modal>}
+    {/* {postdonation && isBigDono && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmount={props.donationSum}/></Modal>} */}
 
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum}/></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
