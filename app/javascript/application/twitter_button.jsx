@@ -1,6 +1,6 @@
 import React from 'react'
 
-import twitterLogo from './svgs/twitter.png'
+import twitterLogo from './svgs/socialmedia/g_twitter.svg'
 
 export const TwitterButton = (props) => {
   const shareUrl = 'https://www.corona-clicker.de'

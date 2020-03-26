@@ -123,7 +123,7 @@ export const Game = (props) => {
         <br />
         <br />
         In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel
-        <button className='btn mt-2' onClick={() => setCounter(props.infected)}>RESTART!</button>
+        <button className='btn mt-2' onClick={() => {setCounter(props.infected); setHealed(0)}}>RESTART!</button>
       </div>
     }
 

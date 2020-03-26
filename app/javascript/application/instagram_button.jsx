@@ -1,6 +1,6 @@
 import React from 'react'
 
-import instagramLogo from './svgs/instagram.png'
+import instagramLogo from './svgs/socialmedia/g_instagram.svg'
 
 export const InstagramButton = (props) => {
   // const shareUrl = 'https://www.corona-clicker.de'

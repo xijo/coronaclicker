@@ -1,6 +1,6 @@
 import React from 'react'
 
-import facebookLogo from './svgs/facebook.png'
+import facebookLogo from './svgs/socialmedia/g_facebook.svg'
 
 export const FacebookButton = (props) => {
   const shareText = 'Komm und hilf mit! Zusammen besiegen wir Corona schneller! #care2win #WirvsVirus'
