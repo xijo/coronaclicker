@@ -53,6 +53,9 @@ export const Game = (props) => {
     achievements += (cookies.get('goodie3') ? 1 : 0)
     achievements += (cookies.get('goodie4') ? 1 : 0)
     achievements += (cookies.get('goodie5') ? 1 : 0)
+    if(props.donationSum > 0){
+      achievements += +parseInt(props.communityDecrementer)
+    }
     return parseInt(props.gameLowDecrementer, 10)+achievements
   }
 
