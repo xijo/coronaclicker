@@ -30,7 +30,6 @@ import {checkPropTypes} from 'prop-types'
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
 const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
-var clickCounter = 0
 
 // localstorage
 
@@ -49,11 +48,18 @@ export const Game = (props) => {
   const isTouchDevice = checkPropTypes()
 
   const getLowDec = () => {
-    return parseInt(props.gameLowDecrementer, 10)+(cookies.get('goodie') ? 1 : 0)
+    var achievements = (cookies.get('goodie1') ? 1 : 0)
+    achievements += (cookies.get('goodie2') ? 1 : 0)
+    achievements += (cookies.get('goodie3') ? 1 : 0)
+    achievements += (cookies.get('goodie4') ? 1 : 0)
+    achievements += (cookies.get('goodie5') ? 1 : 0)
+    return parseInt(props.gameLowDecrementer, 10)+achievements
   }
 
   const getHighDec = () => {
-    return parseInt(props.gameHighDecrementer, 10)
+    var achievements = 1
+    achievements = achievements * (cookies.get('goodie6') ? 2 : 1)
+    return parseInt(props.gameHighDecrementer, 10) * achievements
   }
 
   const getDecrementer = () => {
@@ -65,9 +71,6 @@ export const Game = (props) => {
     Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
     setCounter(counter - getDecrementer())
     setHealed(parseInt(cookies.get('healed')) + getDecrementer())
-    if(clickCounter < 19){
-      clickCounter++
-    }
   }
 
   useEffect(() => {
@@ -82,8 +85,8 @@ export const Game = (props) => {
     cookies.set('healed', healed, {path: '/', expires: (new Date(2099, 1, 1))})
   }, [healed])
 
-  const deactivateGoodie = () => {
-    cookies.set('goodie', true, {path: '/', expires: (new Date(2099, 1, 1))})
+  const deactivateGoodie = (id) => {
+    cookies.set('goodie'+id, true, {path: '/', expires: (new Date(2099, 1, 1))})
   }
 
   const virusOnClick = isTouchDevice ? {onTouchEnd: decrementCounter} : {onClick: decrementCounter}
@@ -93,11 +96,11 @@ export const Game = (props) => {
 
     {postdonation && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmountUrl={window.location.href}/></Modal>}
 
-    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.received}/></Modal>}
+    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum}/></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
     {commBarModal && <Modal onClose={toggleCommBarModal}><CommBarInfoModal /></Modal>}
-    {goodieModal && <Modal onClose={() => {toggleGoodieModal(); deactivateGoodie();}}><Goodie /></Modal>}
+    {goodieModal && <Modal onClose={() => {toggleGoodieModal();}}><Goodie healed={cookies.get('healed')}/></Modal>}
 
     <InfoButton />
 
@@ -128,14 +131,19 @@ export const Game = (props) => {
     }
 
     <div className='mb-4 text-center'>
-      {clickCounter >= 19 && !cookies.get('goodie') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleGoodieModal}>CLICK ME!</button>}
+      {healed >= 19 && !cookies.get('goodie1') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('1');}}>CLICK ME!</button>}
+      {healed >= 1000 && !cookies.get('goodie2') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('2');}}>CLICK ME!</button>}
+      {healed >= 5000 && !cookies.get('goodie3') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('3');}}>CLICK ME!</button>}
+      {healed >= 10000 && !cookies.get('goodie4') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('4');}}>CLICK ME!</button>}
+      {healed >= 50000 && !cookies.get('goodie5') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('5');}}>CLICK ME!</button>}
+      {healed >= 100000 && !cookies.get('goodie6') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('6');}}>CLICK ME!</button>}
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
       {props.donationSum !== '0' && <div className='mt-4 text-teal-600 antialiased'>
         <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
       </div>}
 
       <Progress received={props.received} donoGoals={donoGoals}/>
-      {props.received >= 100 && <Toiletpaper />}
+      {props.donationSum >= 100 && <Toiletpaper />}
     </div>
 
     <div className='m-8'>
@@ -143,9 +151,9 @@ export const Game = (props) => {
     </div>
 
     <div className='mb-4 text-center'>
-      <TwitterButton className='cursor-pointer inline-block' />
+      <TwitterButton className='cursor-pointer inline-block' healed={healed}/>
       <InstagramButton className='cursor-pointer inline-block ml-2' />
-      <FacebookButton className='cursor-pointer inline-block ml-2' />
+      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed}/>
     </div>
 
 

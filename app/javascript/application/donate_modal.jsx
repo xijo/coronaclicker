@@ -17,8 +17,8 @@ export const DonateModal = ({received}) => {
     </div>
 
     <div className='flex rounded-lg mb-4 md:px-12'>
-      <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=1'>
-      {/* <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114?donation_amount=1'> */}
+      {/* <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=1'> */}
+      <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114?donation_amount=1'>
         <img src={hands} style={{maxHeight: 100}} />
         <span>1 €</span>
         <span>(-1/Click)</span>
@@ -33,6 +33,7 @@ export const DonateModal = ({received}) => {
 
     <div className='flex rounded-lg mb-4 md:px-12'>
       <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=5'>
+      {/* <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114?donation_amount=5'> */}
         <img src={mask} style={{maxHeight: 100}} />
         <span>5 €</span>
         <span>(x2 Mult.)</span>
@@ -46,12 +47,14 @@ export const DonateModal = ({received}) => {
     </div>
 
     <div className='flex rounded-lg mb-4 md:px-12'>
-      <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=5'>
+    <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=25'>
+    {/* <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114?donation_amount=25'> */}
         <img src={suit} style={{maxHeight: 100}} />
         <span>25 €</span>
         <span>(-100/Click)</span>
       </a>
       {received < 100 && <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.betterplace.org/de/donate/coronaclicker/projects/77983?donation_amount=100'>
+      {/* {received < 100 && <a className='btn text-center flex-1 mr-2 flex flex-col justify-evenly items-center' href='https://www.bp42.com/de/donate/corona-clicker/projects/1114?donation_amount=100'> */}
           <img src={mystery} style={{maxHeight: 100}} />
           <span>+100 €</span>
           <span>({received}/100 €)</span>
