@@ -14,7 +14,7 @@ export const InfoButton = () => {
         <strong>Wie funktioniert Corona Clicker?</strong>
         <br/>
         <br/>
-        Der Counter zeigt die weltweit aktuelle Zahl an Infizierten. Durchs Klicken wird die Zahl der Infizierten folglich geringer. Mit verschiedenen PowerUps, die man über gewisse Abstände im Spiel, aber vorrangig durchs Spenden erhalten kann, wird das Ziel, den Counter auf 0 laufen zu lassen, schneller erreicht. 
+        Der Counter stellt die weltweit aktuelle Zahl an Infizierten dar. Durchs Klicken wird die Zahl der Infizierten folglich geringer. Mit verschiedenen PowerUps, die man über gewisse Abstände im Spiel, aber vorrangig durchs Spenden erhalten kann, wird das Ziel, den Counter auf 0 laufen zu lassen, schneller erreicht. 
         <br/>
         Kurzgesagt, wir machen Pay-to-win sexy! #care2win
         <br />

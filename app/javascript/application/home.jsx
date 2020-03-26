@@ -17,17 +17,19 @@ export const Home = (props) => {
 
     <Modal>
       <div className='text-teal-800 text-center p-4'>
-        <div className='mt-8 mb-6'>Willkommen bei Corona-Clicker!</div>
+        <div className=" font-bold">Willkommen bei Corona-Clicker!</div>
+        <br/>
+        Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost, um den Virus schneller zu bekämpfen. Alle Spenden kommen dem Deutschen Roten Kreuz für den Kampf gegen das Coronavirus zugute.
+        <br/>
+        (Für mehr Infos klicke auf den Button unten rechts.)
+        <br/>
+        <br/>
+        Dieses Projekt befindet sich weiterhin in Entwicklung und wird in den nächsten Tagen noch einige Verbesserung erhalten! #staytuned
+        <br/>
+        <br/>
+        Tipp: Falls noch Performanceprobleme auf mobilen Geräten auftreten sollten, unsere <span className="font-bold">Desktopversion</span> funktioniert bereits einwandfrei! 😉
 
-        <div className='mb-8'>
-          Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost um den Virus schneller zu bekämpfen. Alle Spenden kommen dem Deutschen Roten Kreuz für den Kampf gegen den Corona Virus zugute.
-        </div>
-
-        <div className='mb-12'>
-          Dieses Projekt befindet sich noch in Entwicklung und wird in den nächsten Tagen noch einige Verbesserung erhalten! #staytuned
-        </div>
-
-        <a href='/games/new' className='btn block mb-12'>PLAY</a>
+        <a href='/games/new' className='btn block mb-6 mt-4'>PLAY</a>
 
         <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span>
         <div className='text-gray-400'>#WirVsVirus #Gamification</div>

@@ -19,6 +19,8 @@ import spot_4b from './svgs/spot_versions/g4b.svg'
 import spot_5a from './svgs/spot_versions/g5a.svg'
 import spot_5b from './svgs/spot_versions/g5b.svg'
 
+import testing from './svgs/virus_versions/testing.jpg'
+
 export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, received}) => {
   var virus = virus1
   var spot_1 = spot_1a
@@ -76,14 +78,18 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
     var spot_2 = spot_5b
   }
 
+  var sectionStyle = {
+    backgroundImage: `url(${spot_1a})`
+  };
+  
   return <div>
     <div className='relative mx-auto select-none' style={{width: 240}}>
       <div onClick={spotsOnClick} className="cursor-pointer">
         <img src={spot_1} style={{position: 'absolute', top: -60, right:-5}}/>
-        {addifier > 0 && <h1 className='font-bold text-2xl text-white' style={{position: 'absolute', top: -42, right:20}}>-{addifier}</h1>
+        {multiplier > 1 && <h1 className='font-bold text-xl text-white' style={{position: 'absolute', top: -42, right:15}}>x{multiplier}</h1>
         || <img src={padlock} style={{position: 'absolute', top: -40, right:25}}/>}
         <img src={spot_2} style={{position: 'absolute', top: -115, right:-65}}/>
-        {multiplier > 1 && <h1 className='font-bold text-2xl text-white' style={{position: 'absolute', top: -90, right:-40}}>x{multiplier}</h1>
+        {addifier > 0 && <h1 className='font-bold text-4xl text-white' style={{position: 'absolute', top: -100, right:-55}}>-{addifier}</h1>
         || <img className='transform scale-125' src={padlock} style={{position: 'absolute', top: -90, right:-30}}/>}
       </div>
       <img src={virus} height={35} draggable='false' className=' mt-32 mx-auto breathing-virus cursor-pointer' {...virusOnClick} onDragStart={e => e.preventDefault()} />
