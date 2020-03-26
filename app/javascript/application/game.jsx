@@ -11,6 +11,7 @@ import {CommunityBar} from './communitybar'
 import {Progress} from './progress'
 import {CommBarInfoModal} from './commbar_modal'
 import {Goodie} from './goodie_modal'
+import {DonoMessagesModal} from './donoMessagesModal'
 
 const cookies = new Cookies()
 
@@ -90,7 +91,7 @@ export const Game = (props) => {
   return <div className='mt-4'>
     <Header {...props} />
 
-    {postdonation && <div>Yo danke fuer deine Spende! <span onClick={() => setPostdonation(false)}>x</span></div>}
+    {postdonation && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmountUrl={window.location.href}/></Modal>}
 
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.received}/></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
@@ -102,7 +103,7 @@ export const Game = (props) => {
 
     {/* TODO Johannes: die +1 und xY modifier nach donos sollen getrennt sein (und verrechnet werden)
     Ping mich bitte an wenn du das liest dann kann ich dir genauer erklären was ich meine*/}
-    <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()}/>
+    <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received}/>
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
 
@@ -116,20 +117,19 @@ export const Game = (props) => {
     {counter <= 0 &&
       <div className='max-w-lg mx-auto mb-8 text-center'>
         <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
-        Vielen Dank vom gesamten CoronaClickerTeam, dass du unser Game gespielt hast! :)
+        Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game gespielt hast! :)
         <br />
         ..Aber du dachtest doch nicht wirklich, du hättest den Virus besiegt?!
         <br />
         <br />
-        In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and Fight the Virus! #nextlevel
-
+        In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel
         <button className='btn mt-2' onClick={() => setCounter(props.infected)}>RESTART!</button>
       </div>
     }
 
     <div className='mb-4 text-center'>
       {clickCounter >= 19 && !cookies.get('goodie') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleGoodieModal}>CLICK ME!</button>}
-      <button className='mt-4 px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
+      <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
       {props.donationSum !== '0' && <div className='mt-4 text-teal-600 antialiased'>
         <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
       </div>}
@@ -149,7 +149,7 @@ export const Game = (props) => {
     </div>
 
 
-    <div className='text-center mt-8 mb-6 text-gray-400 cursor-default'>
+    <div className='text-center mt-6 text-gray-400 cursor-default'>
       <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
       <div>#WirVsVirus #care2win</div>
     </div>
