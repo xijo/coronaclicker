@@ -82,9 +82,9 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
         <img src={spot_1} style={{position: 'absolute', top: -60, right:-5}}/>
         {addifier > 0 && <h1 className='font-bold text-2xl text-white' style={{position: 'absolute', top: -42, right:20}}>-{addifier}</h1>
         || <img src={padlock} style={{position: 'absolute', top: -40, right:25}}/>}
-        <img src={spot_2} style={{position: 'absolute', top: -110, right:-60}}/>
-        {multiplier > 1 && <h1 className='font-bold text-2xl text-white' style={{position: 'absolute', top: -85, right:-40}}>x{multiplier}</h1>
-        || <img className='transform scale-125' src={padlock} style={{position: 'absolute', top: -85, right:-30}}/>}
+        <img src={spot_2} style={{position: 'absolute', top: -115, right:-65}}/>
+        {multiplier > 1 && <h1 className='font-bold text-2xl text-white' style={{position: 'absolute', top: -90, right:-40}}>x{multiplier}</h1>
+        || <img className='transform scale-125' src={padlock} style={{position: 'absolute', top: -90, right:-30}}/>}
       </div>
       <img src={virus} height={35} draggable='false' className=' mt-32 mx-auto breathing-virus cursor-pointer' {...virusOnClick} onDragStart={e => e.preventDefault()} />
     </div>
