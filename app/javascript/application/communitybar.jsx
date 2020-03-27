@@ -4,7 +4,6 @@ import unlocked from './svgs/commBar-unlocked1.svg'
 import locked from './svgs/commBar-locked1.svg'
 
 export const CommunityBar = ({donoGoals, received, selfDonated, toggleInfoCommBar}) => {
-    received = 200
     const percent = Math.floor((received / donoGoals[donoGoals.length-1]) * 100)
     return <div className="mb-8 cursor-pointer" onClick={toggleInfoCommBar}>
     <div>
