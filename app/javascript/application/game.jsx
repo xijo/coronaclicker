@@ -183,7 +183,7 @@ export const Game = (props) => {
        || <p className='flex items-center justify-center text-sm' style={{color: '#236A60'}}>{window.location.href}</p>}
     </div>
 
-    <div className='text-center mt-6 text-gray-400 cursor-default'>
+    <div className='text-center mt-6 mb-10 text-gray-500 cursor-default'>
       <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
       <div>#WirVsVirus #care2win</div>
     </div>

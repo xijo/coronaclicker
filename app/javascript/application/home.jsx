@@ -36,7 +36,7 @@ export const Home = (props) => {
         <div className='flex justify-between items-center mt-6 mb-2'>
           <img src={wirvsvirus} className='h-12' />
           <img src={betterplace} className='h-6' />
-          <img src={drk} className='h-10' />
+          {/* <img src={drk} className='h-10' /> */}
         </div>
 
       </div>

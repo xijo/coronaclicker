@@ -1,5 +1,7 @@
 import React from 'react'
 
+import drk from './svgs/new_drk.jpg'
+
 export const Progress = ({received, donoGoals}) => {
 
   {/* TODO: Ist dreckig ich weiß, wird noch schöner gemacht :) */}
@@ -46,5 +48,8 @@ export const Progress = ({received, donoGoals}) => {
       <span className='text-sm text-gray-600 cursor-default'>{currGoal} €</span>
     </div>
     <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits <span className="font-bold">{received} €</span> gesammelt</span>
+    <br/>
+    <a className='text-sm text-gray-600 cursor-default anchor' href='https://www.betterplace.org/de/projects/77983-fureinander-nothilfe-in-der-corona-krise'>Mehr Infos zum Spendenprojekt</a>
+    {/* <img src={drk} alt="drk_corona" className="transform scale-10 -m-64"/> */}
   </>
 }
