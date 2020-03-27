@@ -1,6 +1,6 @@
 class DonationCallbacksController < ApplicationController
   def show
-    @game = Game.find_by(session[:game_id]) #.first_or_initialize(counter: 17800)
+    @game = Game.find_by(id: session[:game_id]) #.first_or_initialize(counter: 17800)
     @game ||= Game.create(counter: GlobalNumber.last.infected)
     session[:game_id] = @game.id
 
