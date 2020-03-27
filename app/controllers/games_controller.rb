@@ -14,5 +14,6 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @global_number = GlobalNumber.last
     session[:game_id] = @game.id
+    session[:expires_at] = 1.year.from_now
   end
 end
