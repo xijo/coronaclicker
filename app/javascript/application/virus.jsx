@@ -25,7 +25,7 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
   var virus = virus1
   var spot_1 = spot_1a
   var spot_2 = spot_1b
-  
+
   if (received < 150) {
     // noch nüschd
   }else if (received >= 150 && received < 300) {
@@ -81,7 +81,7 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
   var sectionStyle = {
     backgroundImage: `url(${spot_1a})`
   };
-  
+
   return <div>
     <div className='relative mx-auto select-none' style={{width: 240}}>
       <div onClick={spotsOnClick} className="cursor-pointer">
@@ -92,7 +92,7 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
         {addifier > 0 && <h1 className='font-bold text-4xl text-white' style={{position: 'absolute', top: -100, right:-50}}>-{addifier}</h1>
         || <img className='transform scale-125' src={padlock} style={{position: 'absolute', top: -90, right:-25}}/>}
       </div>
-      <img src={virus} height={35} draggable='false' className=' mt-32 mx-auto breathing-virus cursor-pointer' {...virusOnClick} onDragStart={e => e.preventDefault()} />
+      <div className=' mt-32 mx-auto breathing-virus cursor-pointer select-none' {...virusOnClick} onDragStart={e => e.preventDefault()} style={{height: 240, width: 240, backgroundImage: `url(${virus})`}}></div>
     </div>
   </div>
 }

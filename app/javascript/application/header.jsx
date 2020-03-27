@@ -16,10 +16,10 @@ export const Header = ({infected}) => {
   useInterval(() => setNow(new Date()), 1000)
 
   return <header>
-    <div className='flex justify-between mx-2 mb-2'>
-      <img src={wirvsvirus} className='h-8 ml-10' />
-      <img src={logo} className='h-10 ml-10' />
-      <img src={betterplace} className='h-8 transform scale-50' />
+    <div className='flex justify-between items-center mx-2 mb-2'>
+      <img src={wirvsvirus} className='h-10' />
+      <img src={logo} className='h-10' />
+      <img src={betterplace} className='h-4' />
     </div>
     <div className='flex justify-between mx-2'>
       <div className='text-red-300'>
