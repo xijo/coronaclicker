@@ -25,7 +25,7 @@ export const Goodie = ({healed}) => {
   }else if(parseInt(healed) < 50000){
     achName = "Videokonferenz"
     picToTake = video
-    textToTake = "Du hast 10.000 Infizierte geheilt! Das erzählst du natürlich direkt per Videoanruf all deinen Freunden und schwärmst davon, wie toll und gleichzeitig hilfreich doch dieses Spiel ist! (-4 Bonus)! (Kurzer Real Talk: Du würdest uns eine riesige Freude bereiten, wenn du Corona-Clicker mit all deinen Freunden teilst! :blush: Damit unterstützt du gleichzeitig, ohne großen Aufwand aber mit viel Wirkung, das DRK im Kampf gegen Corona!)."
+    textToTake = "Du hast 10.000 Infizierte geheilt! Das erzählst du natürlich direkt per Videoanruf all deinen Freunden und schwärmst davon, wie toll und gleichzeitig hilfreich doch dieses Spiel ist! (-4 Bonus)! (Kurzer Real Talk: Du würdest uns eine riesige Freude bereiten, wenn du Corona-Clicker mit all deinen Freunden teilst! 😊 Damit unterstützt du gleichzeitig, ohne großen Aufwand aber mit viel Wirkung, das DRK im Kampf gegen Corona!)."
   }else if(parseInt(healed) < 100000){
     achName = "Impfung"
     picToTake = spritze

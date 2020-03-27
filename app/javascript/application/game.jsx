@@ -175,6 +175,13 @@ export const Game = (props) => {
       <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed}/>
     </div>
 
+    <div className=" p-4">
+      <p className='flex items-center justify-center text-base' style={{color: '#236A60'}}><strong>Speicher deinen Fortschritt:</strong></p>
+      <p className='flex items-center justify-center text-xs' style={{color: '#236A60'}}>Kopiere dir deine Session, um sicher zu gehen, immer wieder von deinem Spielstand weiterspielen zu können! :) (Für den Fall, dass du regelmäßig Browsercookies oder Ähnliches löscht)</p>
+      <p className='flex items-center justify-center text-sm mt-2' style={{color: '#236A60'}}>Deine Session:</p>
+      {/donation_\d+/.test(window.location.href) && <p className='flex items-center justify-center text-sm' style={{color: '#236A60'}}>{window.location.href.substring(0,window.location.href.indexOf('?message=donation_'))}</p>
+       || <p className='flex items-center justify-center text-sm' style={{color: '#236A60'}}>{window.location.href}</p>}
+    </div>
 
     <div className='text-center mt-6 text-gray-400 cursor-default'>
       <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
