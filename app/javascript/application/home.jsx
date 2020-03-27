@@ -28,7 +28,9 @@ export const Home = (props) => {
         <br/>
         <br/>
         Tipp: Falls noch Performanceprobleme auf mobilen Geräten auftreten sollten, unsere <span className="font-bold">Desktopversion</span> funktioniert bereits einwandfrei! 😉
-
+        <br/>
+        <br/>
+        <span className=" text-sm text-red-600">Falls noch Probleme mit den Spendenbelohnungen auftreten sollten, tut uns das Leid! Wir arbeiten daran und können bereits versichern, die Spende kommt auf jeden Fall an! Vielen Dank für Eure Unterstützung und Verständnis!</span>
         <a href='/games/new' className='btn block mb-6 mt-4'>PLAY</a>
 
         <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span>

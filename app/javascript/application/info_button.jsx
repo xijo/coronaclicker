@@ -11,6 +11,8 @@ export const InfoButton = () => {
     <img src={infoButton} onClick={toggle} className='cursor-pointer fixed' style={{right: 10, bottom: 10}}/>
     {modal && <Modal onClose={toggle}>
       <div className='p-4'>
+        <span className=" text-sm text-red-600">Falls noch Probleme mit den Spendenbelohnungen auftreten sollten, tut uns das Leid! Wir arbeiten daran und können bereits versichern, die Spende kommt auf jeden Fall an! Vielen Dank für Eure Unterstützung und Verständnis!</span>
+        <br/><br/>
         <strong>Wie funktioniert Corona Clicker?</strong>
         <br/>
         <br/>

@@ -3,13 +3,13 @@ class Game < ApplicationRecord
 
   def high_decrementer
     donation_amounts.select { |v| v >= 5 }.inject(1) do |d, value|
-      d * (value < 10 ? 2 : 5)
+      d * (value < 10 ? 2 : ((value >= 10 && value) < 25 ? 5 : 1))
     end
   end
 
   def low_decrementer
-    donation_amounts.select { |v| v < 5 }.inject(0) do |d, value|
-      d + (value < 2 ? 1 : 5)
+    donation_amounts.select { |v| v }.inject(0) do |d, value|
+      d + (value < 2 ? 1 : ((value >= 2 && value) < 5 ? 5 : ((value >= 25 && value) < 100 ? 100 : 0)))
     end
   end
 
