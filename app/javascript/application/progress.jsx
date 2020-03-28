@@ -59,6 +59,6 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
       </div>
       <span className='text-sm text-gray-600 cursor-default'>{currGoal} €</span>
     </div>
-    <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits <span className="font-bold">{received} €</span> gesammelt</span>
+    <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits <span className="font-bold">{received} €</span> gesammelt!</span>
   </>
 }

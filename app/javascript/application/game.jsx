@@ -139,7 +139,7 @@ export const Game = (props) => {
       </div>
     }
 
-    <div className='mb-4 text-center'>
+    <div className='mb-2 text-center'>
       {healed >= 19 && !cookies.get('goodie1') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('1'); }}>CLICK ME!</button>}
       {healed >= 1000 && !cookies.get('goodie2') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('2'); }}>CLICK ME!</button>}
       {healed >= 5000 && !cookies.get('goodie3') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('3'); }}>CLICK ME!</button>}
@@ -155,8 +155,8 @@ export const Game = (props) => {
       {props.donationSum >= 100 && <Toiletpaper />}
     </div>
 
-    <div className='mb-4 flex items-center justify-center'>
-      <p className='text-sm text-gray-600 cursor-pointer' onClick={() => { toggleProInfoModal(); }}>Mehr Infos zum Spendenprojekt...</p>
+    <div className='mb-6 flex items-center justify-center'>
+      <p className='text-base text-gray-600 cursor-pointer font-semibold' onClick={() => { toggleProInfoModal(); }}>Mehr Infos zum Spendenprojekt..</p>
     </div>
 
     <div className='m-4'>
