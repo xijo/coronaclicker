@@ -2,7 +2,7 @@ import React from 'react'
 
 import drk from './svgs/new_drk.jpg'
 
-export const Progress = ({received, donoGoals}) => {
+export const Progress = ({received, donoGoals, toggleProInfoModal}) => {
 
   {/* TODO: Ist dreckig ich weiß, wird noch schöner gemacht :) */}
   function getColorCode(){
@@ -48,11 +48,5 @@ export const Progress = ({received, donoGoals}) => {
       <span className='text-sm text-gray-600 cursor-default'>{currGoal} €</span>
     </div>
     <span className='text-sm text-gray-600 cursor-default'>Wir haben bereits <span className="font-bold">{received} €</span> gesammelt</span>
-    <div className='mt-8'>
-      <a className='text-sm text-gray-600' target='_blank' href='https://www.betterplace.org/de/projects/77983-fureinander-nothilfe-in-der-corona-krise'>Mehr Infos zum Spendenprojekt</a>
-      <a className='text-sm text-gray-600' target='_blank' href='https://www.betterplace.org/de/projects/77983-fureinander-nothilfe-in-der-corona-krise'>
-        <img src={drk} alt="drk_corona" className='w-full max-w-lg mx-auto mb-8 mt-2' />
-      </a>
-    </div>
   </>
 }

@@ -12,6 +12,7 @@ import {Progress} from './progress'
 import {CommBarInfoModal} from './commbar_modal'
 import {Goodie} from './goodie_modal'
 import {DonoMessagesModal} from './donoMessagesModal'
+import {ProInfoModal} from './proInfoModal'
 
 const cookies = new Cookies()
 
@@ -39,6 +40,7 @@ export const Game = (props) => {
   const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
   const [healed, setHealed] = useState(cookies.get('healed') || 0)
   const [donateModal, toggleDonateModal] = useToggle(false)
+  const [proInfoModal, toggleProInfoModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
   const [privacyModal, togglePrivacyModal] = useToggle(false)
   const [commBarModal, toggleCommBarModal] = useToggle(false)
@@ -116,6 +118,7 @@ export const Game = (props) => {
     {/* {postdonation && isBigDono && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmount={props.donationSum}/></Modal>} */}
 
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum}/></Modal>}
+    {proInfoModal && <Modal onClose={toggleProInfoModal}><ProInfoModal toggleDonateModal={toggleDonateModal} toggleProInfoModal={toggleProInfoModal} /></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
     {commBarModal && <Modal onClose={toggleCommBarModal}><CommBarInfoModal /></Modal>}
@@ -123,8 +126,6 @@ export const Game = (props) => {
 
     <InfoButton />
 
-    {/* TODO Johannes: die +1 und xY modifier nach donos sollen getrennt sein (und verrechnet werden)
-    Ping mich bitte an wenn du das liest dann kann ich dir genauer erklären was ich meine*/}
     <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received}/>
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
@@ -161,11 +162,19 @@ export const Game = (props) => {
         <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
       </div>}
 
-      <Progress received={props.received} donoGoals={donoGoals}/>
+      <Progress received={props.received} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal}/>
       {props.donationSum >= 100 && <Toiletpaper />}
     </div>
 
-    <div className='m-8'>
+    <div className='mb-4 flex items-center justify-center'>
+      <p className='text-sm text-gray-600 cursor-pointer' onClick={() => {toggleProInfoModal();}}>Mehr Infos zum Spendenprojekt...</p>
+      {/* <a className='text-sm text-gray-600' target='_blank' href='https://www.betterplace.org/de/projects/77983-fureinander-nothilfe-in-der-corona-krise'>Mehr Infos zum Spendenprojekt</a> */}
+      {/* <a className='text-sm text-gray-600' target='_blank' href='https://www.betterplace.org/de/projects/77983-fureinander-nothilfe-in-der-corona-krise'>
+        <img src={drk} alt="drk_corona" className='w-full max-w-lg mx-auto mb-8 mt-2' />
+      </a> */}
+    </div>
+
+    <div className='m-4'>
     <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal}/>
     </div>
 
