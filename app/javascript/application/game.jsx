@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Cookies from 'universal-cookie'
-import {useToggle} from 'react-use'
-import {Modal} from './modal'
-import {DonateModal} from './donate_modal'
-import {Header} from './header'
-import {Imprint} from './imprint'
-import {Privacy} from './privacy'
-import {Virus} from './virus'
-import {CommunityBar} from './communitybar'
-import {Progress} from './progress'
-import {CommBarInfoModal} from './commbar_modal'
-import {Goodie} from './goodie_modal'
-import {DonoMessagesModal} from './donoMessagesModal'
-import {ProInfoModal} from './proInfoModal'
+import { useToggle } from 'react-use'
+import { Modal } from './modal'
+import { DonateModal } from './donate_modal'
+import { Header } from './header'
+import { Imprint } from './imprint'
+import { Privacy } from './privacy'
+import { Virus } from './virus'
+import { CommunityBar } from './communitybar'
+import { Progress } from './progress'
+import { CommBarInfoModal } from './commbar_modal'
+import { Goodie } from './goodie_modal'
+import { DonoMessagesModal } from './donoMessagesModal'
+import { ProInfoModal } from './proInfoModal'
 
 const cookies = new Cookies()
 
@@ -22,16 +22,15 @@ import plop1file from './mp3s/plop1.mp3'
 
 import virusSmall from './svgs/virus_filled_yellow.svg'
 import toiletpaper from './svgs/toiletpaper.png'
-import {TwitterButton} from './twitter_button'
-import {InstagramButton} from './instagram_button'
-import {FacebookButton} from './facebook_button'
-import {InfoButton} from './info_button'
-import {checkPropTypes} from 'prop-types'
+import { TwitterButton } from './twitter_button'
+import { InstagramButton } from './instagram_button'
+import { FacebookButton } from './facebook_button'
+import { InfoButton } from './info_button'
+import { checkPropTypes } from 'prop-types'
 
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
 const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
-var isBigDono = false
 var amount = 0
 
 // localstorage
@@ -57,10 +56,10 @@ export const Game = (props) => {
     achievements += (cookies.get('goodie3') ? 3 : 0)
     achievements += (cookies.get('goodie4') ? 4 : 0)
     achievements += (cookies.get('goodie5') ? 5 : 0)
-    if(props.donationSum > 0){
+    if (props.donationSum > 0) {
       achievements += +parseInt(props.communityDecrementer)
     }
-    return parseInt(props.gameLowDecrementer, 10)+achievements
+    return parseInt(props.gameLowDecrementer, 10) + achievements
   }
 
   const getHighDec = () => {
@@ -70,7 +69,7 @@ export const Game = (props) => {
   }
 
   const getDecrementer = () => {
-    return (getLowDec()+getHighDec())
+    return (getLowDec() + getHighDec())
   }
 
   const decrementCounter = (event) => {
@@ -82,51 +81,41 @@ export const Game = (props) => {
 
   useEffect(() => {
     var donoUrl = window.location.href
-    if (/donation_\d+/.test(donoUrl)){
-      amount = parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_')+'?message=donation_'.length))
+    if (/donation_\d+/.test(donoUrl)) {
+      amount = parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_') + '?message=donation_'.length))
       setPostdonation(true)
-      // if (amount < 100){
-      //   setPostdonation(true)
-      //   isBigDono = false
-      // }
-      // if (props.donationSum >= 100 || amount >= 100){
-      //   console.log('bigger 100')
-      //   setPostdonation(true)
-      //   isBigDono = true
-      // }
     }
   }, [])
 
   useEffect(() => {
-    cookies.set('counter', counter, {path: '/', expires: (new Date(2099, 1, 1))})
+    cookies.set('counter', counter, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [counter])
 
   useEffect(() => {
-    cookies.set('healed', healed, {path: '/', expires: (new Date(2099, 1, 1))})
+    cookies.set('healed', healed, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [healed])
 
   const deactivateGoodie = (id) => {
-    cookies.set('goodie'+id, true, {path: '/', expires: (new Date(2099, 1, 1))})
+    cookies.set('goodie' + id, true, { path: '/', expires: (new Date(2099, 1, 1)) })
   }
 
-  const virusOnClick = isTouchDevice ? {onTouchEnd: decrementCounter} : {onClick: decrementCounter}
+  const virusOnClick = isTouchDevice ? { onTouchEnd: decrementCounter } : { onClick: decrementCounter }
 
   return <div className='mt-4'>
     <Header {...props} />
 
-    {postdonation && !isBigDono && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmount={amount}/></Modal>}
-    {/* {postdonation && isBigDono && <Modal onClose={() => {setPostdonation(false);}}><DonoMessagesModal donoAmount={props.donationSum}/></Modal>} */}
+    {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
 
-    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum}/></Modal>}
+    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum} /></Modal>}
     {proInfoModal && <Modal onClose={toggleProInfoModal}><ProInfoModal toggleDonateModal={toggleDonateModal} toggleProInfoModal={toggleProInfoModal} /></Modal>}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
     {commBarModal && <Modal onClose={toggleCommBarModal}><CommBarInfoModal /></Modal>}
-    {goodieModal && <Modal onClose={() => {toggleGoodieModal();}}><Goodie healed={cookies.get('healed')}/></Modal>}
+    {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={cookies.get('healed')} /></Modal>}
 
     <InfoButton />
 
-    <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received}/>
+    <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
 
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
 
@@ -146,50 +135,46 @@ export const Game = (props) => {
         <br />
         <br />
         In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel
-        <button className='btn mt-2' onClick={() => {setCounter(props.infected); setHealed(0)}}>RESTART!</button>
+        <button className='btn mt-2' onClick={() => { setCounter(props.infected); setHealed(0) }}>RESTART!</button>
       </div>
     }
 
     <div className='mb-4 text-center'>
-      {healed >= 19 && !cookies.get('goodie1') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('1');}}>CLICK ME!</button>}
-      {healed >= 1000 && !cookies.get('goodie2') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('2');}}>CLICK ME!</button>}
-      {healed >= 5000 && !cookies.get('goodie3') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('3');}}>CLICK ME!</button>}
-      {healed >= 10000 && !cookies.get('goodie4') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('4');}}>CLICK ME!</button>}
-      {healed >= 50000 && !cookies.get('goodie5') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('5');}}>CLICK ME!</button>}
-      {healed >= 100000 && !cookies.get('goodie6') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => {toggleGoodieModal(); deactivateGoodie('6');}}>CLICK ME!</button>}
+      {healed >= 19 && !cookies.get('goodie1') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('1'); }}>CLICK ME!</button>}
+      {healed >= 1000 && !cookies.get('goodie2') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('2'); }}>CLICK ME!</button>}
+      {healed >= 5000 && !cookies.get('goodie3') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('3'); }}>CLICK ME!</button>}
+      {healed >= 10000 && !cookies.get('goodie4') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('4'); }}>CLICK ME!</button>}
+      {healed >= 50000 && !cookies.get('goodie5') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('5'); }}>CLICK ME!</button>}
+      {healed >= 100000 && !cookies.get('goodie6') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('6'); }}>CLICK ME!</button>}
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
       {props.donationSum !== '0' && <div className='mt-4 text-teal-600 antialiased'>
         <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
       </div>}
 
-      <Progress received={props.received} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal}/>
+      <Progress received={props.received} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal} />
       {props.donationSum >= 100 && <Toiletpaper />}
     </div>
 
     <div className='mb-4 flex items-center justify-center'>
-      <p className='text-sm text-gray-600 cursor-pointer' onClick={() => {toggleProInfoModal();}}>Mehr Infos zum Spendenprojekt...</p>
-      {/* <a className='text-sm text-gray-600' target='_blank' href='https://www.betterplace.org/de/projects/77983-fureinander-nothilfe-in-der-corona-krise'>Mehr Infos zum Spendenprojekt</a> */}
-      {/* <a className='text-sm text-gray-600' target='_blank' href='https://www.betterplace.org/de/projects/77983-fureinander-nothilfe-in-der-corona-krise'>
-        <img src={drk} alt="drk_corona" className='w-full max-w-lg mx-auto mb-8 mt-2' />
-      </a> */}
+      <p className='text-sm text-gray-600 cursor-pointer' onClick={() => { toggleProInfoModal(); }}>Mehr Infos zum Spendenprojekt...</p>
     </div>
 
     <div className='m-4'>
-    <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal}/>
+      <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal} />
     </div>
 
     <div className='mb-4 text-center'>
-      <TwitterButton className='cursor-pointer inline-block' healed={healed}/>
+      <TwitterButton className='cursor-pointer inline-block' healed={healed} />
       <InstagramButton className='cursor-pointer inline-block ml-2' />
-      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed}/>
+      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} />
     </div>
 
     <div className=" p-4">
-      <p className='flex items-center justify-center text-base' style={{color: '#236A60'}}><strong>Speicher deinen Fortschritt:</strong></p>
-      <p className='flex items-center justify-center text-xs' style={{color: '#236A60'}}>Kopiere dir deine Session, um sicher zu gehen, immer wieder von deinem Spielstand weiterspielen zu können! :) (Für den Fall, dass du regelmäßig Browsercookies oder Ähnliches löscht)</p>
-      <p className='flex items-center justify-center text-sm mt-2' style={{color: '#236A60'}}>Deine Session:</p>
-      {/donation_\d+/.test(window.location.href) && <p className='flex items-center justify-center text-sm' style={{color: '#236A60'}}>{window.location.href.substring(0,window.location.href.indexOf('?message=donation_'))}</p>
-       || <p className='flex items-center justify-center text-sm' style={{color: '#236A60'}}>{window.location.href}</p>}
+      <p className='flex items-center justify-center text-base' style={{ color: '#236A60' }}><strong>Speicher deinen Fortschritt:</strong></p>
+      <p className='flex items-center justify-center text-xs' style={{ color: '#236A60' }}>Kopiere dir deine Session, um sicher zu gehen, immer wieder von deinem Spielstand weiterspielen zu können! :) (Für den Fall, dass du regelmäßig Browsercookies oder Ähnliches löscht)</p>
+      <p className='flex items-center justify-center text-sm mt-2' style={{ color: '#236A60' }}>Deine Session:</p>
+      {/donation_\d+/.test(window.location.href) && <p className='flex items-center justify-center text-sm' style={{ color: '#236A60' }}>{window.location.href.substring(0, window.location.href.indexOf('?message=donation_'))}</p>
+        || <p className='flex items-center justify-center text-sm' style={{ color: '#236A60' }}>{window.location.href}</p>}
     </div>
 
     <div className='text-center mt-6 mb-10 text-gray-500 cursor-default'>
@@ -228,7 +213,7 @@ const ClickArea = (props) => {
 }
 
 // One click, with updated coords, animate shortly, then hide it again.
-const Click = ({coords, onClick, decrementer}) => {
+const Click = ({ coords, onClick, decrementer }) => {
   if (!coords) return null
 
   const [animation, setAnimation] = useState(true)
@@ -239,15 +224,15 @@ const Click = ({coords, onClick, decrementer}) => {
   }, [coords])
 
   return <div onClick={onClick}>
-    <img draggable='false' onClick={onClick} src={virusSmall} className={`h-8 select-none cursor-pointer absolute ${animation ? 'spaceOutUp' : 'hidden'}`} style={{top: coords[1], left: coords[0]}} onDragStart={e => e.preventDefault()} />
-    <div onClick={onClick} className={`absolute cursor-pointer text-yellow-400 font-semibold text-4xl select-none ${animation ? 'spaceOutRight' : 'hidden'}`} style={{top: coords[1], left: coords[0]}}>-{decrementer}</div>
+    <img draggable='false' onClick={onClick} src={virusSmall} className={`h-8 select-none cursor-pointer absolute ${animation ? 'spaceOutUp' : 'hidden'}`} style={{ top: coords[1], left: coords[0] }} onDragStart={e => e.preventDefault()} />
+    <div onClick={onClick} className={`absolute cursor-pointer text-yellow-400 font-semibold text-4xl select-none ${animation ? 'spaceOutRight' : 'hidden'}`} style={{ top: coords[1], left: coords[0] }}>-{decrementer}</div>
   </div>
 }
 
 const Toiletpaper = () => {
   return <div className='mb-8'>
     <img src={toiletpaper} />
-    <div className='-mt-8' style={{color: '#cbae65', textShadow: '0 0 4px #cbae65'}}>
+    <div className='-mt-8' style={{ color: '#cbae65', textShadow: '0 0 4px #cbae65' }}>
       Geil! Danke für die großzügige Spende. Es gibt Menschen, die die Situation mit Hamsterklopapier Käufen verschlimmert haben, du hast aber die Situation besser gemacht. Deshalb kriegst du.... ja genau GOLDENES Klopapier.....
     </div>
   </div>

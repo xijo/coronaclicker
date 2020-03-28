@@ -21,8 +21,6 @@ export const Home = (props) => {
         <br/>
         Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost, um den Virus schneller zu bekämpfen. Alle Spenden kommen dem Deutschen Roten Kreuz für den Kampf gegen das Coronavirus zugute.
         <br/>
-        (Für mehr Infos klicke auf den Button unten rechts.)
-        <br/>
         <br/>
         Dieses Projekt befindet sich weiterhin in Entwicklung und wird in den nächsten Tagen noch einige Verbesserung erhalten! #staytuned
         <br/>
