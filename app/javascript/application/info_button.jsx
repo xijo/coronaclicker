@@ -2,7 +2,7 @@ import React from 'react'
 import {Modal} from './modal'
 import {useToggle} from 'react-use'
 
-import infoButton from './svgs/info.svg'
+import infoButton from './svgs/info_new.svg'
 
 export const InfoButton = () => {
   const [modal, toggle] = useToggle(false)

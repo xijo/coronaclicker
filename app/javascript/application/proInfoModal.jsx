@@ -7,6 +7,7 @@ export const ProInfoModal = ({ toggleDonateModal, toggleProInfoModal }) => {
   return <div className='text-center text-teal-600 m-4'>
     <strong className="text-xl">Über das Projekt</strong>
     <br />
+    <br/>
     <div className="text-base mt-2">
       Durch die Spenden für den Corona-Nothilfefonds sollen Ehrenamtliche und wichtige Hilfsaktionen unterstützt werden. Zahlreiche Freiwillige sind zum Beispiel engagiert, um älteren und bedürftigen Menschen zu helfen, Lebensmittel-Bringdienste zu organisieren, Pflegepersonal und Bewohner in Seniorenheimen zu unterstützen und die psycho-soziale Betreuung zu übernehmen.
   <br />
