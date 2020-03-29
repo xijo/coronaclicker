@@ -13,6 +13,7 @@ import { Privacy } from './privacy'
 import { Virus } from './virus'
 import { Progress } from './progress'
 import { CommunityBar } from './communitybar'
+import { Achievements } from './achievements'
 import { TwitterButton } from './buttons/twitter_button'
 import { InfoButton } from './buttons/info_button'
 import { FacebookButton } from './buttons/facebook_button'
@@ -27,6 +28,7 @@ import { DonateModal } from './modals/donate_modal'
 import { CommBarInfoModal } from './modals/commbar_modal'
 import { DonoMessagesModal } from './modals/donoMessagesModal'
 import { ProInfoModal } from './modals/proInfoModal'
+import { AchievementsModal } from './modals/achievementsModal'
 
 // Resources
 import plop0file from './mp3s/plop0.mp3'
@@ -47,15 +49,30 @@ export const Game = (props) => {
   const [privacyModal, togglePrivacyModal] = useToggle(false)
   const [commBarModal, toggleCommBarModal] = useToggle(false)
   const [goodieModal, toggleGoodieModal] = useToggle(false)
+  const [achievementsModal, toggleAchievements] = useToggle(false)
 
-  const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
-  const [healed, setHealed] = useState(cookies.get('healed') || 0)
-
+  const [counter, setCounter] = useState(parseInt(cookies.get('counter')) || props.counter)
+  const [healed, setHealed] = useState(parseInt(cookies.get('healed')) || 0)
+  const [goodieID, setGoodieID] = useState(0)
+  
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
   // Hook to check for donation on site render
   useEffect(() => {
+    // Adds new infected to counter
+    if(!cookies.get('maximum')){
+      cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
+    }else{
+      if(props.counter > parseInt(cookies.get('maximum'))){
+        var newDiff = props.counter - parseInt(cookies.get('maximum'))
+        setCounter(counter + newDiff)
+        cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
+        alert("Oh nein! Corona verbreitet sich immer noch. Es haben sich "+newDiff+" weitere Menschen infiziert!")
+      }else if(props.counter < parseInt(cookies.get('maximum'))){
+        cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
+      }
+    }
     var donoUrl = window.location.href
     if (/donation_\d+/.test(donoUrl)) {
       amount = parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_') + '?message=donation_'.length))
@@ -157,8 +174,9 @@ export const Game = (props) => {
     {commBarModal && <Modal onClose={toggleCommBarModal}><CommBarInfoModal /></Modal>}
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum} /></Modal>}
     {proInfoModal && <Modal onClose={toggleProInfoModal}><ProInfoModal toggleDonateModal={toggleDonateModal} toggleProInfoModal={toggleProInfoModal} /></Modal>}
-    {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={cookies.get('healed')} /></Modal>}
+    {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={healed} goodieID={goodieID}/></Modal>}
     {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
+    {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
 
     {/* Virus */}
     <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
@@ -217,19 +235,17 @@ export const Game = (props) => {
     </div>
 
     {/* Community bar */}
-    <div className='m-4'>
+    <div className='mt-4'>
       <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal} />
     </div>
 
-    {/* Socialmedia */}
-    <div className='mb-4 text-center'>
-      <TwitterButton className='cursor-pointer inline-block' healed={healed} />
-      <InstagramButton className='cursor-pointer inline-block ml-2' />
-      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} />
+    {/* Achievements bar */}
+    <div className='mt-4'>
+      <Achievements healed={healed} toggleAchievements={toggleAchievements}/>
     </div>
 
     {/* Session saving */}
-    <div className=" p-4">
+    <div className="pl-4 pr-4 mb-10">
       <p className='flex items-center justify-center text-base' style={{ color: '#236A60' }}><strong>Speicher deinen Fortschritt:</strong></p>
       <p className='flex items-center justify-center text-xs' style={{ color: '#236A60' }}>Kopiere dir deine Session, um sicher zu gehen, immer wieder von deinem Spielstand weiterspielen zu können! :) (Für den Fall, dass du regelmäßig Browsercookies oder Ähnliches löscht)</p>
       <p className='flex items-center justify-center text-sm mt-2' style={{ color: '#236A60' }}>Deine Session:</p>
@@ -237,11 +253,18 @@ export const Game = (props) => {
         || <p className='flex items-center justify-center text-sm' style={{ color: '#236A60' }}>{window.location.href}</p>}
     </div>
 
+    {/* Socialmedia */}
+    <div className='text-center'>
+      <TwitterButton className='cursor-pointer inline-block' healed={healed} />
+      <InstagramButton className='cursor-pointer inline-block ml-2' />
+      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} />
+    </div>
+
     {/* Infobutton */}
     <InfoButton />
 
     {/* End of site */}
-    <div className='text-center mt-6 mb-10 text-gray-500 cursor-default'>
+    <div className='text-center mb-10 text-gray-500 cursor-default'>
       <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
       <div>#WirVsVirus #care2win</div>
     </div>

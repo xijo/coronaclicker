@@ -8,7 +8,7 @@ export const InfoButton = () => {
   const [modal, toggle] = useToggle(false)
 
   return <div >
-    <img src={infoButton} onClick={toggle} className='cursor-pointer fixed' style={{right: 10, bottom: 10}}/>
+    <img src={infoButton} onClick={toggle} className='cursor-pointer fixed h-8' style={{right: 10, bottom: 10}}/>
     {modal && <Modal onClose={toggle}>
       <div className='p-4'>
         <strong>Wie funktioniert Corona Clicker?</strong>

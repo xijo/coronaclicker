@@ -3,10 +3,10 @@ import React from 'react'
 export const CommBarInfoModal = ({}) => {
   return <div className='m-2'>
     <div className='text-center text-teal-600 font-light text-sm p-4'>
-        <strong>Communitybalken</strong>
+        <strong>Community Belohnungen</strong>
         <br/>
         <br/>
-        Spende und profitiere von Community-Achievements! Ab bestimmten Gesamtspendenzielen werdet Ihr mit unterschiedlichen Boni belohnt. Je mehr Geld insgesamt gesammelt wurde, desto stärker werden die Belohnungen für Euch logischerweise ausfallen. Jede Spende hilft! 
+        Spende und profitiere von Community-Belohnungen! Ab bestimmten Gesamtspendenzielen werdet Ihr mit unterschiedlichen Boni belohnt. Je mehr Geld insgesamt gesammelt wurde, desto stärker werden die Belohnungen für Euch logischerweise ausfallen. Jede Spende hilft! 
         <br/>
         #füreinander
         <br/>
