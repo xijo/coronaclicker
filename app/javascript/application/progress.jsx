@@ -1,7 +1,5 @@
 import React from 'react'
 
-import drk from './svgs/new_drk.jpg'
-
 export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
 
   {/* TODO: Ist dreckig ich weiß, wird noch schöner gemacht :) */ }

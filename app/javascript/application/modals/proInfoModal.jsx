@@ -1,6 +1,6 @@
 import React from 'react'
 
-import drk from './svgs/new_drk.jpg'
+import drk from '../images/drk_banner.jpg'
 
 export const ProInfoModal = ({ toggleDonateModal, toggleProInfoModal }) => {
 

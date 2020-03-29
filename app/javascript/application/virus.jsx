@@ -1,25 +1,23 @@
 import React from 'react'
 
-import padlock from './svgs/Lock.svg'
+import padlock from './images/Lock.svg'
 
-import virus1 from './svgs/virus_versions/g1.svg'
-import virus2 from './svgs/virus_versions/g2.svg'
-import virus3 from './svgs/virus_versions/g3.svg'
-import virus4 from './svgs/virus_versions/g4.svg'
-import virus5 from './svgs/virus_versions/g5.svg'
+import virus1 from './images/virus/g1.svg'
+import virus2 from './images/virus/g2.svg'
+import virus3 from './images/virus/g3.svg'
+import virus4 from './images/virus/g4.svg'
+import virus5 from './images/virus/g5.svg'
 
-import spot_1a from './svgs/spot_versions/g1a.svg'
-import spot_1b from './svgs/spot_versions/g1b.svg'
-import spot_2a from './svgs/spot_versions/g2a.svg'
-import spot_2b from './svgs/spot_versions/g2b.svg'
-import spot_3a from './svgs/spot_versions/g3a.svg'
-import spot_3b from './svgs/spot_versions/g3b.svg'
-import spot_4a from './svgs/spot_versions/g4a.svg'
-import spot_4b from './svgs/spot_versions/g4b.svg'
-import spot_5a from './svgs/spot_versions/g5a.svg'
-import spot_5b from './svgs/spot_versions/g5b.svg'
-
-import testing from './svgs/virus_versions/testing.jpg'
+import spot_1a from './images/virus/spots/g1a.svg'
+import spot_1b from './images/virus/spots/g1b.svg'
+import spot_2a from './images/virus/spots/g2a.svg'
+import spot_2b from './images/virus/spots/g2b.svg'
+import spot_3a from './images/virus/spots/g3a.svg'
+import spot_3b from './images/virus/spots/g3b.svg'
+import spot_4a from './images/virus/spots/g4a.svg'
+import spot_4b from './images/virus/spots/g4b.svg'
+import spot_5a from './images/virus/spots/g5a.svg'
+import spot_5b from './images/virus/spots/g5b.svg'
 
 export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, received}) => {
   var virus = virus1
@@ -77,10 +75,6 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
     var spot_1 = spot_5a
     var spot_2 = spot_5b
   }
-
-  var sectionStyle = {
-    backgroundImage: `url(${spot_1a})`
-  };
 
   return <div>
     <div className='relative mx-auto select-none' style={{width: 240}}>

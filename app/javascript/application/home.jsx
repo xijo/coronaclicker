@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {useToggle} from 'react-use'
-import {Modal} from './modal'
+import {Modal} from './modals/modal'
 import {Header} from './header'
 import {Imprint} from './imprint'
 
-import drk from './svgs/drk.svg'
-import betterplace from './svgs/betterplace.svg'
-import wirvsvirus from './svgs/wirvsvirus.svg'
+import betterplace from './images/logos/betterplace.svg'
+import wirvsvirus from './images/logos/wirvsvirus.svg'
 
 
 export const Home = (props) => {
@@ -36,7 +35,6 @@ export const Home = (props) => {
         <div className='flex justify-between items-center mt-6 mb-2'>
           <img src={wirvsvirus} className='h-12' />
           <img src={betterplace} className='h-6' />
-          {/* <img src={drk} className='h-10' /> */}
         </div>
 
       </div>

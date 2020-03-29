@@ -1,7 +1,7 @@
 import React from 'react'
 
-import unlocked from './svgs/commBar-unlocked1.svg'
-import locked from './svgs/commBar-locked1.svg'
+import unlocked from './images/community_bar/commBar-unlocked1.svg'
+import locked from './images/community_bar/commBar-locked1.svg'
 
 export const CommunityBar = ({donoGoals, received, selfDonated, toggleInfoCommBar}) => {
     const percent = Math.floor((received / donoGoals[donoGoals.length-1]) * 100)

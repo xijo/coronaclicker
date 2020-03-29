@@ -1,11 +1,11 @@
 import React from 'react'
 
-import hands from './svgs/hands.png'
-import suit from './svgs/suit.png'
-import desinfect from './svgs/desinfect.png'
-import mask from './svgs/mask.png'
-import distancing from './svgs/social_distancing.png'
-import toiletpaper from './svgs/toiletpaper.png'
+import hands from '../images/boosts/hands.png'
+import suit from '../images/boosts/suit.png'
+import desinfect from '../images/boosts/desinfect.png'
+import mask from '../images/boosts/mask.png'
+import distancing from '../images/boosts/social_distancing.png'
+import toiletpaper from '../images/toiletpaper.png'
 
 export const DonoMessagesModal = ({donoAmount}) => {
   var picToTake = hands
@@ -15,7 +15,7 @@ export const DonoMessagesModal = ({donoAmount}) => {
     textToTake = "Händewaschen schützt vor Viren, aber nur, wenn du auch 30 Sekunden durchhältst. Vor Allem wichtig vor dem Nudeln kochen!"
   }else if(parseInt(donoAmount) < 5){
     picToTake = desinfect
-    textToTake = "Nicht jedes Mittel hilft, aber Dieses lässt jeden Virus alt aussehen.. Aber nicht nur auf den Handflächen verteilen! Zum deinem Schutz und dem Anderer!"
+    textToTake = "Nicht jedes Mittel hilft, aber Dieses lässt jeden Virus alt aussehen. Aber nicht nur auf den Handflächen verteilen! Zum deinem Schutz und dem Anderer!"
   }else if(parseInt(donoAmount) < 10){
     picToTake = mask
     textToTake = "Das Mode-Accessoire schlechthin in diesem Jahr! Hilft nicht nur deinem Aussehen sondern auch der Bekämpfung des Virus!"
@@ -27,7 +27,7 @@ export const DonoMessagesModal = ({donoAmount}) => {
     textToTake = "Macht dich nicht nur nahezu Immun gegen den Virus, sondern hilft auch, falls das Klopapier mal alle ist!"
   }else {
     picToTake = toiletpaper
-    textToTake = "Das goldene Klopapier. Viele hielten es für einen Mythos. Andere deklarierten es als Fake News. Doch was die Wenigsten wissen, die Geschichte des goldenen Klopapier wird schon seit Generationen den Höchstspendern einer Familie weiterzählt. Nun bist auch du soweit! Wir verleihen dir hiermit die Macht über dieses Relikt,...wir haben gehört, in Zeiten wie diesen kann man es immer gut gebrauchen."
+    textToTake = "Das goldene Klopapier. Viele hielten es für einen Mythos. Andere deklarierten es als Fake News. Doch was die Wenigsten wissen, die Geschichte des goldenen Klopapier wird schon seit Generationen den Höchstspendern einer Familie weiterzählt. Nun bist auch du soweit! Wir verleihen dir hiermit die Macht über dieses Relikt,..wir haben gehört, in Zeiten wie diesen kann man es immer gut gebrauchen."
   }
 
   return <div className='m-2'>

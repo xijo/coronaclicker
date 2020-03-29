@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
 import {useInterval} from 'react-use'
 
-import drk from './svgs/drk.svg'
-import logo from './svgs/logo_new.png'
-import wirvsvirus from './svgs/wirvsvirus.svg'
-import betterplace from './svgs/betterplace.svg'
+import logo from './images/logos/logo.png'
+import wirvsvirus from './images/logos/wirvsvirus.svg'
+import betterplace from './images/logos/betterplace.svg'
 
 export const Header = ({infected}) => {
 

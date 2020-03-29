@@ -1,11 +1,11 @@
 import React from 'react'
 
-import haus from './svgs/goodies/Haus.png'
-import nudeln from './svgs/goodies/Nudeln.png'
-import spuckschutz from './svgs/goodies/Spuckschutz.png'
-import video from './svgs/goodies/Videokonferenz.png'
-import spritze from './svgs/goodies/Spritze.png'
-import handy from './svgs/goodies/Handy.png'
+import haus from '../images/goodies/Haus.png'
+import nudeln from '../images/goodies/Nudeln.png'
+import spuckschutz from '../images/goodies/Spuckschutz.png'
+import video from '../images/goodies/Videokonferenz.png'
+import spritze from '../images/goodies/Spritze.png'
+import handy from '../images/goodies/Handy.png'
 
 export const Goodie = ({healed}) => {
   var picToTake = haus

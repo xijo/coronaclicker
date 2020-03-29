@@ -1,43 +1,46 @@
+/* ========== IMPORT ========== */
+// React imports
 import React, { useState, useEffect } from 'react'
-import Cookies from 'universal-cookie'
 import { useToggle } from 'react-use'
-import { Modal } from './modal'
-import { DonateModal } from './donate_modal'
+import Cookies from 'universal-cookie'
+import { checkPropTypes } from 'prop-types'
+import UIfx from 'uifx'
+
+// Class imports
 import { Header } from './header'
 import { Imprint } from './imprint'
 import { Privacy } from './privacy'
 import { Virus } from './virus'
-import { CommunityBar } from './communitybar'
 import { Progress } from './progress'
-import { CommBarInfoModal } from './commbar_modal'
-import { Goodie } from './goodie_modal'
-import { DonoMessagesModal } from './donoMessagesModal'
-import { ProInfoModal } from './proInfoModal'
+import { CommunityBar } from './communitybar'
+import { TwitterButton } from './buttons/twitter_button'
+import { InfoButton } from './buttons/info_button'
+import { FacebookButton } from './buttons/facebook_button'
+import { InstagramButton } from './buttons/instagram_button'
+import { ClickArea } from './click_area'
+import { GoodieButton } from './buttons/goodie_button';
 
-const cookies = new Cookies()
+// Modal imports
+import { Modal } from './modals/modal'
+import { Goodie } from './modals/goodie_modal'
+import { DonateModal } from './modals/donate_modal'
+import { CommBarInfoModal } from './modals/commbar_modal'
+import { DonoMessagesModal } from './modals/donoMessagesModal'
+import { ProInfoModal } from './modals/proInfoModal'
 
-import UIfx from 'uifx'
+// Resources
 import plop0file from './mp3s/plop0.mp3'
 import plop1file from './mp3s/plop1.mp3'
+import toiletpaper from './images/toiletpaper.png'
 
-import virusSmall from './svgs/virus_filled_yellow.svg'
-import toiletpaper from './svgs/toiletpaper.png'
-import { TwitterButton } from './twitter_button'
-import { InstagramButton } from './instagram_button'
-import { FacebookButton } from './facebook_button'
-import { InfoButton } from './info_button'
-import { checkPropTypes } from 'prop-types'
+// Var init
+const cookies = new Cookies()
 
-const plop0 = new UIfx(plop0file)
-const plop1 = new UIfx(plop1file)
-const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
-var amount = 0
 
-// localstorage
-
+/* ========== MAIN ========== */
 export const Game = (props) => {
-  const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
-  const [healed, setHealed] = useState(cookies.get('healed') || 0)
+  /* ========== INITIALISATION ========== */
+  //Hooks
   const [donateModal, toggleDonateModal] = useToggle(false)
   const [proInfoModal, toggleProInfoModal] = useToggle(false)
   const [imprintModal, toggleImprintModal] = useToggle(false)
@@ -45,40 +48,13 @@ export const Game = (props) => {
   const [commBarModal, toggleCommBarModal] = useToggle(false)
   const [goodieModal, toggleGoodieModal] = useToggle(false)
 
+  const [counter, setCounter] = useState(cookies.get('counter') || props.counter)
+  const [healed, setHealed] = useState(cookies.get('healed') || 0)
+
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
-  const isTouchDevice = checkPropTypes()
-
-  const getLowDec = () => {
-    var achievements = (cookies.get('goodie1') ? 1 : 0)
-    achievements += (cookies.get('goodie2') ? 2 : 0)
-    achievements += (cookies.get('goodie3') ? 3 : 0)
-    achievements += (cookies.get('goodie4') ? 4 : 0)
-    achievements += (cookies.get('goodie5') ? 5 : 0)
-    if (props.donationSum > 0) {
-      achievements += +parseInt(props.communityDecrementer)
-    }
-    return parseInt(props.gameLowDecrementer, 10) + achievements
-  }
-
-  const getHighDec = () => {
-    var achievements = 1
-    achievements = achievements * (cookies.get('goodie6') ? 2 : 1)
-    return parseInt(props.gameHighDecrementer, 10) * achievements
-  }
-
-  const getDecrementer = () => {
-    return (getLowDec() + getHighDec())
-  }
-
-  const decrementCounter = (event) => {
-    setLastClick([event.clientX, event.clientY])
-    Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
-    setCounter(counter - getDecrementer())
-    setHealed(parseInt(cookies.get('healed')) + getDecrementer())
-  }
-
+  // Hook to check for donation on site render
   useEffect(() => {
     var donoUrl = window.location.href
     if (/donation_\d+/.test(donoUrl)) {
@@ -86,39 +62,109 @@ export const Game = (props) => {
       setPostdonation(true)
     }
   }, [])
-
+  // Update counter cookie
   useEffect(() => {
     cookies.set('counter', counter, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [counter])
-
+  // Update healed cookie
   useEffect(() => {
     cookies.set('healed', healed, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [healed])
 
-  const deactivateGoodie = (id) => {
-    cookies.set('goodie' + id, true, { path: '/', expires: (new Date(2099, 1, 1)) })
+  // Variables
+  const plop0 = new UIfx(plop0file)
+  const plop1 = new UIfx(plop1file)
+  const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
+  const goodieClickRequirements = [19, 1000, 5000, 10000, 50000, 100000]
+  const goodieAddifierRewards = {
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+  }
+  const goodieMultiplierRewards = {
+    '6': 2
+  }
+  var amount = 0
+
+
+  /* ========== METHODS ========== */
+  /*
+  * Calculate the "addifier"
+  */
+  const getLowDec = () => {
+    // Init with 0 and check for reached goodies
+    var achievements = 0
+    for (let i = 0; i < Object.keys(goodieAddifierRewards).length; i++) {
+      achievements += cookies.get('goodie' + Object.keys(goodieAddifierRewards)[i]) ? Object.values(goodieAddifierRewards)[i] : 0
+    }
+    // If player already donated add community decrementer
+    if (props.donationSum > 0) {
+      achievements += parseInt(props.communityDecrementer)
+    }
+    // Return sum of all
+    return parseInt(props.gameLowDecrementer, 10) + achievements
   }
 
+  /*
+  * Calculate the "multiplier"
+  */
+  const getHighDec = () => {
+    // Init with 1 and check for reached goodies
+    var achievements = 1
+    for (let i = 0; i < Object.keys(goodieMultiplierRewards).length; i++) {
+      achievements *= cookies.get('goodie' + Object.keys(goodieMultiplierRewards)[i]) ? Object.values(goodieMultiplierRewards)[i] : 1
+    }
+    // Return product of all
+    return parseInt(props.gameHighDecrementer, 10) * achievements
+  }
+
+  /**
+   * Calculate the total decrementer
+   */
+  const getDecrementer = () => {
+    return (getLowDec() + getHighDec())
+  }
+
+  /**
+   * Click event handler
+   */
+  const decrementCounter = (event) => {
+    // Save last click location
+    setLastClick([event.clientX, event.clientY])
+    // Randomly choose a sound
+    Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
+    // Update counter
+    setCounter(counter - getDecrementer())
+    // Update healed
+    setHealed(parseInt(cookies.get('healed')) + getDecrementer())
+  }
+
+
+  // Post Variable init
+  const isTouchDevice = checkPropTypes()
   const virusOnClick = isTouchDevice ? { onTouchEnd: decrementCounter } : { onClick: decrementCounter }
 
+
+  /* ========== RETURN ========== */
   return <div className='mt-4'>
     <Header {...props} />
 
-    {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
-
-    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum} /></Modal>}
-    {proInfoModal && <Modal onClose={toggleProInfoModal}><ProInfoModal toggleDonateModal={toggleDonateModal} toggleProInfoModal={toggleProInfoModal} /></Modal>}
+    {/* Modals */}
     {imprintModal && <Modal onClose={toggleImprintModal}><Imprint /></Modal>}
     {privacyModal && <Modal onClose={togglePrivacyModal}><Privacy /></Modal>}
     {commBarModal && <Modal onClose={toggleCommBarModal}><CommBarInfoModal /></Modal>}
+    {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum} /></Modal>}
+    {proInfoModal && <Modal onClose={toggleProInfoModal}><ProInfoModal toggleDonateModal={toggleDonateModal} toggleProInfoModal={toggleProInfoModal} /></Modal>}
     {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={cookies.get('healed')} /></Modal>}
+    {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
 
-    <InfoButton />
-
+    {/* Virus */}
     <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
-
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
 
+    {/* Counter and healed */}
     {counter > 0 &&
       <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>
         {counter}
@@ -126,6 +172,7 @@ export const Game = (props) => {
       </div>
     }
 
+    {/* End Screen */}
     {counter <= 0 &&
       <div className='max-w-lg mx-auto mb-8 text-center'>
         <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
@@ -135,40 +182,53 @@ export const Game = (props) => {
         <br />
         <br />
         In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel
+
         <button className='btn mt-2' onClick={() => { setCounter(props.infected); setHealed(0) }}>RESTART!</button>
       </div>
     }
 
     <div className='mb-2 text-center'>
-      {healed >= 19 && !cookies.get('goodie1') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('1'); }}>CLICK ME!</button>}
-      {healed >= 1000 && !cookies.get('goodie2') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('2'); }}>CLICK ME!</button>}
-      {healed >= 5000 && !cookies.get('goodie3') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('3'); }}>CLICK ME!</button>}
-      {healed >= 10000 && !cookies.get('goodie4') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('4'); }}>CLICK ME!</button>}
-      {healed >= 50000 && !cookies.get('goodie5') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('5'); }}>CLICK ME!</button>}
-      {healed >= 100000 && !cookies.get('goodie6') && <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { toggleGoodieModal(); deactivateGoodie('6'); }}>CLICK ME!</button>}
+      {/* Goodies Button */}
+      <GoodieButton healed={healed} cookies={cookies} toggleGoodieModal={toggleGoodieModal} goodieClickRequirements={goodieClickRequirements} />
+      {/* BOOST */}
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
-      {props.donationSum !== '0' && <div className='mt-4 text-teal-600 antialiased'>
-        <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
-      </div>}
+      {/* Own donation amount */}
+      {props.donationSum !== '0' &&
+        <div className='mt-4 text-teal-600 antialiased'>
+          <span className='text-xl font-semibold mr-1'>{props.donationSum} €</span> an DRK gespendet
+        </div>}
 
+      {/* Progress */}
       <Progress received={props.received} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal} />
-      {props.donationSum >= 100 && <Toiletpaper />}
+
+      {/* Golden toiletpaper */}
+      {props.donationSum >= 100 &&
+        <div className='mb-8'>
+          <img src={toiletpaper} />
+          <div className='-mt-8' style={{ color: '#cbae65', textShadow: '0 0 4px #cbae65' }}>
+            Geil! Danke für die großzügige Spende. Es gibt Menschen, die die Situation mit Hamsterklopapier Käufen verschlimmert haben, du hast aber die Situation besser gemacht. Deshalb kriegst du.... ja genau GOLDENES Klopapier.....
+          </div>
+        </div>}
     </div>
 
+    {/* More information */}
     <div className='mb-6 flex items-center justify-center'>
       <p className='text-base text-gray-600 cursor-pointer font-semibold' onClick={() => { toggleProInfoModal(); }}>Mehr Infos zum Spendenprojekt..</p>
     </div>
 
+    {/* Community bar */}
     <div className='m-4'>
       <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal} />
     </div>
 
+    {/* Socialmedia */}
     <div className='mb-4 text-center'>
       <TwitterButton className='cursor-pointer inline-block' healed={healed} />
       <InstagramButton className='cursor-pointer inline-block ml-2' />
       <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} />
     </div>
 
+    {/* Session saving */}
     <div className=" p-4">
       <p className='flex items-center justify-center text-base' style={{ color: '#236A60' }}><strong>Speicher deinen Fortschritt:</strong></p>
       <p className='flex items-center justify-center text-xs' style={{ color: '#236A60' }}>Kopiere dir deine Session, um sicher zu gehen, immer wieder von deinem Spielstand weiterspielen zu können! :) (Für den Fall, dass du regelmäßig Browsercookies oder Ähnliches löscht)</p>
@@ -177,6 +237,10 @@ export const Game = (props) => {
         || <p className='flex items-center justify-center text-sm' style={{ color: '#236A60' }}>{window.location.href}</p>}
     </div>
 
+    {/* Infobutton */}
+    <InfoButton />
+
+    {/* End of site */}
     <div className='text-center mt-6 mb-10 text-gray-500 cursor-default'>
       <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span> | <span onClick={togglePrivacyModal} className='anchor text-lg'>Datenschutz</span>
       <div>#WirVsVirus #care2win</div>
@@ -184,75 +248,25 @@ export const Game = (props) => {
   </div>
 }
 
-// For every click, add coords of the click to the array of coords. Cycle through
-// 10 DOM nodes and move them around, so the memory footprint isn't insane.
-const ClickArea = (props) => {
-  const [index, setIndex] = useState(0)
-  const [coords, setCoords] = useState([])
 
-  useEffect(() => {
-    const newIndex = index === 9 ? 0 : index + 1
-    const newCoords = coords
-    newCoords.splice(newIndex, 1, props.coords)
-    setIndex(newIndex)
-    setCoords(newCoords)
-  }, [props.coords])
+// TODO: Dead Code????
+// =================================================
+// const checkTouchDevice = () => {
+//   try {
+//     let prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
 
-  return <>
-    <Click coords={coords[0]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[1]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[2]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[3]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[4]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[5]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[6]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[7]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[8]} onClick={props.onClick} decrementer={props.decrementer} />
-    <Click coords={coords[9]} onClick={props.onClick} decrementer={props.decrementer} />
-  </>
-}
+//     let mq = function (query) {
+//       return window.matchMedia(query).matches;
+//     };
 
-// One click, with updated coords, animate shortly, then hide it again.
-const Click = ({ coords, onClick, decrementer }) => {
-  if (!coords) return null
+//     if (('ontouchstart' in window) || (typeof window.DocumentTouch !== "undefined" && document instanceof window.DocumentTouch)) {
+//       return true;
+//     }
 
-  const [animation, setAnimation] = useState(true)
-
-  useEffect(() => {
-    setAnimation(true)
-    window.setTimeout(() => setAnimation(false), 2000)
-  }, [coords])
-
-  return <div onClick={onClick}>
-    <img draggable='false' onClick={onClick} src={virusSmall} className={`h-8 select-none cursor-pointer absolute ${animation ? 'spaceOutUp' : 'hidden'}`} style={{ top: coords[1], left: coords[0] }} onDragStart={e => e.preventDefault()} />
-    <div onClick={onClick} className={`absolute cursor-pointer text-yellow-400 font-semibold text-4xl select-none ${animation ? 'spaceOutRight' : 'hidden'}`} style={{ top: coords[1], left: coords[0] }}>-{decrementer}</div>
-  </div>
-}
-
-const Toiletpaper = () => {
-  return <div className='mb-8'>
-    <img src={toiletpaper} />
-    <div className='-mt-8' style={{ color: '#cbae65', textShadow: '0 0 4px #cbae65' }}>
-      Geil! Danke für die großzügige Spende. Es gibt Menschen, die die Situation mit Hamsterklopapier Käufen verschlimmert haben, du hast aber die Situation besser gemacht. Deshalb kriegst du.... ja genau GOLDENES Klopapier.....
-    </div>
-  </div>
-}
-
-const checkTouchDevice = () => {
-  try {
-    let prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
-
-    let mq = function (query) {
-      return window.matchMedia(query).matches;
-    };
-
-    if (('ontouchstart' in window) || (typeof window.DocumentTouch !== "undefined" && document instanceof window.DocumentTouch)) {
-      return true;
-    }
-
-    return mq(['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join(''));
-  } catch (e) {
-    console.error('(Touch detect failed)', e);
-    return false;
-  }
-}
+//     return mq(['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join(''));
+//   } catch (e) {
+//     console.error('(Touch detect failed)', e);
+//     return false;
+//   }
+// }
+// =================================================

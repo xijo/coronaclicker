@@ -1,12 +1,12 @@
 import React from 'react'
 
-import hands from './svgs/hands.png'
-import suit from './svgs/suit.png'
-import desinfect from './svgs/desinfect.png'
-import mask from './svgs/mask.png'
-import mystery from './svgs/mystery.png'
-import toiletpaper from './svgs/toiletpaper.png'
-import distancing from './svgs/social_distancing.png'
+import hands from '../images/boosts/hands.png'
+import suit from '../images/boosts/suit.png'
+import desinfect from '../images/boosts/desinfect.png'
+import mask from '../images/boosts/mask.png'
+import mystery from '../images/boosts/mystery.png'
+import toiletpaper from '../images/toiletpaper.png'
+import distancing from '../images/boosts/social_distancing.png'
 
 export const DonateModal = ({received}) => {
   return <div className='m-2'>
