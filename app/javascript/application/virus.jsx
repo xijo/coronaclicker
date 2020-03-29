@@ -80,16 +80,16 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
   }
 
   return <div>
-    <div onClick={spotsOnClick} className="relative cursor-pointer mx-auto" style={{width: 240}}>
-      <Spot img={spot_1} locked={multiplier <= 1} top={-60} right={-5} height={70} width={90}>
-        <h1 className='font-bold text-xl text-white'>{`x${multiplier}`}</h1>
-      </Spot>
+    <div className='select-none relative mx-auto' style={{width: 240}}>
+      <div onClick={spotsOnClick} className="cursor-pointer">
+        <Spot img={spot_1} locked={multiplier <= 1} top={-60} right={-5} height={70} width={90}>
+          <h1 className='font-bold text-xl text-white'>{`x${multiplier}`}</h1>
+        </Spot>
 
-      <Spot img={spot_2} locked={addifier <= 0} top={-115} right={-60} height={90} width={90}>
-        <h1 className='font-bold text-4xl text-white'>{`+${addifier}`}</h1>
-      </Spot>
-    </div>
-    <div className='relative select-none'>
+        <Spot img={spot_2} locked={addifier <= 0} top={-115} right={-60} height={90} width={90}>
+          <h1 className='font-bold text-4xl text-white'>{`+${addifier}`}</h1>
+        </Spot>
+      </div>
       <div className='mt-32 w-full breathing-virus cursor-pointer select-none bg-no-repeat bg-center' {...handleClickOrTouch} onDragStart={e => e.preventDefault()} style={{height: 240, backgroundImage: `url(${virus})`}}></div>
     </div>
   </div>
