@@ -24,6 +24,9 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
   var spot_1 = spot_1a
   var spot_2 = spot_1b
 
+  const isTouchDevice = checkTouchDevice()
+  const handleClickOrTouch = isTouchDevice ? {onTouchEnd: virusOnClick} : {onClick: virusOnClick}
+
   if (received < 150) {
     // noch nüschd
   }else if (received >= 150 && received < 300) {
@@ -77,16 +80,42 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
   }
 
   return <div>
-    <div className='relative mx-auto select-none' style={{width: 240}}>
-      <div onClick={spotsOnClick} className="cursor-pointer">
-        <img src={spot_1} style={{position: 'absolute', top: -60, right:-5}}/>
-        {multiplier > 1 && <h1 className='font-bold text-xl text-white' style={{position: 'absolute', top: -42, right:15}}>x{multiplier}</h1>
-        || <img src={padlock} style={{position: 'absolute', top: -40, right:25}}/>}
-        <img src={spot_2} style={{position: 'absolute', top: -115, right:-60}}/>
-        {addifier > 0 && <h1 className='font-bold text-4xl text-white' style={{position: 'absolute', top: -100, right:-50}}>-{addifier}</h1>
-        || <img className='transform scale-125' src={padlock} style={{position: 'absolute', top: -90, right:-25}}/>}
-      </div>
-      <div className=' mt-32 mx-auto breathing-virus cursor-pointer select-none' {...virusOnClick} onDragStart={e => e.preventDefault()} style={{height: 240, width: 240, backgroundImage: `url(${virus})`}}></div>
+    <div onClick={spotsOnClick} className="relative cursor-pointer mx-auto" style={{width: 240}}>
+      <Spot img={spot_1} locked={multiplier <= 1} top={-60} right={-5} height={70} width={90}>
+        <h1 className='font-bold text-xl text-white'>{`x${multiplier}`}</h1>
+      </Spot>
+
+      <Spot img={spot_2} locked={addifier <= 0} top={-115} right={-60} height={90} width={90}>
+        <h1 className='font-bold text-4xl text-white'>{`+${addifier}`}</h1>
+      </Spot>
+    </div>
+    <div className='relative select-none'>
+      <div className='mt-32 w-full breathing-virus cursor-pointer select-none bg-no-repeat bg-center' {...handleClickOrTouch} onDragStart={e => e.preventDefault()} style={{height: 240, backgroundImage: `url(${virus})`}}></div>
     </div>
   </div>
+}
+
+const Spot = (props) => {
+  return <div className='absolute flex items-center justify-center' style={{width: props.width, height: props.height, top: props.top, right: props.right, backgroundImage: `url(${props.img})`, backgroundRepeat: 'no-repeat'}}>
+    {props.locked ? <img src={padlock} /> : props.children}
+  </div>
+}
+
+const checkTouchDevice = () => {
+  try {
+    let prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+
+    let mq = function (query) {
+      return window.matchMedia(query).matches;
+    };
+
+    if (('ontouchstart' in window) || (typeof window.DocumentTouch !== "undefined" && document instanceof window.DocumentTouch)) {
+      return true;
+    }
+
+    return mq(['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join(''));
+  } catch (e) {
+    console.error('(Touch detect failed)', e);
+    return false;
+  }
 }

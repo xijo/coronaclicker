@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react'
 import { useToggle } from 'react-use'
 import Cookies from 'universal-cookie'
-import { checkPropTypes } from 'prop-types'
 import UIfx from 'uifx'
 
 // Class imports
@@ -38,6 +37,11 @@ import toiletpaper from './images/toiletpaper.png'
 // Var init
 const cookies = new Cookies()
 
+// Careful, don't move down into the component, otherwise it inserts a new
+// object into the DOM on every plop..
+const plop0 = new UIfx(plop0file)
+const plop1 = new UIfx(plop1file)
+
 
 /* ========== MAIN ========== */
 export const Game = (props) => {
@@ -54,7 +58,7 @@ export const Game = (props) => {
   const [counter, setCounter] = useState(parseInt(cookies.get('counter')) || props.counter)
   const [healed, setHealed] = useState(parseInt(cookies.get('healed')) || 0)
   const [goodieID, setGoodieID] = useState(0)
-  
+
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
@@ -79,18 +83,18 @@ export const Game = (props) => {
       setPostdonation(true)
     }
   }, [])
+
   // Update counter cookie
   useEffect(() => {
     cookies.set('counter', counter, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [counter])
+
   // Update healed cookie
   useEffect(() => {
     cookies.set('healed', healed, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [healed])
 
   // Variables
-  const plop0 = new UIfx(plop0file)
-  const plop1 = new UIfx(plop1file)
   const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
   const goodieClickRequirements = [19, 1000, 5000, 10000, 50000, 100000]
   const goodieAddifierRewards = {
@@ -158,12 +162,6 @@ export const Game = (props) => {
     setHealed(parseInt(cookies.get('healed')) + getDecrementer())
   }
 
-
-  // Post Variable init
-  const isTouchDevice = checkPropTypes()
-  const virusOnClick = isTouchDevice ? { onTouchEnd: decrementCounter } : { onClick: decrementCounter }
-
-
   /* ========== RETURN ========== */
   return <div className='mt-4'>
     <Header {...props} />
@@ -179,7 +177,7 @@ export const Game = (props) => {
     {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
 
     {/* Virus */}
-    <Virus virusOnClick={virusOnClick} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
+    <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
 
     {/* Counter and healed */}
@@ -236,7 +234,7 @@ export const Game = (props) => {
 
     {/* Community bar */}
     <div className='mt-4'>
-      <CommunityBar donoGoals={donoGoals} received={props.received} selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal} />
+      <CommunityBar selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal} />
     </div>
 
     {/* Achievements bar */}
@@ -270,26 +268,3 @@ export const Game = (props) => {
     </div>
   </div>
 }
-
-
-// TODO: Dead Code????
-// =================================================
-// const checkTouchDevice = () => {
-//   try {
-//     let prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
-
-//     let mq = function (query) {
-//       return window.matchMedia(query).matches;
-//     };
-
-//     if (('ontouchstart' in window) || (typeof window.DocumentTouch !== "undefined" && document instanceof window.DocumentTouch)) {
-//       return true;
-//     }
-
-//     return mq(['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join(''));
-//   } catch (e) {
-//     console.error('(Touch detect failed)', e);
-//     return false;
-//   }
-// }
-// =================================================
