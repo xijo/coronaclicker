@@ -87,7 +87,7 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
         </Spot>
 
         <Spot img={spot_2} locked={addifier <= 0} top={-115} right={-60} height={90} width={90}>
-          <h1 className='font-bold text-4xl text-white'>{`+${addifier}`}</h1>
+          <h1 className='font-bold text-4xl text-white'>{`-${addifier}`}</h1>
         </Spot>
       </div>
       <div className='mt-32 w-full breathing-virus cursor-pointer select-none bg-no-repeat bg-center tap-highlight-transparent'
