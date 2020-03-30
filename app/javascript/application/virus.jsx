@@ -90,7 +90,10 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
           <h1 className='font-bold text-4xl text-white'>{`+${addifier}`}</h1>
         </Spot>
       </div>
-      <div className='mt-32 w-full breathing-virus cursor-pointer select-none bg-no-repeat bg-center' {...handleClickOrTouch} onDragStart={e => e.preventDefault()} style={{height: 240, backgroundImage: `url(${virus})`}}></div>
+      <div className='mt-32 w-full breathing-virus cursor-pointer select-none bg-no-repeat bg-center tap-highlight-transparent'
+        {...handleClickOrTouch}
+        onDragStart={e => e.preventDefault()}
+        style={{height: 240, backgroundImage: `url(${virus})`}}></div>
     </div>
   </div>
 }
