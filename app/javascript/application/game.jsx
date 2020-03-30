@@ -65,18 +65,18 @@ export const Game = (props) => {
   // Hook to check for donation on site render
   useEffect(() => {
     // Adds new infected to counter
-    if(!cookies.get('maximum')){
-      cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
-    }else{
-      if(props.counter > parseInt(cookies.get('maximum'))){
-        var newDiff = props.counter - parseInt(cookies.get('maximum'))
-        setCounter(counter + newDiff)
-        cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
-        alert("Oh nein! Corona verbreitet sich immer noch. Es haben sich "+newDiff+" weitere Menschen infiziert!")
-      }else if(props.counter < parseInt(cookies.get('maximum'))){
-        cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
-      }
-    }
+    // if(!cookies.get('maximum')){
+    //   cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
+    // }else{
+    //   if(props.counter > parseInt(cookies.get('maximum'))){
+    //     var newDiff = props.counter - parseInt(cookies.get('maximum'))
+    //     setCounter(counter + newDiff)
+    //     cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
+    //     alert("Oh nein! Corona verbreitet sich immer noch. Es haben sich "+newDiff+" weitere Menschen infiziert!")
+    //   }else if(props.counter < parseInt(cookies.get('maximum'))){
+    //     cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
+    //   }
+    // }
     var donoUrl = window.location.href
     if (/donation_\d+/.test(donoUrl)) {
       amount = parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_') + '?message=donation_'.length))
