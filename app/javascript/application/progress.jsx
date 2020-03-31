@@ -36,7 +36,7 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
     else if (received >= 5000 && received < 7500) {
       return <div className='h-full bg-progbar-lvl-11' style={{ width: `${percent}%` }}></div>;
     }
-    else if (received >= 7500 && received < 10000) {
+    else if (received >= 7500) {
       return <div className='h-full bg-progbar-lvl-12' style={{ width: `${percent}%` }}></div>;
     }
     else {

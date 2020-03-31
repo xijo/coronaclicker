@@ -2,10 +2,21 @@ import React from 'react'
 import {useToggle} from 'react-use'
 
 import {Modal} from '../modals/modal'
-import infoButton from '../images/info.svg'
+import infoButtonG from '../images/infoG.svg'
+import infoButtonB from '../images/infoB.svg'
+import infoButtonR from '../images/infoR.svg'
 
-export const InfoButton = () => {
+export const InfoButton = ({received}) => {
   const [modal, toggle] = useToggle(false)
+  
+  var infoButton
+  if(received < 1000){
+    infoButton = infoButtonG
+  }else if(received < 3000){
+    infoButton = infoButtonB
+  }else{
+    infoButton = infoButtonR
+  }
 
   return <div >
     <img src={infoButton} onClick={toggle} className='cursor-pointer fixed h-8' style={{right: 10, bottom: 10}}/>

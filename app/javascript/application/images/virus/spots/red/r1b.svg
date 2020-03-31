@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="86"
+   height="90"
+   viewBox="0 0 86 90"
+   fill="none"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="R1.Multiplikator Klecks- groß.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2736"
+     inkscape:window-height="1699"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="7.4167645"
+     inkscape:cx="45.333251"
+     inkscape:cy="72.190072"
+     inkscape:window-x="-13"
+     inkscape:window-y="-13"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     d="M5.6041 12.813C-1.59838 23.2885 0.176878 39.9172 7.27792 50.0876C14.8862 60.97 24.8784 58.9868 36.2908 73.7339C42.8846 82.2262 42.1238 86.2435 46.9423 88.1759C57.391 92.3967 76.4117 79.8362 82.6504 63.4618C90.0051 44.1379 79.3028 20.1865 61.5502 9.04991C44.0512 -1.93417 16.1542 -2.59525 5.6041 12.813Z"
+     fill="#98D0C8"
+     stroke="#B2B2B2"
+     stroke-width="0.230003"
+     stroke-miterlimit="10"
+     id="path2"
+     style="fill:#f77176;fill-opacity:1" />
+</svg>

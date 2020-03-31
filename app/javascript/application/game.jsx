@@ -200,6 +200,7 @@ export const Game = (props) => {
         In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel
 
         <button className='btn mt-2' onClick={() => { setCounter(props.infected); setHealed(0) }}>RESTART!</button>
+        <button className='btn mt-2 pl-2' onClick={() => { setCounter(props.infected); setHealed(0) }}>RESTART!</button>
       </div>
     }
 
@@ -234,7 +235,7 @@ export const Game = (props) => {
 
     {/* Community bar */}
     <div className='mt-4'>
-      <CommunityBar selfDonated={props.donationSum} toggleInfoCommBar={toggleCommBarModal} />
+      <CommunityBar selfDonated={props.donationSum} received={props.received} toggleInfoCommBar={toggleCommBarModal} />
     </div>
 
     {/* Achievements bar */}
@@ -253,13 +254,13 @@ export const Game = (props) => {
 
     {/* Socialmedia */}
     <div className='text-center'>
-      <TwitterButton className='cursor-pointer inline-block' healed={healed} />
-      <InstagramButton className='cursor-pointer inline-block ml-2' />
-      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} />
+      <TwitterButton className='cursor-pointer inline-block' healed={healed} received={props.received} />
+      <InstagramButton className='cursor-pointer inline-block ml-2' received={props.received}/>
+      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} received={props.received}/>
     </div>
 
     {/* Infobutton */}
-    <InfoButton />
+    <InfoButton received={props.received}/>
 
     {/* End of site */}
     <div className='text-center mb-10 text-gray-500 cursor-default'>
