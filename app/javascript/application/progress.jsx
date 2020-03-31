@@ -40,7 +40,7 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
       return <div className='h-full bg-progbar-lvl-12' style={{ width: `${percent}%` }}></div>;
     }
     else {
-      return <div className='h-full bg-progbar-lvl-7' style={{ width: `${percent}%` }}></div>;
+      return <div className='h-full bg-progbar-lvl-6' style={{ width: `${percent}%` }}></div>;
     }
   }
 

@@ -80,9 +80,9 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
     var spot_1 = spot_5a
     var spot_2 = spot_5b
   }else {
-    var virus = virus7
-    var spot_1 = spot_7a
-    var spot_2 = spot_7b
+    var virus = virus6
+    var spot_1 = spot_6a
+    var spot_2 = spot_6b
   }
 
   return <div>
