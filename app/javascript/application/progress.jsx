@@ -1,7 +1,6 @@
 import React from 'react'
 
 export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
-
   {/* TODO: Ist dreckig ich weiß, wird noch schöner gemacht :) */ }
   function getColorCode() {
     if (received < 150) {
@@ -46,9 +45,23 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
   }
 
   function predicate(x) { return x > received }
-  const currGoal = donoGoals.filter(function (x) { return predicate(x) })[0]
-  const way = received % currGoal
-  const percent = Math.floor((way / currGoal) * 100)
+  var newGoal = donoGoals.filter(function (x) { return predicate(x) })[0]
+  const currGoal = 10000
+  var way
+  var percent
+  if(received > currGoal){
+    way = received
+    percent = 100
+  }else{
+    way = received % currGoal
+    percent = Math.floor((way / currGoal) * 100)
+  }
+
+  console.log('received '+received)
+  console.log('currGoal '+currGoal)
+  console.log('way '+way)
+  console.log('percent '+percent)
+
   return <>
     <div className='flex items-center justify-center mt-4'>
       <span className='text-sm text-gray-600 cursor-default'>{way} €</span>
