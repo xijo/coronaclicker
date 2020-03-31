@@ -108,6 +108,7 @@ export const Game = (props) => {
     '6': 2
   }
   var amount = 0
+  var lvl2Infected = 0
 
 
   /* ========== METHODS ========== */
@@ -192,15 +193,28 @@ export const Game = (props) => {
     {counter <= 0 &&
       <div className='max-w-lg mx-auto mb-8 text-center'>
         <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
-        Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game gespielt hast! :)
+        Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game bis zu diesem Punkt gespielt hast! :)
         <br />
-        ..Aber du dachtest doch nicht wirklich, du hättest den Virus besiegt?!
+        <br/>
+        Laut einer Formel zur Berechnung der Dunkelziffer an Infizierten ist die tatsächliche Zahl um ein Vielfaches höher als die offiziellen vermuten lassen...
+        kannst du auch gegen diese Zahlen ankämpfen?
         <br />
-        <br />
-        In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel
+        {/* <br />
+        In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel */}
 
-        <button className='btn mt-2' onClick={() => { setCounter(props.infected); setHealed(0) }}>RESTART!</button>
-        <button className='btn mt-2 pl-2' onClick={() => { setCounter(props.infected); setHealed(0) }}>RESTART!</button>
+        {/* Dunkelziffer Formel: (Anzahl Tote * Sterblichkeitsrate) * (2^(Tage Infektion bis Tod / Verdopplungsrate))
+          mit aktuellen Zahlen Stand 31.03.2020 --> (39070 * 399) * (2^(17,3 / 6,2) = 107701022
+          
+          Zahlen von: https://interaktiv.morgenpost.de/corona-virus-karte-infektionen-deutschland-weltweit/
+          Infizierte: 803.313
+          Geheilt: 172.656
+          Tode: 39.070
+          Sterblichkeitsrate: ~3,99%
+
+          to set background: document.body.style.backgroundColor = '#ABB6C8';
+          */}
+
+        <button className='btn mt-2 pl-2' onClick={() => {setCounter(107701022); setHealed(0);}}>LEVEL 2</button>
       </div>
     }
 

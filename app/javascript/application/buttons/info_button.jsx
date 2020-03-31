@@ -58,6 +58,16 @@ export const InfoButton = ({received}) => {
         <br />
         <br />
         PS: Ist dir das Spiel immer noch viel zu schwer? Ganz einfach: Teile Corona-Clicker mit Freunden, Familie und Lieblingsinfluencer, um von höheren Communitybelohnungen zu profitieren! #sharingiscaring #care2win
+        <br/>
+        <br/>
+        <br/>
+        Quellen:
+        <br/>
+        <a className='anchor' href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Berechnung der Dunkelziffer (englisch)</a> (Stand 31.03.2020)
+        <br/>
+        <a className='anchor' href="https://perspective-daily.de/article/1181/2hWA1mB8">Berechnung der Dunkelziffer (deutsch)</a> (Stand 31.03.2020)
+        <br/>
+        <a className='anchor' href="https://interaktiv.morgenpost.de/corona-virus-karte-infektionen-deutschland-weltweit/">Aktuelle Corona Zahlen</a> (Stand 31.03.2020)
       </div>
     </Modal>}
   </div>
