@@ -36,11 +36,11 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
     else if (received >= 5000 && received < 7500) {
       return <div className='h-full bg-progbar-lvl-11' style={{ width: `${percent}%` }}></div>;
     }
-    else if (received >= 7500) {
+    else if (received >= 7500 && received < 10000) {
       return <div className='h-full bg-progbar-lvl-12' style={{ width: `${percent}%` }}></div>;
     }
     else {
-      return <div className='h-full bg-progbar-lvl-1' style={{ width: `${percent}%` }}></div>;
+      return <div className='h-full bg-progbar-lvl-7' style={{ width: `${percent}%` }}></div>;
     }
   }
 
@@ -56,11 +56,6 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
     way = received % currGoal
     percent = Math.floor((way / currGoal) * 100)
   }
-
-  console.log('received '+received)
-  console.log('currGoal '+currGoal)
-  console.log('way '+way)
-  console.log('percent '+percent)
 
   return <>
     <div className='flex items-center justify-center mt-4'>

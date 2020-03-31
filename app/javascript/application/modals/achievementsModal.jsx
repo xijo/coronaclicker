@@ -11,9 +11,6 @@ import mystery from '../images/boosts/mystery.png'
 
 export const AchievementsModal = ({healed, toggleGoodieModal, toggleAchievements, setGoodieID}) => {
   const advRound = (number, decimal) => {
-    console.log(Number((number).toFixed(0)))
-    console.log(Number((number).toFixed(decimal)))
-    console.log(Number((number*100).toFixed(decimal)))
     return Number((number*100).toFixed(decimal));
   }
 
