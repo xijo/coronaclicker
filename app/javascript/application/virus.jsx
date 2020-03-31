@@ -7,6 +7,8 @@ import virus2 from './images/virus/g2.svg'
 import virus3 from './images/virus/g3.svg'
 import virus4 from './images/virus/g4.svg'
 import virus5 from './images/virus/g5.svg'
+import virus6 from './images/virus/b1.svg'
+import virus7 from './images/virus/b2.svg'
 
 import spot_1a from './images/virus/spots/g1a.svg'
 import spot_1b from './images/virus/spots/g1b.svg'
@@ -18,6 +20,10 @@ import spot_4a from './images/virus/spots/g4a.svg'
 import spot_4b from './images/virus/spots/g4b.svg'
 import spot_5a from './images/virus/spots/g5a.svg'
 import spot_5b from './images/virus/spots/g5b.svg'
+import spot_6a from './images/virus/spots/b1a.svg'
+import spot_6b from './images/virus/spots/b1b.svg'
+import spot_7a from './images/virus/spots/b2a.svg'
+import spot_7b from './images/virus/spots/b2b.svg'
 
 export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, received}) => {
   var virus = virus1
@@ -69,14 +75,14 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
     var virus = virus5
     var spot_1 = spot_5a
     var spot_2 = spot_5b
-  }else if (received >= 7500) {
+  }else if (received >= 7500 && received <= 10000) {
     var virus = virus5
     var spot_1 = spot_5a
     var spot_2 = spot_5b
   }else {
-    var virus = virus5
-    var spot_1 = spot_5a
-    var spot_2 = spot_5b
+    var virus = virus7
+    var spot_1 = spot_7a
+    var spot_2 = spot_7b
   }
 
   return <div>

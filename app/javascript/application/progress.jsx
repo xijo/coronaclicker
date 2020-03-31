@@ -46,16 +46,9 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
 
   function predicate(x) { return x > received }
   var newGoal = donoGoals.filter(function (x) { return predicate(x) })[0]
-  const currGoal = 10000
-  var way
-  var percent
-  if(received > currGoal){
-    way = received
-    percent = 100
-  }else{
-    way = received % currGoal
-    percent = Math.floor((way / currGoal) * 100)
-  }
+  const currGoal = (newGoal != undefined) ? newGoal : donoGoals[donoGoals.length-1]
+  const way = (received <= currGoal) ? (received % currGoal) : received
+  const percent = (way / currGoal) <= 1 ? Math.floor((way / currGoal) * 100) : 100
 
   return <>
     <div className='flex items-center justify-center mt-4'>
