@@ -32,6 +32,8 @@ import { AchievementsModal } from './modals/achievementsModal'
 // Resources
 import plop0file from './mp3s/plop0.mp3'
 import plop1file from './mp3s/plop1.mp3'
+import plop0file_2 from './mp3s/plop0_2.mp3'
+import plop1file_2 from './mp3s/plop1_2.mp3'
 import toiletpaper from './images/toiletpaper.png'
 
 // Var init
@@ -41,6 +43,8 @@ const cookies = new Cookies()
 // object into the DOM on every plop..
 const plop0 = new UIfx(plop0file)
 const plop1 = new UIfx(plop1file)
+const plop0_2 = new UIfx(plop0file_2)
+const plop1_2 = new UIfx(plop1file_2)
 
 
 /* ========== MAIN ========== */
@@ -57,6 +61,7 @@ export const Game = (props) => {
 
   const [counter, setCounter] = useState(parseInt(cookies.get('counter')) || props.counter)
   const [healed, setHealed] = useState(parseInt(cookies.get('healed')) || 0)
+  const [level, setLevel] = useState(parseInt(cookies.get('level')) || 1)
   const [goodieID, setGoodieID] = useState(0)
 
   const [lastClick, setLastClick] = useState([0, 0])
@@ -86,6 +91,11 @@ export const Game = (props) => {
 
   // Update counter cookie
   useEffect(() => {
+    cookies.set('level', level, { path: '/', expires: (new Date(2099, 1, 1)) })
+  }, [level])
+
+  // Update counter cookie
+  useEffect(() => {
     cookies.set('counter', counter, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [counter])
 
@@ -109,6 +119,8 @@ export const Game = (props) => {
   }
   var amount = 0
   var lvl2Infected = 0
+  // TODO: This is a temp val to compensate for the fraudulant 20K
+  var receivedEdit = (props.received - 20000) >= 0 ? (props.received - 20000) : props.received
 
 
   /* ========== METHODS ========== */
@@ -156,7 +168,11 @@ export const Game = (props) => {
     // Save last click location
     setLastClick([event.clientX, event.clientY])
     // Randomly choose a sound
-    Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
+    if(parseInt(level) == 2){
+      Math.round(Math.random()) === 1 ? plop0_2.play() : plop1_2.play()
+    }else{
+      Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
+    }
     // Update counter
     setCounter(counter - getDecrementer())
     // Update healed
@@ -178,7 +194,7 @@ export const Game = (props) => {
     {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
 
     {/* Virus */}
-    <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
+    <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={receivedEdit} />
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
 
     {/* Counter and healed */}
@@ -212,7 +228,7 @@ export const Game = (props) => {
           Sterblichkeitsrate: ~3,99%
           */}
 
-        <button className='btn mt-2 pl-2' onClick={() => {setCounter(107701022); setHealed(0); document.body.style.backgroundColor = '#CEB869'}}>LEVEL 2</button>
+        <button className='btn mt-2 pl-2' onClick={() => {setCounter(107701022); setHealed(0); setLevel(2); document.body.style.backgroundColor = '#CEB869'}}>LEVEL 2</button>
       </div>
     }
 
@@ -228,7 +244,7 @@ export const Game = (props) => {
         </div>}
 
       {/* Progress */}
-      <Progress received={props.received} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal} />
+      <Progress received={receivedEdit} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal} />
 
       {/* Golden toiletpaper */}
       {props.donationSum >= 100 &&
@@ -247,7 +263,7 @@ export const Game = (props) => {
 
     {/* Community bar */}
     <div className='mt-4'>
-      <CommunityBar selfDonated={props.donationSum} received={props.received} toggleInfoCommBar={toggleCommBarModal} />
+      <CommunityBar selfDonated={props.donationSum} received={receivedEdit} toggleInfoCommBar={toggleCommBarModal} />
     </div>
 
     {/* Achievements bar */}
@@ -266,13 +282,13 @@ export const Game = (props) => {
 
     {/* Socialmedia */}
     <div className='text-center'>
-      <TwitterButton className='cursor-pointer inline-block' healed={healed} received={props.received} />
-      <InstagramButton className='cursor-pointer inline-block ml-2' received={props.received}/>
-      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} received={props.received}/>
+      <TwitterButton className='cursor-pointer inline-block' healed={healed} received={receivedEdit} />
+      <InstagramButton className='cursor-pointer inline-block ml-2' received={receivedEdit}/>
+      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} received={receivedEdit}/>
     </div>
 
     {/* Infobutton */}
-    <InfoButton received={props.received}/>
+    <InfoButton received={receivedEdit}/>
 
     {/* End of site */}
     <div className='text-center mb-10 text-gray-500 cursor-default'>
