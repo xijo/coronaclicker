@@ -210,11 +210,9 @@ export const Game = (props) => {
           Geheilt: 172.656
           Tode: 39.070
           Sterblichkeitsrate: ~3,99%
-
-          to set background: document.body.style.backgroundColor = '#ABB6C8';
           */}
 
-        <button className='btn mt-2 pl-2' onClick={() => {setCounter(107701022); setHealed(0);}}>LEVEL 2</button>
+        <button className='btn mt-2 pl-2' onClick={() => {setCounter(107701022); setHealed(0); document.body.style.backgroundColor = '#CEB869'}}>LEVEL 2</button>
       </div>
     }
 
