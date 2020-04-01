@@ -47,8 +47,8 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
   var spot_1 = spot_1a
   var spot_2 = spot_1b
 
-  const isTouchDevice = false //checkTouchDevice()
-  const handleClickOrTouch = isTouchDevice ? {onTouchEnd: virusOnClick} : {onClick: virusOnClick}
+  const isTouchDevice = checkTouchDevice()
+  const handleClickOrTouch = isTouchDevice ? {onTouchStart: virusOnClick} : {onClick: virusOnClick}
 
   if (received < 150) {
     // noch nüschd
@@ -122,7 +122,7 @@ export const Virus = ({virusOnClick, spotsOnClick, addifier, multiplier, receive
 }
 
 const Spot = (props) => {
-  
+
   var padlock
   if(props.recevied < 1000){
     padlock = padlockG
