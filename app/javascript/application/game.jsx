@@ -35,6 +35,7 @@ import plop1file from './mp3s/plop1.mp3'
 import plop0file_2 from './mp3s/plop0_2.mp3'
 import plop1file_2 from './mp3s/plop1_2.mp3'
 import toiletpaper from './images/toiletpaper.png'
+import grannys from './images/Level2Finished.jpg'
 
 // Var init
 const cookies = new Cookies()
@@ -179,6 +180,18 @@ export const Game = (props) => {
     setHealed(parseInt(cookies.get('healed')) + getDecrementer())
   }
 
+  /**
+   * Calculate dark figure
+   */
+  const getDarkFigure = () => {
+    // (Anzahl Tote * Sterblichkeitsrate) * (2^(Tage Infektion bis Tod / Verdopplungsrate))
+    var deathFactor = parseInt(props.deaths) / (parseInt(props.counter) + parseInt(props.recovered))
+    var figure = (parseInt(props.deaths) * Math.round(deathFactor*100*100) * Math.pow(2, 17.3 / 6.2))
+    return Math.round(figure) != undefined ? Math.round(figure) : 107701022
+  }
+
+  getDarkFigure()
+
   /* ========== RETURN ========== */
   return <div className='mt-4'>
     <Header {...props} />
@@ -200,7 +213,10 @@ export const Game = (props) => {
     {/* Counter and healed */}
     {counter > 0 &&
       <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>
-        {counter}
+        {parseInt(cookies.get('level')) == 1 && counter}
+        {parseInt(cookies.get('level')) == 2 && <div>
+        <span>😱 </span> {counter} <span> 😱</span>
+        </div>}
         <p className='font-normal text-xs'>({healed} bereits geheilt)</p>
       </div>
     }
@@ -208,13 +224,6 @@ export const Game = (props) => {
     {/* End Screen */}
     {counter <= 0 &&
       <div className='max-w-lg mx-auto mb-8 text-center'>
-        <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
-        Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game bis zu diesem Punkt gespielt hast! :)
-        <br />
-        <br/>
-        Laut einer Formel zur Berechnung der Dunkelziffer an Infizierten ist die tatsächliche Zahl um ein Vielfaches höher als die offiziellen vermuten lassen...
-        kannst du auch gegen diese Zahlen ankämpfen?
-        <br />
         {/* <br />
         In den kommenden Tagen könnte es zu neuen Ausbrüchen kommen. Come back and fight the Virus! #nextlevel */}
 
@@ -227,8 +236,29 @@ export const Game = (props) => {
           Tode: 39.070
           Sterblichkeitsrate: ~3,99%
           */}
-
-        <button className='btn mt-2 pl-2' onClick={() => {setCounter(107701022); setHealed(0); setLevel(2); document.body.style.backgroundColor = '#CEB869'}}>LEVEL 2</button>
+          {parseInt(cookies.get('level')) == 1 && <div>
+            <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
+            Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game bis zu diesem Punkt gespielt hast! :)
+            <br />
+            <br/>
+            Laut einer Formel zur Berechnung der Dunkelziffer an Infizierten ist die tatsächliche Zahl um ein Vielfaches höher als die offiziellen vermuten lassen...
+            kannst du auch gegen diese Zahlen ankämpfen?
+            <br />
+            <button className='btn mt-2' onClick={() => {setCounter(props.counter); setHealed(0); document.body.style.backgroundColor = '#FFFFFF'}}>RESTART</button>
+            <button className='btn mt-2 ml-4' onClick={() => {setCounter(getDarkFigure()); setHealed(0); setLevel(2); document.body.style.backgroundColor = '#CEB869'}}>LEVEL 2</button>
+          </div>}
+          {parseInt(cookies.get('level')) == 2 && <div>
+            <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Und jetzt bist du eine Legende!</div>
+            Wir können dir nicht genug danken dass du an unserem Spiel teilgenommen hast!
+            <br />
+            Wenn du noch nicht gespendet hast, denk vielleicht nochmal drüber nach, jeder Euro zählt!
+            <br/>
+            Ansonsten, nochmal danke, auch von den beiden hier :)
+            <br/>
+            <img src={grannys} alt="pic"/>
+            <button className='btn mt-2' onClick={() => {setCounter(getDarkFigure()); setHealed(0); document.body.style.backgroundColor = '#CEB869'}}>RESTART</button>
+            <button className='btn mt-2 ml-4' onClick={() => {setCounter(props.counter); setHealed(0); setLevel(1); document.body.style.backgroundColor = '#FFFFFF'}}>RESET</button>
+          </div>}
       </div>
     }
 
