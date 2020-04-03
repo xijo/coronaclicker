@@ -69,6 +69,20 @@ export const Game = (props) => {
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
+  const [challengeCount, setChallengeCount] = useState(0)
+  const challengeEnd = () => {
+    console.log(counter)
+    console.log(healed)
+    console.log(challengeCount)
+    alert(`You healed ${challengeCount - counter} in 3s!`)
+  }
+  const challengeStart = () => {
+    setChallengeCount(counter)
+    console.log(counter)
+    console.log(healed)
+    console.log(challengeCount)
+    window.setTimeout(challengeEnd, 3000)
+  }
 
   // Variables
   const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
@@ -207,6 +221,8 @@ export const Game = (props) => {
     {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
     {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
 
+    <div onClick={challengeStart}>CHALLENGE START</div>
+
     {/* Virus */}
     <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
@@ -230,7 +246,7 @@ export const Game = (props) => {
 
         {/* Dunkelziffer Formel: (Anzahl Tote * Sterblichkeitsrate) * (2^(Tage Infektion bis Tod / Verdopplungsrate))
           mit aktuellen Zahlen Stand 31.03.2020 --> (39070 * 399) * (2^(17,3 / 6,2) = 107701022
-          
+
           Zahlen von: https://interaktiv.morgenpost.de/corona-virus-karte-infektionen-deutschland-weltweit/
           Infizierte: 803.313
           Geheilt: 172.656
