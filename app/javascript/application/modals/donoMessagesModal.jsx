@@ -8,8 +8,10 @@ import distancing from '../images/boosts/social_distancing.png'
 import toiletpaper from '../images/toiletpaper.png'
 
 export const DonoMessagesModal = ({donoAmount}) => {
+  console.log(donoAmount)
   var picToTake = hands
   var textToTake = "<placeholder>"
+  var isMask = false
 
   if (parseInt(donoAmount) < 2){
     textToTake = "Händewaschen schützt vor Viren, aber nur, wenn du auch 30 Sekunden durchhältst. Vor Allem wichtig vor dem Nudeln kochen!"
@@ -17,6 +19,7 @@ export const DonoMessagesModal = ({donoAmount}) => {
     picToTake = desinfect
     textToTake = "Nicht jedes Mittel hilft, aber Dieses lässt jeden Virus alt aussehen. Aber nicht nur auf den Handflächen verteilen! Zum deinem Schutz und dem Anderer!"
   }else if(parseInt(donoAmount) < 10){
+    isMask = true
     picToTake = mask
     textToTake = "Das Mode-Accessoire schlechthin in diesem Jahr! Hilft nicht nur deinem Aussehen sondern auch der Bekämpfung des Virus!"
   }else if(parseInt(donoAmount) < 25){
@@ -36,6 +39,10 @@ export const DonoMessagesModal = ({donoAmount}) => {
       <br/>
       <img src={picToTake} alt="dono_pic" className="mx-auto select-none'"/>
       <span className="text-sm font-light">{textToTake}</span>
+      { isMask && <div>
+        <span className="text-sm font-light">Du glaubst uns nicht? Vielleicht hörst du ja stattdessen auf Menschen wie Jan Böhmermann, Joko Winterscheidt oder Rezo! #maskeauf</span>
+        <br/>
+        <a href="https://youtu.be/X2pccoeWFFA">Zum Video</a></div>}
     </div>
   </div>
 }

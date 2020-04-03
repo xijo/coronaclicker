@@ -64,9 +64,28 @@ export const Game = (props) => {
   const [healed, setHealed] = useState(parseInt(cookies.get('healed')) || 0)
   const [level, setLevel] = useState(parseInt(cookies.get('level')) || 1)
   const [goodieID, setGoodieID] = useState(0)
+  const [amount, setAmount] = useState(0)
 
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
+
+
+  // Variables
+  const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
+  const goodieClickRequirements = [19, 1000, 5000, 10000, 50000, 100000]
+  const goodieAddifierRewards = {
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+  }
+  const goodieMultiplierRewards = {
+    '6': 2
+  }
+  // TODO: This is a temp val to compensate for the fraudulant 20K
+  // var receivedEdit = (props.received - 20000) >= 0 ? (props.received - 20000) : props.received
+
 
   // Hook to check for donation on site render
   useEffect(() => {
@@ -85,7 +104,7 @@ export const Game = (props) => {
     // }
     var donoUrl = window.location.href
     if (/donation_\d+/.test(donoUrl)) {
-      amount = parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_') + '?message=donation_'.length))
+      setAmount(parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_') + '?message=donation_'.length)))
       setPostdonation(true)
     }
   }, [])
@@ -104,24 +123,6 @@ export const Game = (props) => {
   useEffect(() => {
     cookies.set('healed', healed, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [healed])
-
-  // Variables
-  const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
-  const goodieClickRequirements = [19, 1000, 5000, 10000, 50000, 100000]
-  const goodieAddifierRewards = {
-    '1': 1,
-    '2': 2,
-    '3': 3,
-    '4': 4,
-    '5': 5,
-  }
-  const goodieMultiplierRewards = {
-    '6': 2
-  }
-  var amount = 0
-  var lvl2Infected = 0
-  // TODO: This is a temp val to compensate for the fraudulant 20K
-  var receivedEdit = (props.received - 20000) >= 0 ? (props.received - 20000) : props.received
 
 
   /* ========== METHODS ========== */
@@ -207,7 +208,7 @@ export const Game = (props) => {
     {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
 
     {/* Virus */}
-    <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={receivedEdit} />
+    <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
     <ClickArea coords={lastClick} onClick={decrementCounter} decrementer={getDecrementer()} />
 
     {/* Counter and healed */}
@@ -274,7 +275,7 @@ export const Game = (props) => {
         </div>}
 
       {/* Progress */}
-      <Progress received={receivedEdit} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal} />
+      <Progress received={props.received} donoGoals={donoGoals} toggleProInfoModal={toggleProInfoModal} />
 
       {/* Golden toiletpaper */}
       {props.donationSum >= 100 &&
@@ -293,7 +294,7 @@ export const Game = (props) => {
 
     {/* Community bar */}
     <div className='mt-4'>
-      <CommunityBar selfDonated={props.donationSum} received={receivedEdit} toggleInfoCommBar={toggleCommBarModal} />
+      <CommunityBar selfDonated={props.donationSum} received={props.received} toggleInfoCommBar={toggleCommBarModal} />
     </div>
 
     {/* Achievements bar */}
@@ -312,13 +313,13 @@ export const Game = (props) => {
 
     {/* Socialmedia */}
     <div className='text-center'>
-      <TwitterButton className='cursor-pointer inline-block' healed={healed} received={receivedEdit} />
-      <InstagramButton className='cursor-pointer inline-block ml-2' received={receivedEdit}/>
-      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} received={receivedEdit}/>
+      <TwitterButton className='cursor-pointer inline-block' healed={healed} received={props.received} />
+      <InstagramButton className='cursor-pointer inline-block ml-2' received={props.received}/>
+      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} received={props.received}/>
     </div>
 
     {/* Infobutton */}
-    <InfoButton received={receivedEdit}/>
+    <InfoButton received={props.received}/>
 
     {/* End of site */}
     <div className='text-center mb-10 text-gray-500 cursor-default'>
