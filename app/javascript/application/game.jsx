@@ -102,6 +102,11 @@ export const Game = (props) => {
     //     cookies.set('maximum', props.counter, { path: '/', expires: (new Date(2099, 1, 1)) })
     //   }
     // }
+
+    if (level == 2){
+      document.body.style.backgroundColor = '#CEB869'
+    }
+
     var donoUrl = window.location.href
     if (/donation_\d+/.test(donoUrl)) {
       setAmount(parseInt(donoUrl.substring(donoUrl.indexOf('?message=donation_') + '?message=donation_'.length)))
@@ -170,7 +175,7 @@ export const Game = (props) => {
     // Save last click location
     setLastClick([event.clientX, event.clientY])
     // Randomly choose a sound
-    if(parseInt(level) == 2){
+    if(level == 2){
       Math.round(Math.random()) === 1 ? plop0_2.play() : plop1_2.play()
     }else{
       Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
@@ -214,8 +219,8 @@ export const Game = (props) => {
     {/* Counter and healed */}
     {counter > 0 &&
       <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>
-        {parseInt(cookies.get('level')) == 1 && counter}
-        {parseInt(cookies.get('level')) == 2 && <div>
+        {level == 1 && counter}
+        {level == 2 && <div>
         <span>😱 </span> {counter} <span> 😱</span>
         </div>}
         <p className='font-normal text-xs'>({healed} bereits geheilt)</p>
@@ -237,7 +242,7 @@ export const Game = (props) => {
           Tode: 39.070
           Sterblichkeitsrate: ~3,99%
           */}
-          {parseInt(cookies.get('level')) == 1 && <div>
+          {level == 1 && <div>
             <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
             Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game bis zu diesem Punkt gespielt hast! :)
             <br />
@@ -248,7 +253,7 @@ export const Game = (props) => {
             <button className='btn mt-2' onClick={() => {setCounter(props.counter); setHealed(0); document.body.style.backgroundColor = '#FFFFFF'}}>RESTART</button>
             <button className='btn mt-2 ml-4' onClick={() => {setCounter(getDarkFigure()); setHealed(0); setLevel(2); document.body.style.backgroundColor = '#CEB869'}}>LEVEL 2</button>
           </div>}
-          {parseInt(cookies.get('level')) == 2 && <div>
+          {level == 2 && <div>
             <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Und jetzt bist du eine Legende!</div>
             Wir können dir nicht genug danken dass du an unserem Spiel teilgenommen hast!
             <br />
