@@ -28,6 +28,7 @@ import { CommBarInfoModal } from './modals/commbar_modal'
 import { DonoMessagesModal } from './modals/donoMessagesModal'
 import { ProInfoModal } from './modals/proInfoModal'
 import { AchievementsModal } from './modals/achievementsModal'
+import { ChallengeModal, ChallengeEndModal } from './modals/challengeModal'
 
 // Resources
 import plop0file from './mp3s/plop0.mp3'
@@ -49,6 +50,7 @@ const plop1_2 = new UIfx(plop1file_2)
 
 
 var holder = 0
+var clicks = -1
 
 
 /* ========== MAIN ========== */
@@ -62,6 +64,8 @@ export const Game = (props) => {
   const [commBarModal, toggleCommBarModal] = useToggle(false)
   const [goodieModal, toggleGoodieModal] = useToggle(false)
   const [achievementsModal, toggleAchievements] = useToggle(false)
+  const [challengeModal, toggleChallenge] = useToggle(false)
+  const [challengeEndModal, toggleEndChallenge] = useToggle(false)
 
   const [counter, setCounter] = useState(parseInt(cookies.get('counter')) || props.counter)
   const [healed, setHealed] = useState(parseInt(cookies.get('healed')) || 0)
@@ -73,11 +77,13 @@ export const Game = (props) => {
   const [postdonation, setPostdonation] = useState(false)
 
   const challengeEnd = () => {
-    alert('In 3 seconds you healed: '+(holder-parseInt(cookies.get('counter'))))
+    // alert('In 3 seconds you healed: '+(holder-parseInt(cookies.get('counter'))))
+    toggleEndChallenge();
   }
   const challengeStart = () => {
-    holder = parseInt(cookies.get('counter'))
-    alert('Press okay when you are ready!')
+    clicks = 0
+    // holder = parseInt(cookies.get('counter'))
+    // alert('Press okay when you are ready!')
     window.setTimeout(challengeEnd, 3000)
   }
 
@@ -127,6 +133,7 @@ export const Game = (props) => {
 
   // Update counter cookie
   useEffect(() => {
+    clicks++
     cookies.set('counter', counter, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [counter])
 
@@ -217,6 +224,8 @@ export const Game = (props) => {
     {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={healed} goodieID={goodieID}/></Modal>}
     {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
     {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
+    {challengeModal && <Modal onClose={toggleChallenge}><ChallengeModal toggleChallenge={toggleChallenge} challengeStart={challengeStart} /></Modal>}
+    {challengeEndModal && <Modal onClose={toggleEndChallenge}><ChallengeEndModal clicks={clicks} toggleEndChallenge={toggleEndChallenge} challengeStart={challengeStart} /></Modal>}
 
     {/* <div onClick={challengeStart}>CHALLENGE START</div> */}
 
@@ -282,7 +291,9 @@ export const Game = (props) => {
       {/* BOOST */}
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
       {/* CHALLENGE */}
-      <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={challengeStart}>CHALLENGE</button>
+      {/* <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={challengeStart}>CHALLENGE</button> */}
+      {/* CHALLENGE */}
+      <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleChallenge}>CHALLENGE</button>
       {/* Own donation amount */}
       {props.donationSum !== '0' &&
         <div className='mt-4 text-teal-600 antialiased'>
