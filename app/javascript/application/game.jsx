@@ -48,6 +48,9 @@ const plop0_2 = new UIfx(plop0file_2)
 const plop1_2 = new UIfx(plop1file_2)
 
 
+var holder = 0
+
+
 /* ========== MAIN ========== */
 export const Game = (props) => {
   /* ========== INITIALISATION ========== */
@@ -69,18 +72,12 @@ export const Game = (props) => {
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
-  const [challengeCount, setChallengeCount] = useState(0)
   const challengeEnd = () => {
-    console.log(counter)
-    console.log(healed)
-    console.log(challengeCount)
-    alert(`You healed ${challengeCount - counter} in 3s!`)
+    alert('In 3 seconds you healed: '+(holder-parseInt(cookies.get('counter'))))
   }
   const challengeStart = () => {
-    setChallengeCount(counter)
-    console.log(counter)
-    console.log(healed)
-    console.log(challengeCount)
+    holder = parseInt(cookies.get('counter'))
+    alert('Press okay when you are ready!')
     window.setTimeout(challengeEnd, 3000)
   }
 
@@ -221,7 +218,7 @@ export const Game = (props) => {
     {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
     {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
 
-    <div onClick={challengeStart}>CHALLENGE START</div>
+    {/* <div onClick={challengeStart}>CHALLENGE START</div> */}
 
     {/* Virus */}
     <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
@@ -284,6 +281,8 @@ export const Game = (props) => {
       <GoodieButton healed={healed} cookies={cookies} toggleGoodieModal={toggleGoodieModal} goodieClickRequirements={goodieClickRequirements} />
       {/* BOOST */}
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
+      {/* CHALLENGE */}
+      <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={challengeStart}>CHALLENGE</button>
       {/* Own donation amount */}
       {props.donationSum !== '0' &&
         <div className='mt-4 text-teal-600 antialiased'>
