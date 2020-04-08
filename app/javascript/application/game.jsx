@@ -76,6 +76,10 @@ export const Game = (props) => {
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
+  const [challenger, setChallenger] = useState('Max Mustermann')
+  const [score, setScore] = useState('15')
+  const [challenged, setChallenged] = useState('Maja Dinger')
+
   const challengeEnd = () => {
     // alert('In 3 seconds you healed: '+(holder-parseInt(cookies.get('counter'))))
     toggleEndChallenge();
@@ -141,6 +145,11 @@ export const Game = (props) => {
   useEffect(() => {
     cookies.set('healed', healed, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [healed])
+
+
+  // useEffect(() => {
+  //   console.log(challenger, score, challenged)
+  // }, [challenger, score, challenged])
 
 
   /* ========== METHODS ========== */
@@ -224,8 +233,8 @@ export const Game = (props) => {
     {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={healed} goodieID={goodieID}/></Modal>}
     {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
     {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
-    {challengeModal && <Modal onClose={toggleChallenge}><ChallengeModal toggleChallenge={toggleChallenge} challengeStart={challengeStart} /></Modal>}
-    {challengeEndModal && <Modal onClose={toggleEndChallenge}><ChallengeEndModal clicks={clicks} toggleEndChallenge={toggleEndChallenge} challengeStart={challengeStart} /></Modal>}
+    {challengeModal && <Modal onClose={toggleChallenge}><ChallengeModal toggleChallenge={toggleChallenge} challengeStart={challengeStart} setChallenger={setChallenger} setScore={setScore} setChallenged={setChallenged}/></Modal>}
+    {challengeEndModal && <Modal onClose={toggleEndChallenge}><ChallengeEndModal clicks={clicks} toggleEndChallenge={toggleEndChallenge} challengeStart={challengeStart} challenger={challenger} score={score} challenged={challenged}/></Modal>}
 
     {/* <div onClick={challengeStart}>CHALLENGE START</div> */}
 
