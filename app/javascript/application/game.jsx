@@ -292,7 +292,7 @@ export const Game = (props) => {
         {parseInt(cookies.get('level')) == 2 && <div>
           <span>😱 </span> {counter} <span> 😱</span>
         </div>}
-        {challengeState && <p className=" text-red-600">Challenge: {clicks+1}</p>}
+        {challengeState && <p className=" text-red-600">Challenge: {clicks}</p>}
         <p className='font-normal text-xs'>({healed} bereits geheilt)</p>
       </div>
     }
