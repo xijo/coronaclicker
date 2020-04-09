@@ -94,7 +94,7 @@ export const Game = (props) => {
     if (mode == 1) {
       recalcValues();
     }
-    window.setTimeout(challengeEnd, 3000)
+    window.setTimeout(challengeEnd, 19000)
   }
 
   // Variables
