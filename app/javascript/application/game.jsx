@@ -19,6 +19,7 @@ import { FacebookButton } from './buttons/facebook_button'
 import { InstagramButton } from './buttons/instagram_button'
 import { ClickArea } from './click_area'
 import { GoodieButton } from './buttons/goodie_button';
+import Countdown from 'react-countdown';
 
 // Modal imports
 import { Modal } from './modals/modal'
@@ -28,6 +29,7 @@ import { CommBarInfoModal } from './modals/commbar_modal'
 import { DonoMessagesModal } from './modals/donoMessagesModal'
 import { ProInfoModal } from './modals/proInfoModal'
 import { AchievementsModal } from './modals/achievementsModal'
+import { ChallengeModal, ChallengeEndModal } from './modals/challengeModal'
 
 // Resources
 import plop0file from './mp3s/plop0.mp3'
@@ -48,6 +50,10 @@ const plop0_2 = new UIfx(plop0file_2)
 const plop1_2 = new UIfx(plop1file_2)
 
 
+var holder = 0
+var clicks = -1
+
+
 /* ========== MAIN ========== */
 export const Game = (props) => {
   /* ========== INITIALISATION ========== */
@@ -59,6 +65,8 @@ export const Game = (props) => {
   const [commBarModal, toggleCommBarModal] = useToggle(false)
   const [goodieModal, toggleGoodieModal] = useToggle(false)
   const [achievementsModal, toggleAchievements] = useToggle(false)
+  const [challengeModal, toggleChallenge] = useToggle(false)
+  const [challengeEndModal, toggleEndChallenge] = useToggle(false)
 
   const [counter, setCounter] = useState(parseInt(cookies.get('counter')) || props.counter)
   const [healed, setHealed] = useState(parseInt(cookies.get('healed')) || 0)
@@ -69,6 +77,25 @@ export const Game = (props) => {
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
+  const [challengeState, setChallengeState] = useToggle(false)
+  const [score, setScore] = useState(0)
+  const [challengeDonation, setDonation] = useState(1)
+
+  const challengeEnd = () => {
+    // alert('In 3 seconds you healed: '+(holder-parseInt(cookies.get('counter'))))
+    setChallengeState();
+    toggleEndChallenge();
+  }
+  const challengeStart = (mode) => {
+    clicks = 0
+    setChallengeState();
+    // holder = parseInt(cookies.get('counter'))
+    // alert('Press okay when you are ready!')
+    if (mode == 1) {
+      recalcValues();
+    }
+    window.setTimeout(challengeEnd, 3000)
+  }
 
   // Variables
   const donoGoals = [150, 300, 500, 750, 1000, 1400, 1900, 2500, 3000, 4000, 7500, 10000]
@@ -121,6 +148,7 @@ export const Game = (props) => {
 
   // Update counter cookie
   useEffect(() => {
+    clicks++
     cookies.set('counter', counter, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [counter])
 
@@ -128,6 +156,11 @@ export const Game = (props) => {
   useEffect(() => {
     cookies.set('healed', healed, { path: '/', expires: (new Date(2099, 1, 1)) })
   }, [healed])
+
+
+  // useEffect(() => {
+  //   console.log(score, challengeDonation)
+  // }, [score, challengeDonation])
 
 
   /* ========== METHODS ========== */
@@ -175,9 +208,9 @@ export const Game = (props) => {
     // Save last click location
     setLastClick([event.clientX, event.clientY])
     // Randomly choose a sound
-    if(level == 2){
+    if (parseInt(level) == 2) {
       Math.round(Math.random()) === 1 ? plop0_2.play() : plop1_2.play()
-    }else{
+    } else {
       Math.round(Math.random()) === 1 ? plop0.play() : plop1.play()
     }
     // Update counter
@@ -192,9 +225,41 @@ export const Game = (props) => {
   const getDarkFigure = () => {
     // (Anzahl Tote * Sterblichkeitsrate) * (2^(Tage Infektion bis Tod / Verdopplungsrate))
     var deathFactor = parseInt(props.deaths) / (parseInt(props.counter) + parseInt(props.recovered))
-    var figure = (parseInt(props.deaths) * Math.round(deathFactor*100*100) * Math.pow(2, 17.3 / 6.2))
+    var figure = (parseInt(props.deaths) * Math.round(deathFactor * 100 * 100) * Math.pow(2, 17.3 / 6.2))
     return Math.round(figure) != undefined ? Math.round(figure) : 107701022
   }
+
+  /**
+   * Reset Challenge stats
+   */
+  const resetChallenge = () => {
+    setScore(0);
+    setDonation(1);
+  }
+
+  /**
+   * Clac Values for end screen
+   */
+  const recalcValues = () => {
+    if (score == 0) {
+      setDonation(0)
+    } else {
+      if (isNaN(parseInt(challengeDonation))) {
+        setDonation(1)
+      }
+      if (score != 0 && challengeDonation == 0) {
+        setDonation(1)
+      }
+    }
+  }
+
+  // Renderer callback with condition
+  const renderer = ({ seconds, milliseconds, completed }) => {
+    if (!completed) {
+      // Render a countdown
+      return <span>{seconds}.{milliseconds/100}s</span>;
+    }
+  };
 
   getDarkFigure()
 
@@ -208,9 +273,18 @@ export const Game = (props) => {
     {commBarModal && <Modal onClose={toggleCommBarModal}><CommBarInfoModal /></Modal>}
     {donateModal && <Modal onClose={toggleDonateModal}><DonateModal received={props.donationSum} /></Modal>}
     {proInfoModal && <Modal onClose={toggleProInfoModal}><ProInfoModal toggleDonateModal={toggleDonateModal} toggleProInfoModal={toggleProInfoModal} /></Modal>}
-    {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={healed} goodieID={goodieID}/></Modal>}
+    {goodieModal && <Modal onClose={() => { toggleGoodieModal(); }}><Goodie healed={healed} goodieID={goodieID} /></Modal>}
     {postdonation && <Modal onClose={() => { setPostdonation(false); }}><DonoMessagesModal donoAmount={amount} /></Modal>}
-    {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID}/></Modal>}
+    {achievementsModal && <Modal onClose={toggleAchievements}><AchievementsModal healed={healed} toggleGoodieModal={toggleGoodieModal} toggleAchievements={toggleAchievements} setGoodieID={setGoodieID} /></Modal>}
+    {challengeModal && <Modal onClose={toggleChallenge}><ChallengeModal toggleChallenge={toggleChallenge} challengeStart={challengeStart} setScore={setScore} setDonation={setDonation} /></Modal>}
+    {challengeEndModal && <Modal onClose={() => { toggleEndChallenge(); if (challengeDonation > 0 && clicks <= score) { toggleDonateModal(); } }}><ChallengeEndModal clicks={clicks} toggleEndChallenge={toggleEndChallenge} challengeStart={challengeStart} score={score} challengeDonation={challengeDonation} toggleDonateModal={toggleDonateModal} /></Modal>}
+
+    {/* <Countdown
+      date={Date.now() + 19000}
+      intervalDelay={0}
+      precision={1}
+      renderer={renderer}
+    /> */}
 
     {/* Virus */}
     <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
@@ -219,10 +293,11 @@ export const Game = (props) => {
     {/* Counter and healed */}
     {counter > 0 &&
       <div className='text-4xl antialiased text-teal-800 text-center font-bold mb-4'>
-        {level == 1 && counter}
-        {level == 2 && <div>
-        <span>😱 </span> {counter} <span> 😱</span>
+        {parseInt(cookies.get('level')) == 1 && counter}
+        {parseInt(cookies.get('level')) == 2 && <div>
+          <span>😱 </span> {counter} <span> 😱</span>
         </div>}
+        {challengeState && <p className=" text-red-600">Challenge: {clicks}</p>}
         <p className='font-normal text-xs'>({healed} bereits geheilt)</p>
       </div>
     }
@@ -235,36 +310,36 @@ export const Game = (props) => {
 
         {/* Dunkelziffer Formel: (Anzahl Tote * Sterblichkeitsrate) * (2^(Tage Infektion bis Tod / Verdopplungsrate))
           mit aktuellen Zahlen Stand 31.03.2020 --> (39070 * 399) * (2^(17,3 / 6,2) = 107701022
-          
+
           Zahlen von: https://interaktiv.morgenpost.de/corona-virus-karte-infektionen-deutschland-weltweit/
           Infizierte: 803.313
           Geheilt: 172.656
           Tode: 39.070
           Sterblichkeitsrate: ~3,99%
           */}
-          {level == 1 && <div>
-            <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
-            Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game bis zu diesem Punkt gespielt hast! :)
+        {parseInt(cookies.get('level')) == 1 && <div>
+          <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
+          Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game bis zu diesem Punkt gespielt hast! :)
             <br />
-            <br/>
-            Laut einer Formel zur Berechnung der Dunkelziffer an Infizierten ist die tatsächliche Zahl um ein Vielfaches höher als die offiziellen vermuten lassen...
-            kannst du auch gegen diese Zahlen ankämpfen?
+          <br />
+          Laut einer Formel zur Berechnung der Dunkelziffer an Infizierten ist die tatsächliche Zahl um ein Vielfaches höher als die offiziellen vermuten lassen...
+          kannst du auch gegen diese Zahlen ankämpfen?
             <br />
-            <button className='btn mt-2' onClick={() => {setCounter(props.counter); setHealed(0); document.body.style.backgroundColor = '#FFFFFF'}}>RESTART</button>
-            <button className='btn mt-2 ml-4' onClick={() => {setCounter(getDarkFigure()); setHealed(0); setLevel(2); document.body.style.backgroundColor = '#CEB869'}}>LEVEL 2</button>
-          </div>}
-          {level == 2 && <div>
-            <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Und jetzt bist du eine Legende!</div>
-            Wir können dir nicht genug danken dass du an unserem Spiel teilgenommen hast!
+          <button className='btn mt-2' onClick={() => { setCounter(props.counter); setHealed(0); document.body.style.backgroundColor = '#FFFFFF' }}>RESTART</button>
+          <button className='btn mt-2 ml-4' onClick={() => { setCounter(getDarkFigure()); setHealed(0); setLevel(2); document.body.style.backgroundColor = '#CEB869' }}>LEVEL 2</button>
+        </div>}
+        {parseInt(cookies.get('level')) == 2 && <div>
+          <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Und jetzt bist du eine Legende!</div>
+          Wir können dir nicht genug danken dass du an unserem Spiel teilgenommen hast!
+            <br />mmmmmd
+    Wenn du noch nicht gespendet hast, denk vielleicht nochmal drüber nach, jeder Euro zählt!
             <br />
-            Wenn du noch nicht gespendet hast, denk vielleicht nochmal drüber nach, jeder Euro zählt!
-            <br/>
-            Ansonsten, nochmal danke, auch von den beiden hier :)
-            <br/>
-            <img src={grannys} alt="pic"/>
-            <button className='btn mt-2' onClick={() => {setCounter(getDarkFigure()); setHealed(0); document.body.style.backgroundColor = '#CEB869'}}>RESTART</button>
-            <button className='btn mt-2 ml-4' onClick={() => {setCounter(props.counter); setHealed(0); setLevel(1); document.body.style.backgroundColor = '#FFFFFF'}}>RESET</button>
-          </div>}
+          Ansonsten, nochmal danke, auch von den beiden hier :)
+            <br />
+          <img src={grannys} alt="pic" />
+          <button className='btn mt-2' onClick={() => { setCounter(getDarkFigure()); setHealed(0); document.body.style.backgroundColor = '#CEB869' }}>RESTART</button>
+          <button className='btn mt-2 ml-4' onClick={() => { setCounter(props.counter); setHealed(0); setLevel(1); document.body.style.backgroundColor = '#FFFFFF' }}>RESET</button>
+        </div>}
       </div>
     }
 
@@ -273,6 +348,8 @@ export const Game = (props) => {
       <GoodieButton healed={healed} cookies={cookies} toggleGoodieModal={toggleGoodieModal} goodieClickRequirements={goodieClickRequirements} />
       {/* BOOST */}
       <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={toggleDonateModal}>BOOST</button>
+      {/* CHALLENGE */}
+      <button className='px-10 py-2 bg-teal-100 font-semibold rounded text-teal-800 hover:shadow-lg focus:shadow-md shadow-md cursor-pointer hover:bg-teal-200' onClick={() => { resetChallenge(); toggleChallenge(); }}>CHALLENGE</button>
       {/* Own donation amount */}
       {props.donationSum !== '0' &&
         <div className='mt-4 text-teal-600 antialiased'>
@@ -304,7 +381,7 @@ export const Game = (props) => {
 
     {/* Achievements bar */}
     <div className='mt-4'>
-      <Achievements healed={healed} toggleAchievements={toggleAchievements}/>
+      <Achievements healed={healed} toggleAchievements={toggleAchievements} />
     </div>
 
     {/* Session saving */}
@@ -319,12 +396,12 @@ export const Game = (props) => {
     {/* Socialmedia */}
     <div className='text-center'>
       <TwitterButton className='cursor-pointer inline-block' healed={healed} received={props.received} />
-      <InstagramButton className='cursor-pointer inline-block ml-2' received={props.received}/>
-      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} received={props.received}/>
+      <InstagramButton className='cursor-pointer inline-block ml-2' received={props.received} />
+      <FacebookButton className='cursor-pointer inline-block ml-2' healed={healed} received={props.received} />
     </div>
 
     {/* Infobutton */}
-    <InfoButton received={props.received}/>
+    <InfoButton received={props.received} />
 
     {/* End of site */}
     <div className='text-center mb-10 text-gray-500 cursor-default'>
