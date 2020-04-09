@@ -19,6 +19,7 @@ import { FacebookButton } from './buttons/facebook_button'
 import { InstagramButton } from './buttons/instagram_button'
 import { ClickArea } from './click_area'
 import { GoodieButton } from './buttons/goodie_button';
+import Countdown from 'react-countdown';
 
 // Modal imports
 import { Modal } from './modals/modal'
@@ -76,18 +77,21 @@ export const Game = (props) => {
   const [lastClick, setLastClick] = useState([0, 0])
   const [postdonation, setPostdonation] = useState(false)
 
+  const [challengeState, setChallengeState] = useToggle(false)
   const [score, setScore] = useState(0)
   const [challengeDonation, setDonation] = useState(1)
 
   const challengeEnd = () => {
     // alert('In 3 seconds you healed: '+(holder-parseInt(cookies.get('counter'))))
+    setChallengeState();
     toggleEndChallenge();
   }
   const challengeStart = (mode) => {
     clicks = 0
+    setChallengeState();
     // holder = parseInt(cookies.get('counter'))
     // alert('Press okay when you are ready!')
-    if(mode == 1){
+    if (mode == 1) {
       recalcValues();
     }
     window.setTimeout(challengeEnd, 3000)
@@ -244,6 +248,14 @@ export const Game = (props) => {
     }
   }
 
+  // Renderer callback with condition
+  const renderer = ({ seconds, milliseconds, completed }) => {
+    if (!completed) {
+      // Render a countdown
+      return <span>{seconds}.{milliseconds/100}s</span>;
+    }
+  };
+
   getDarkFigure()
 
   /* ========== RETURN ========== */
@@ -262,7 +274,12 @@ export const Game = (props) => {
     {challengeModal && <Modal onClose={toggleChallenge}><ChallengeModal toggleChallenge={toggleChallenge} challengeStart={challengeStart} setScore={setScore} setDonation={setDonation} /></Modal>}
     {challengeEndModal && <Modal onClose={() => { toggleEndChallenge(); if (challengeDonation > 0 && clicks <= score) { toggleDonateModal(); } }}><ChallengeEndModal clicks={clicks} toggleEndChallenge={toggleEndChallenge} challengeStart={challengeStart} score={score} challengeDonation={challengeDonation} toggleDonateModal={toggleDonateModal} /></Modal>}
 
-    {/* <div onClick={challengeStart}>CHALLENGE START</div> */}
+    {/* <Countdown
+      date={Date.now() + 19000}
+      intervalDelay={0}
+      precision={1}
+      renderer={renderer}
+    /> */}
 
     {/* Virus */}
     <Virus virusOnClick={decrementCounter} spotsOnClick={toggleDonateModal} addifier={getLowDec()} multiplier={getHighDec()} received={props.received} />
@@ -275,6 +292,7 @@ export const Game = (props) => {
         {parseInt(cookies.get('level')) == 2 && <div>
           <span>😱 </span> {counter} <span> 😱</span>
         </div>}
+        {challengeState && <p className=" text-red-600">Challenge: {clicks+1}</p>}
         <p className='font-normal text-xs'>({healed} bereits geheilt)</p>
       </div>
     }
@@ -309,7 +327,7 @@ export const Game = (props) => {
           <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Und jetzt bist du eine Legende!</div>
           Wir können dir nicht genug danken dass du an unserem Spiel teilgenommen hast!
             <br />mmmmmd
-        Wenn du noch nicht gespendet hast, denk vielleicht nochmal drüber nach, jeder Euro zählt!
+    Wenn du noch nicht gespendet hast, denk vielleicht nochmal drüber nach, jeder Euro zählt!
             <br />
           Ansonsten, nochmal danke, auch von den beiden hier :)
             <br />

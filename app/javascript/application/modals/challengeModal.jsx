@@ -21,14 +21,14 @@ export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setD
       Falls du bereits nominiert wurdest, gebe im Folgenden bitte die Punktzahl deines Freundes an, die du überbieten musst. Willst du hingegen eine neue Challenge starten, ohne bisher nominiert worden zu sein, gebe stattdessen einfach eine 0 ein.
       <br />
       <br />
-      <form>
+      <form className=" text-left">
         <label>
-          <span className=" font-semibold">Score: </span>
+          <span className=" font-semibold">Score (Default 0): </span>
           <input type="text" name="score" onChange={event => setScore(evalInput(1, event.target.value))} />
         </label>
         <br />
         <label>
-          <span className=" font-semibold">Spende: </span>
+          <span className=" font-semibold">Spende bei Niederlage (Default 1€): </span>
           <input type="text" name="donation_on_loss" onChange={event => setDonation(evalInput(2, event.target.value))} />
         </label>
         <br />
@@ -52,12 +52,12 @@ export const ChallengeEndModal = ({ clicks, toggleEndChallenge, challengeStart, 
 
   return <div className='m-2'>
     <div className='text-center text-teal-600 font-light text-sm p-4'>
-      {score == 0 && <strong className=" font-semibold" >Ich habe habe eine neue Corona-Clicker Challenge gestartet. 😎</strong>
-        || clicks <= score && <strong className=" font-semibold" >Ich habe gegen ________ verloren und deshalb {challengeDonation}€ gespendet.</strong>
+      {score == 0 && <strong className=" font-semibold" >Ich habe habe eine neue Corona-Clicker Challenge gestartet.</strong>
+        || clicks <= score && <strong className=" font-semibold" >Ich habe gegen ________ verloren und spende daher {challengeDonation}€.</strong>
         || <strong className=" font-semibold" >Ich habe gegen ________ gewonnen. 😎</strong>}
       <br />
       <br />
-      Ich nominiere ________, ________, _________ und _________, meinen Highscore von {clicks} zu schlagen.
+      Ich nominiere ________, ________, _________ und _________, meine Punktzahl von {clicks} zu schlagen.
       <br />
       Falls ihr das nicht schaffen solltet, müsst Ihr 1€ (oder gerne mehr) an den Corona-Nothilfefonds des DRK spenden.
       <br />
@@ -66,24 +66,27 @@ export const ChallengeEndModal = ({ clicks, toggleEndChallenge, challengeStart, 
       Jede Spende zählt!
       <br />
       <br />
-      Spielen: www.corona-clicker.de
+      Spielen und Spenden: www.corona-clicker.de
       <br />
-      <br />
-      #füreinander #care2win
       <br />
       (#endlichmalnesinnvolleinstagramchallenge)
       <br />
       <br />
-      PS: Screenshotte diesen Text und fordere deine Freunde heraus! :)
+      PS: Screenshotte diesen Text und fordere deine Freunde heraus!
     </div>
-    <span className="text-xs text-gray-600">Schließe das Fenster um deine Ehrenschulden einzulösen</span>
+    {clicks <= score && <div className="text-center">
+      <span className="text-xs text-gray-600">Schließe das Fenster um deine Ehrenschulden einzulösen</span>
+    </div>}
     <div className='flex rounded-lg p-2'>
       <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); challengeStart(0); }}>
         RETRY
       </a>
-      <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); if (challengeDonation > 0 && clicks <= score) { toggleDonateModal();}}}>
-        CLOSE
+      {clicks <= score && challengeDonation > 0 && <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); if (challengeDonation > 0 && clicks <= score) { toggleDonateModal(); } }}>
+        SPENDEN
       </a>
+        || <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); }}>
+          CLOSE
+      </a>}
     </div>
   </div>
 }
