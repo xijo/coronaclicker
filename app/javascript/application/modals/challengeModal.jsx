@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
+import { useToggle } from 'react-use'
 import AutosizeInput from 'react-input-autosize';
 
 
 export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setDonation }) => {
 
+  const [scoreToBeat, setScoreToBeat] = useState('')
+  const [scoreWasSet, setScoreState] = useToggle(false)
   const [donoValue, setDonoValue] = useState(1)
-  const [scoreToBeat, setScoreToBeat] = useState(0)
 
   const evalInput = (mode, value) => {
     if (value == "" || isNaN(parseInt(value))) {
       return (mode == 1 ? 0 : 1)
     }
-    return parseInt(value)
+    var num = parseInt(value)
+    return (num >= 0 ? num : 1)
   }
 
   return <div className='m-2'>
@@ -28,25 +31,27 @@ export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setD
       <form className=" text-left">
         <label>
           <span className=" font-semibold">Punktzahl deines Freundes: </span>
-          <AutosizeInput
+          <AutosizeInput className='border-gray-800 border rounded-sm'
             name="score"
+            placeholder="z.B. 157"
             value={scoreToBeat}
-            onChange={function(event) {
+            onChange={function (event) {
               setScoreToBeat(event.target.value);
               setScore(evalInput(1, event.target.value));
+              setScoreState(event.target.value == '' ? false : true);
             }}
           />
         </label>
         <br />
         <label>
           <span className=" font-semibold">Spende bei Niederlage: </span>
-          <AutosizeInput
+          <AutosizeInput className='border-gray-800 border rounded-sm'
             name="donation_on_loss"
             value={donoValue}
-            onChange={function(event) {
-                setDonoValue(event.target.value);
-                setDonation(evalInput(2, event.target.value))
-              }}
+            onChange={function (event) {
+              setDonoValue(event.target.value);
+              setDonation(evalInput(2, event.target.value))
+            }}
           />
           <span>€</span>
         </label>
@@ -55,9 +60,12 @@ export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setD
     </div>
 
     <div className='flex rounded-lg mb-4 md:px-12'>
-      <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' onClick={() => { toggleChallenge(); challengeStart(1); }}>
+      {scoreWasSet && <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' onClick={() => { toggleChallenge(); challengeStart(1); }}>
         START
       </a>
+        || <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center'>
+          <span className="text-gray-600">START</span>
+        </a>}
       <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' onClick={() => { toggleChallenge(); }}>
         BEENDEN
       </a>

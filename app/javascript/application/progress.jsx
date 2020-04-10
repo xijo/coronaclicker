@@ -53,7 +53,7 @@ export const Progress = ({ received, donoGoals, toggleProInfoModal }) => {
   return <>
     <div className='flex items-center justify-center mt-4'>
       <span className='text-sm text-gray-600 cursor-default'>{way} €</span>
-      <div className='mx-2 order-gray-300 border rounded-sm h-3' style={{ width: 250 }}>
+      <div className='mx-2 border-gray-300 border rounded-sm h-3' style={{ width: 250 }}>
         {getColorCode()}
       </div>
       <span className='text-sm text-gray-600 cursor-default'>{currGoal} €</span>
