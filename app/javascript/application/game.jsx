@@ -130,7 +130,7 @@ export const Game = (props) => {
     //   }
     // }
 
-    if (level == 2){
+    if (level == 2) {
       document.body.style.backgroundColor = '#CEB869'
     }
 
@@ -257,7 +257,7 @@ export const Game = (props) => {
   const renderer = ({ seconds, milliseconds, completed }) => {
     if (!completed) {
       // Render a countdown
-      return <span>{seconds}.{milliseconds/100}s</span>;
+      return <span>{seconds}.{milliseconds / 100}s</span>;
     }
   };
 
@@ -320,25 +320,25 @@ export const Game = (props) => {
         {parseInt(cookies.get('level')) == 1 && <div>
           <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Du bist unser Held!</div>
           Vielen Dank vom gesamten Corona Clicker-Team dafür, dass du unser Game bis zu diesem Punkt gespielt hast! :)
-            <br />
+          <br />
           <br />
           Laut einer Formel zur Berechnung der Dunkelziffer an Infizierten ist die tatsächliche Zahl um ein Vielfaches höher als die offiziellen vermuten lassen...
           kannst du auch gegen diese Zahlen ankämpfen?
-            <br />
+          <br />
           <button className='btn mt-2' onClick={() => { setCounter(props.counter); setHealed(0); document.body.style.backgroundColor = '#FFFFFF' }}>RESTART</button>
           <button className='btn mt-2 ml-4' onClick={() => { setCounter(getDarkFigure()); setHealed(0); setLevel(2); document.body.style.backgroundColor = '#CEB869' }}>LEVEL 2</button>
         </div>}
         {parseInt(cookies.get('level')) == 2 && <div>
           <div className='text-2xl antialiased text-teal-800 font-bold mb-2'>Und jetzt bist du eine Legende!</div>
-          Wir können dir nicht genug danken dass du an unserem Spiel teilgenommen hast!
+            Wir können dir nicht genug danken dass du an unserem Spiel teilgenommen hast!
             <br />mmmmmd
-    Wenn du noch nicht gespendet hast, denk vielleicht nochmal drüber nach, jeder Euro zählt!
+            Wenn du noch nicht gespendet hast, denk vielleicht nochmal drüber nach, jeder Euro zählt!
             <br />
-          Ansonsten, nochmal danke, auch von den beiden hier :)
+            Ansonsten, nochmal danke, auch von den beiden hier :)
             <br />
-          <img src={grannys} alt="pic" />
-          <button className='btn mt-2' onClick={() => { setCounter(getDarkFigure()); setHealed(0); document.body.style.backgroundColor = '#CEB869' }}>RESTART</button>
-          <button className='btn mt-2 ml-4' onClick={() => { setCounter(props.counter); setHealed(0); setLevel(1); document.body.style.backgroundColor = '#FFFFFF' }}>RESET</button>
+            <img src={grannys} alt="pic" />
+            <button className='btn mt-2' onClick={() => { setCounter(getDarkFigure()); setHealed(0); document.body.style.backgroundColor = '#CEB869' }}>RESTART</button>
+            <button className='btn mt-2 ml-4' onClick={() => { setCounter(props.counter); setHealed(0); setLevel(1); document.body.style.backgroundColor = '#FFFFFF' }}>RESET</button>
         </div>}
       </div>
     }

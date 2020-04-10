@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import AutosizeInput from 'react-input-autosize';
 
 
 export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setDonation }) => {
+
+  const [donoValue, setDonoValue] = useState(1)
+  const [scoreToBeat, setScoreToBeat] = useState(0)
 
   const evalInput = (mode, value) => {
     if (value == "" || isNaN(parseInt(value))) {
@@ -24,12 +28,27 @@ export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setD
       <form className=" text-left">
         <label>
           <span className=" font-semibold">Punktzahl deines Freundes: </span>
-          <input type="text" name="score" onChange={event => setScore(evalInput(1, event.target.value))} />
+          <AutosizeInput
+            name="score"
+            value={scoreToBeat}
+            onChange={function(event) {
+              setScoreToBeat(event.target.value);
+              setScore(evalInput(1, event.target.value));
+            }}
+          />
         </label>
         <br />
         <label>
-          <span className=" font-semibold">Spende bei Niederlage (Standard 1€): </span>
-          <input type="text" name="donation_on_loss" onChange={event => setDonation(evalInput(2, event.target.value))} />
+          <span className=" font-semibold">Spende bei Niederlage: </span>
+          <AutosizeInput
+            name="donation_on_loss"
+            value={donoValue}
+            onChange={function(event) {
+                setDonoValue(event.target.value);
+                setDonation(evalInput(2, event.target.value))
+              }}
+          />
+          <span>€</span>
         </label>
         <br />
       </form>
@@ -75,8 +94,8 @@ export const ChallengeEndModal = ({ clicks, toggleEndChallenge, challengeStart, 
       PS: Screenshotte diesen Text und fordere deine Freunde heraus!
     </div>
     <div className="text-center">
-    {clicks <= score && challengeDonation > 0 && <span className="text-xs text-gray-600">Klicke auf spenden um deine Ehrenschulden einzulösen.</span>
-    || <span className="text-xs text-gray-600">Willst du trotzdem spenden? Jeder Euro zählt!</span>}
+      {clicks <= score && challengeDonation > 0 && <span className="text-xs text-gray-600">Klicke auf Spenden um deine Ehrenschulden einzulösen.</span>
+        || <span className="text-xs text-gray-600">Willst du trotzdem spenden? Jeder Euro zählt!</span>}
     </div>
     <div className='flex rounded-lg'>
       <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); challengeStart(0); }}>
@@ -85,7 +104,7 @@ export const ChallengeEndModal = ({ clicks, toggleEndChallenge, challengeStart, 
       {clicks <= score && challengeDonation > 0 && <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); if (challengeDonation > 0 && clicks <= score) { toggleDonateModal(); } }}>
         SPENDEN
       </a>
-        || <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); toggleDonateModal();}}>
+        || <a className='btn m-1 text-center flex-1 flex flex-col justify-evenly items-center' onClick={() => { toggleEndChallenge(); toggleDonateModal(); }}>
           SPENDEN
       </a>}
     </div>
