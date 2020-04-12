@@ -25,7 +25,7 @@ export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setD
       In dieser Challenge ist es dein Ziel, innerhalb von 19 Sekunden so oft wie möglich auf den Virus zu tippen. Messe dich mit Freunden und Familie im Kampf gegen Corona! Dem Gewinner gebührt unendlicher Ruhm und Ehre ..und wer verliert, spendet dafür 1€ ans Deutsche Rote Kreuz und hilft damit letztendlich den Menschen, die derzeit auf jede Hilfe angewiesen sind. Wettschulden sind schließlich Ehrenschulden.😉 #füreinander
       <br />
       <br />
-      Falls du bereits nominiert wurdest, gebe im Folgenden bitte die Punktzahl deines Freundes an, die du überbieten musst. Willst du hingegen eine neue Challenge starten, ohne bisher nominiert worden zu sein, gebe stattdessen einfach eine 0 ein.
+      Falls du bereits nominiert wurdest, gebe im Folgenden bitte die Punktzahl deines Freundes an, die du überbieten musst. Willst du hingegen eine <span className="text-red-600">neue Challenge starten</span>, ohne bisher nominiert worden zu sein, gebe stattdessen <span className="text-red-600">einfach eine 0</span> ein.
       <br />
       <br />
       <form className=" text-left">
@@ -58,7 +58,9 @@ export const ChallengeModal = ({ toggleChallenge, challengeStart, setScore, setD
         <br />
       </form>
     </div>
-
+    <div className="text-center">
+      <span className="text-xs text-gray-600">Der Timer startet, sobald du auf 'Start' klickst.</span>
+    </div>
     <div className='flex rounded-lg mb-4 md:px-12'>
       {scoreWasSet && <a className='btn text-center flex-1 ml-2 flex flex-col justify-evenly items-center' onClick={() => { toggleChallenge(); challengeStart(1); }}>
         START
