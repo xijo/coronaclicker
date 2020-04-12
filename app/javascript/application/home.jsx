@@ -21,6 +21,9 @@ export const Home = (props) => {
         Durch Tippen auf den Virus verminderst du die Zahl der Infizierten. Klicke auf Boost, um den Virus schneller zu bekämpfen. Alle Spenden kommen dem Deutschen Roten Kreuz für den Kampf gegen das Coronavirus zugute.
         <br/>
         Jede Spende zählt!
+        <br/>
+        <br/>
+        PS: Solltest du Performance Probleme haben, versuch's mit unserer Desktopversion!
         <a href='/games/new' className='btn block mb-6 mt-4'>PLAY</a>
 
         <span onClick={toggleImprintModal} className='anchor text-lg'>Impressum</span>
