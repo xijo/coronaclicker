@@ -4,11 +4,13 @@
 
 Initially `bundle exec rails update_numbers:refresh`
 
-Start application with `bundle exec rails s`
-
 Or start forego server with `forego start -f Procfile.dev`
 
+Start application with `bundle exec rails s`
+
 ## Prepare local instance
+
+Install all brew packages: `ruby, postgresql, forego, node`
 
 Install all gems: `bundle install`
 
