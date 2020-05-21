@@ -17,3 +17,5 @@ Install all gems: `bundle install`
 Install all npm packages: `yarn`
 
 Create and migrate DB: `bundle exec rails db:create db:migrate`
+
+## Use Heroku CLI for deploying to Heroku Server
